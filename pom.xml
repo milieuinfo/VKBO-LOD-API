@@ -1,135 +1,144 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-    <groupId>be.vlaanderen.omgeving</groupId>
-    <artifactId>vkbolodapi</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
-    <scm>
-        <connection>scm:git:https://github.com/milieuinfo/VKBO-LOD-API.git</connection>
-        <developerConnection>scm:git:https://github.com/milieuinfo/VKBO-LOD-API.git</developerConnection>
-        <url>https://github.com/milieuinfo/VKBO-LOD-API.git</url>
-        <tag>HEAD</tag>
-    </scm>
-    <parent>
+  <groupId>be.vlaanderen.omgeving</groupId>
+  <artifactId>vkbolodapi</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+  <scm>
+    <connection>scm:git:https://github.com/milieuinfo/VKBO-LOD-API.git</connection>
+    <developerConnection>scm:git:https://github.com/milieuinfo/VKBO-LOD-API.git
+    </developerConnection>
+    <url>https://github.com/milieuinfo/VKBO-LOD-API.git</url>
+    <tag>HEAD</tag>
+  </scm>
+  <parent>
+    <groupId>be.milieuinfo</groupId>
+    <artifactId>acd-springboot-parent</artifactId>
+    <version>3.5.8.0</version>
+  </parent>
+
+  <properties>
+    <java.version>21</java.version>
+    <spring-boot.version>3.5.8</spring-boot.version>
+  </properties>
+
+  <repositories>
+    <repository>
+      <id>osgeo</id>
+      <name>OSGeo Release Repository</name>
+      <url>https://repo.osgeo.org/repository/release/</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+    </repository>
+    <repository>
+      <id>osgeo-snapshot</id>
+      <name>OSGeo Snapshot Repository</name>
+      <url>https://repo.osgeo.org/repository/snapshot/</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+    </repository>
+  </repositories>
+
+  <dependencies>
+    <!-- Spring Boot Web -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-thymeleaf</artifactId>
+    </dependency>
+
+    <!-- JSON processing -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+    </dependency>
+
+    <!-- Apache Jena for RDF/Turtle processing -->
+    <dependency>
+      <groupId>org.apache.jena</groupId>
+      <artifactId>apache-jena-libs</artifactId>
+      <version>4.10.0</version>
+      <type>pom</type>
+    </dependency>
+
+    <!-- JSONLD-Java -->
+    <dependency>
+      <groupId>com.github.jsonld-java</groupId>
+      <artifactId>jsonld-java</artifactId>
+      <version>0.13.3</version> <!-- Check for latest -->
+    </dependency>
+
+    <!-- Spring Boot Test (optioneel) -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <version>3.4.0</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jetbrains</groupId>
+      <artifactId>annotations</artifactId>
+      <version>26.0.2</version>
+      <scope>compile</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.locationtech.jts</groupId>
+      <artifactId>jts-core</artifactId>
+      <!--				<version>1.20.0</version>-->
+      <version>1.16.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.locationtech.proj4j</groupId>
+      <artifactId>proj4j-epsg</artifactId>
+      <version>1.3.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.locationtech.proj4j</groupId>
+      <artifactId>proj4j</artifactId>
+      <version>1.3.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.geotools</groupId>
+      <artifactId>gt-geometry</artifactId>
+      <!--				<version>21.2</version>-->
+      <version>20.5</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.geotools/gt-referencing -->
+    <dependency>
+      <groupId>org.geotools</groupId>
+      <artifactId>gt-referencing</artifactId>
+      <!--				<version>21.2</version>-->
+      <version>20.5</version>
+    </dependency>
+    <dependency>
+      <groupId>org.geotools</groupId>
+      <artifactId>gt-epsg-wkt</artifactId>
+      <!--				<version>21.2</version>-->
+      <version>20.5</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
         <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.4.0</version>
-    </parent>
-
-    <properties>
-        <java.version>17</java.version>
-        <spring-boot.version>3.4.0</spring-boot.version>
-    </properties>
-
-    <repositories>
-        <repository>
-        <id>osgeo</id>
-        <name>OSGeo Release Repository</name>
-        <url>https://repo.osgeo.org/repository/release/</url>
-        <snapshots><enabled>false</enabled></snapshots>
-        <releases><enabled>true</enabled></releases>
-        </repository>
-        <repository>
-        <id>osgeo-snapshot</id>
-        <name>OSGeo Snapshot Repository</name>
-        <url>https://repo.osgeo.org/repository/snapshot/</url>
-        <snapshots><enabled>true</enabled></snapshots>
-        <releases><enabled>false</enabled></releases>
-        </repository>
-    </repositories>
-
-    <dependencies>
-        <!-- Spring Boot Web -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-
-        <!-- JSON processing -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-        </dependency>
-
-        <!-- Apache Jena for RDF/Turtle processing -->
-        <dependency>
-            <groupId>org.apache.jena</groupId>
-            <artifactId>apache-jena-libs</artifactId>
-            <version>4.10.0</version>
-            <type>pom</type>
-        </dependency>
-
-        <!-- JSONLD-Java -->
-        <dependency>
-            <groupId>com.github.jsonld-java</groupId>
-            <artifactId>jsonld-java</artifactId>
-            <version>0.13.3</version> <!-- Check for latest -->
-        </dependency>
-
-        <!-- Spring Boot Test (optioneel) -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <version>3.4.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jetbrains</groupId>
-            <artifactId>annotations</artifactId>
-            <version>26.0.2</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.locationtech.jts</groupId>
-            <artifactId>jts-core</artifactId>
-            <!--				<version>1.20.0</version>-->
-            <version>1.16.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.locationtech.proj4j</groupId>
-            <artifactId>proj4j-epsg</artifactId>
-            <version>1.3.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.locationtech.proj4j</groupId>
-            <artifactId>proj4j</artifactId>
-            <version>1.3.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.geotools</groupId>
-            <artifactId>gt-geometry</artifactId>
-            <!--				<version>21.2</version>-->
-            <version>20.5</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.geotools/gt-referencing -->
-        <dependency>
-            <groupId>org.geotools</groupId>
-            <artifactId>gt-referencing</artifactId>
-            <!--				<version>21.2</version>-->
-            <version>20.5</version>
-        </dependency>
-        <dependency>
-            <groupId>org.geotools</groupId>
-            <artifactId>gt-epsg-wkt</artifactId>
-            <!--				<version>21.2</version>-->
-            <version>20.5</version>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
 </project>
