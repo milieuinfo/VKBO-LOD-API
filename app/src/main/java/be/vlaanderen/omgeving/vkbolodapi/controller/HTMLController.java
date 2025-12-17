@@ -1,5 +1,6 @@
 package be.vlaanderen.omgeving.vkbolodapi.controller;
 
+import be.vlaanderen.omgeving.vkbolodapi.configuration.JsonldConfiguration ;
 import be.vlaanderen.omgeving.vkbolodapi.service.OndernemingsService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,6 +22,9 @@ import java.util.Map;
 @Controller
 public class HTMLController {
     private final ObjectMapper objectMapper = new ObjectMapper();
+
+    @Autowired
+    private JsonldConfiguration jsonldConfiguration;
 
     @Autowired
     List<ViewResolver> viewResolvers;
@@ -66,7 +70,9 @@ public class HTMLController {
         // WKT POINT maken (EPSG:4326)
         String wktPoint = "POINT(" + lon + " " + lat + ")";
 
-        model.addAttribute("uri", "http://localhost:8080/id/organisatie/" + ondernemingsnr);
+        JsonNode context = jsonldConfiguration.getJsonLDContext();
+
+        model.addAttribute("uri", context.get("organisation").asText() + ondernemingsnr);
         model.addAttribute("ondernemingsnr", ondernemingsnr);
         model.addAttribute("polygon", wktPoint);
         model.addAttribute("centerX", lon);

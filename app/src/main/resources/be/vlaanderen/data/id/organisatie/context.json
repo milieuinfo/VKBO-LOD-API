@@ -15,7 +15,7 @@
   "organisatie": "https://data.vlaanderen.be/ns/organisatie#",
   "ad": "https://data.vlaanderen.be/ns/adres#",
   "regorg": "http://www.w3.org/ns/regorg#",
-  "organisation": "https://data.omgeving.vlaanderen.be/id/organisatie/",
+  "organisation": "https://data.vkbo.omgeving.vlaanderen.be/id/organisatie/",
   "Identificator": "adms:Identifier",
   "Adresvoorstelling": "ad:Adresvoorstelling",
   "Adres": "locn:Address",
