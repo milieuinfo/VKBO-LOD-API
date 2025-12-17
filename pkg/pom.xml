@@ -56,10 +56,11 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.8.1</version>
                 <executions>
                     <execution>
                         <id>copy-app</id>
-                        <phase>package</phase>
+                        <phase>prepare-package</phase>
                         <goals>
                             <goal>copy</goal>
                         </goals>
@@ -72,7 +73,8 @@
                             <artifactId>vkbolodapi-app</artifactId>
                             <version>${project.version}</version>
                             <type>jar</type>
-                            <outputDirectory>${project.build.directory}/classes/deb/root${app.installdir}
+                            <outputDirectory>
+                                ${project.build.outputDirectory}/deb/root${app.installdir}
                             </outputDirectory>
                             <destFileName>vkbolodapi.jar</destFileName>
                             <overWrite>true</overWrite>
@@ -80,6 +82,7 @@
                     </artifactItems>
                 </configuration>
             </plugin>
+
 
             <plugin>
                 <groupId>org.vafer</groupId>
@@ -118,6 +121,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
+                <version>3.5.0</version>
                 <executions>
                     <execution>
                         <phase>deploy</phase>

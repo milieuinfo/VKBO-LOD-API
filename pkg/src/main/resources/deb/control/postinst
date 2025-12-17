@@ -1,0 +1,37 @@
+#!/bin/sh
+set -e
+
+APP_USER="vkbolodapi"
+APP_GROUP="vkbolodapi"
+APP_DIR="/opt/vkbolodapi"
+LOG_DIR="/var/log/vkbolodapi"
+CONF_DIR="/etc/vkbolodapi"
+
+# Create user/group if not exists
+if ! getent group "$APP_GROUP" > /dev/null; then
+    groupadd --system "$APP_GROUP"
+fi
+
+if ! id "$APP_USER" > /dev/null 2>&1; then
+    useradd \
+      --system \
+      --gid "$APP_GROUP" \
+      --home "$APP_DIR" \
+      --shell /usr/sbin/nologin \
+      "$APP_USER"
+fi
+
+mkdir -p "$LOG_DIR"
+mkdir -p "$CONF_DIR"
+
+chown -R "$APP_USER:$APP_GROUP" "$LOG_DIR"
+chown -R "$APP_USER:$APP_GROUP" "$CONF_DIR"
+chown -R "$APP_USER:$APP_GROUP" "$APP_DIR"
+
+chmod 750 "$LOG_DIR"
+
+systemctl daemon-reload
+systemctl enable vkbolodapi.service || true
+systemctl restart vkbolodapi.service || true
+
+exit 0

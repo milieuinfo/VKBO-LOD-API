@@ -1,0 +1,22 @@
+[Unit]
+Description=VKBO LOD API
+After=network.target
+
+[Service]
+Type=simple
+User=vkbolodapi
+Group=vkbolodapi
+
+ExecStart=/usr/bin/java \
+  -jar /opt/vkbolodapi/vkbolodapi.jar \
+  --spring.config.location=/etc/vkbolodapi/application.conf
+
+SuccessExitStatus=143
+Restart=on-failure
+RestartSec=5
+
+StandardOutput=append:/var/log/vkbolodapi/vkbolodapi.log
+StandardError=append:/var/log/vkbolodapi/vkbolodapi.log
+
+[Install]
+WantedBy=multi-user.target

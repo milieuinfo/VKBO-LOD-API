@@ -1,0 +1,9 @@
+#!/bin/sh
+set -e
+
+if [ "$1" = "remove" ] || [ "$1" = "upgrade" ]; then
+    systemctl stop vkbolodapi.service || true
+    systemctl disable vkbolodapi.service || true
+fi
+
+exit 0
