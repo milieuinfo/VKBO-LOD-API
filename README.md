@@ -92,4 +92,4 @@ MIT – Vrij te gebruiken, aanpassen of verspreiden. Link graag terug naar dit p
 
 ## 📈 Voorgesteld Model
 
-![Model](src/documentation/model.png)
+![Model](app/src/documentation/model.png)
