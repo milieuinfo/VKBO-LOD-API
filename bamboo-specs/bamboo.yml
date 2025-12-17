@@ -25,7 +25,7 @@ Build:
   tasks:
     - maven:
         executable: Maven 3.8
-        jdk: JDK17
+        jdk: JDK21
         goal: clean deploy
   requirements:
     - REMOTE_ONLY
@@ -57,11 +57,11 @@ Release:
         - rm versions.properties
     - maven:
         executable: Maven 3.8
-        jdk: JDK11
+        jdk: JDK21
         goal: release:clean release:prepare -e --batch-mode -DreleaseVersion=${bamboo.inject.release_version} -DdevelopmentVersion=${bamboo.inject.snapshot_version} -Dtag=${bamboo.SVN}
     - maven:
         executable: Maven 3.8
-        jdk: JDK17
+        jdk: JDK21
         goal: release:perform --batch-mode -s /opt/maven-settings/release/settings.xml
   requirements:
     - REMOTE_ONLY
