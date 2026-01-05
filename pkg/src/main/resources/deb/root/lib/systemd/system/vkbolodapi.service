@@ -9,7 +9,7 @@ Group=vkbolodapi
 
 ExecStart=/usr/bin/java \
   -jar /opt/vkbolodapi/vkbolodapi.jar \
-  --spring.config.location=/etc/vkbolodapi/application.conf
+  --spring.config.location=file:/opt/vkbolodapi/
 
 SuccessExitStatus=143
 Restart=on-failure
