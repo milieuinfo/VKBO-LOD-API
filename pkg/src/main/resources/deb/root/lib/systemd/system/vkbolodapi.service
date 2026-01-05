@@ -6,10 +6,10 @@ After=network.target
 Type=simple
 User=vkbolodapi
 Group=vkbolodapi
-
+Environment="JAVA_TOOL_OPTIONS="-Dhttp.proxyHost=forwardproxy-on.lb.cumuli.be -Dhttp.proxyPort=3128 -Dhttp.proxyHost=forwardproxy-on.lb.cumuli.be -Dhttp.proxyPort=3128 -Dhttp.nonProxyHosts=*.mmis.be|*.cumuli.be|192.168.*|10.*|127.0.0.1|localhost -Dhttps.proxyHost=forwardproxy-on.lb.cumuli.be -Dhttps.proxyPort=3128 -Dhttps.nonProxyHosts=*.mmis.be|*.cumuli.be|192.168.*|10.*|127.0.0.1|localhost"
 ExecStart=/usr/bin/java \
   -jar /opt/vkbolodapi/vkbolodapi.jar \
-  --spring.config.location=file:/opt/vkbolodapi/
+  --spring.config.location=file:/etc/vkbolodapi/
 
 SuccessExitStatus=143
 Restart=on-failure

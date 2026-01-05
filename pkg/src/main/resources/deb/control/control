@@ -2,7 +2,7 @@ Package: @project.artifactId@
 Version: @project.version@
 Architecture: all
 Priority: low
-Maintainer: Van Gulck, Tom <tom.vangulck@vlaanderen.be>
+Maintainer: Van Haute, Geert <geert.vanhaute@vlaanderen.be>
 Description: @project.name@
 Depends: openjdk-21-jdk-headless
-Homepage: https://www.milieuinfo.be/jira
+Homepage: https://github.com/milieuinfo/VKBO-LOD-API
