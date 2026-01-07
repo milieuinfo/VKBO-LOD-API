@@ -44,18 +44,12 @@ public class RDFController {
         // Set model attributes
         springModel.addAttribute("uri", extractor.getUri());
         springModel.addAttribute("title", extractor.getTitle());
-        String wktGeometry = extractor.getWktGeometry();
         springModel.addAttribute("hasGeoData", extractor.hasGeoData());
         springModel.addAttribute("wgs84Point", extractor.getWgs84Point());
         springModel.addAttribute("lambertPoint", extractor.getLambertPoint());
         springModel.addAttribute("latitude", extractor.getLatitude());
         springModel.addAttribute("longitude", extractor.getLongitude());
-        springModel.addAttribute("wktGeometry", wktGeometry);
-        
-        System.out.println("DEBUG: Controller - hasGeoData: " + extractor.hasGeoData());
-        System.out.println("DEBUG: Controller - latitude: " + extractor.getLatitude());
-        System.out.println("DEBUG: Controller - longitude: " + extractor.getLongitude());
-        System.out.println("DEBUG: Controller - wktGeometry: " + wktGeometry);
+        springModel.addAttribute("wktGeometry", extractor.getWktGeometry());
         
         // Debug: Log RDF sections
         List<RDFSection> sections = extractor.getRdfSections();
@@ -117,14 +111,7 @@ public class RDFController {
         }
         
         public boolean hasGeoData() {
-            boolean hasLatLong = getLatitude() != null && getLongitude() != null;
-            String wkt = getWktGeometry();
-            boolean result = hasLatLong || wkt != null;
-            System.out.println("DEBUG: hasGeoData() -> hasLatLong: " + hasLatLong + ", hasWKT: " + (wkt != null) + ", result: " + result);
-            if (wkt != null) {
-                System.out.println("DEBUG: WKT geometry found: " + wkt);
-            }
-            return result;
+            return (getLatitude() != null && getLongitude() != null) || getWktGeometry() != null;
         }
         
         public String getWgs84Point() {
@@ -194,9 +181,7 @@ public class RDFController {
                     Statement stmt = iter.next();
                     if (stmt.getObject().isLiteral()) {
                         String value = stmt.getObject().asLiteral().getString();
-                        System.out.println("DEBUG: Found WKT geometry property " + prop.getURI() + " with value: " + value + " (datatype: " + stmt.getObject().asLiteral().getDatatypeURI() + ")");
                         if (value.startsWith("POINT(") || value.startsWith("POLYGON(")) {
-                            System.out.println("DEBUG: Returning WKT geometry: " + value);
                             return value;
                         }
                     }
@@ -204,8 +189,6 @@ public class RDFController {
             }
             
             // Also check for geo:hasGeometry pattern where geometry is a blank node with asWKT
-            System.out.println("DEBUG: Checking for hasGeometry patterns...");
-            
             // Try both W3C Basic Geo and GeoSPARQL hasGeometry properties
             Property[] hasGeometryProps = {
                 jenaModel.createProperty("http://www.w3.org/2003/01/geo/wgs84_pos#hasGeometry"),
@@ -214,21 +197,11 @@ public class RDFController {
             
             for (Property hasGeometryProp : hasGeometryProps) {
                 StmtIterator geomIter = jenaModel.listStatements(subject, hasGeometryProp, (RDFNode) null);
-                System.out.println("DEBUG: Checking hasGeometry property " + hasGeometryProp.getURI() + "...");
                 
                 while (geomIter.hasNext()) {
                     Statement geomStmt = geomIter.next();
                     if (geomStmt.getObject().isResource()) {
                         Resource geometryResource = geomStmt.getObject().asResource();
-                        System.out.println("DEBUG: Found geometry resource: " + geometryResource);
-                        
-                        // Debug: List all properties of the geometry resource
-                        System.out.println("DEBUG: Listing properties of geometry resource...");
-                        StmtIterator geomPropsIter = jenaModel.listStatements(geometryResource, null, (RDFNode) null);
-                        while (geomPropsIter.hasNext()) {
-                            Statement geomPropStmt = geomPropsIter.next();
-                            System.out.println("DEBUG: Geometry property " + geomPropStmt.getPredicate().getURI() + " -> " + geomPropStmt.getObject());
-                        }
                         
                         // Check for asWKT property on the geometry resource
                         Property[] wktProps = {
@@ -244,7 +217,6 @@ public class RDFController {
                                 Statement wktStmt = wktIter.next();
                                 if (wktStmt.getObject().isLiteral()) {
                                     String wktValue = wktStmt.getObject().asLiteral().getString();
-                                    System.out.println("DEBUG: Found WKT via " + hasGeometryProp.getURI() + " -> " + wktProp.getURI() + " pattern: " + wktValue);
                                     if (wktValue.startsWith("POINT(") || wktValue.startsWith("POLYGON(")) {
                                         return wktValue;
                                     }
@@ -255,13 +227,7 @@ public class RDFController {
                 }
             }
             
-            // Debug: List all properties to see what's available
-            System.out.println("DEBUG: No WKT geometry found with standard properties, listing all properties...");
-            StmtIterator allIter = jenaModel.listStatements(subject, null, (RDFNode) null);
-            while (allIter.hasNext()) {
-                Statement stmt = allIter.next();
-                System.out.println("DEBUG: Property " + stmt.getPredicate().getURI() + " -> " + stmt.getObject());
-            }
+
             
             // Fallback: create WKT from lat/lon if available
             if (getLatitude() != null && getLongitude() != null) {

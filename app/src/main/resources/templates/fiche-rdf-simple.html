@@ -182,23 +182,7 @@
 <div th:if="${hasGeoData}">
     <h2>Geografische Informatie</h2>
     <div id="map"></div>
-    <div class="geo-debug-info" style="margin-top: 10px; padding: 10px; background: #f0f0f0; border: 1px solid #ddd; font-size: 0.9em;">
-        <strong>Debug Info:</strong><br>
-        Latitude: <span th:text="${latitude}">null</span><br>
-        Longitude: <span th:text="${longitude}">null</span><br>
-        WKT Geometry: <span th:text="${wktGeometry}">null</span><br>
-        Has Geo Data: <span th:text="${hasGeoData}">false</span>
-        <br><br>
-        <strong>JavaScript Test:</strong><br>
-        <script th:inline="javascript">
-            /*<![CDATA[*/
-            console.log("HTML Debug - WKT Geometry from Thymeleaf:", [[${wktGeometry}]]);
-            var testWkt = [[${wktGeometry}]];
-            document.write("JS Test WKT: " + (testWkt ? testWkt : "NULL") + "<br>");
-            document.write("JS Test Type: " + typeof testWkt + "<br>");
-            /*]]>*/
-        </script>
-    </div>
+
 </div>
 
 <!-- RDF Sections -->
