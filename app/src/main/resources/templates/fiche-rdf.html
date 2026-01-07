@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+<head>
+    <title th:text="'RDF Fiche: ' + ${uri}">RDF Fiche</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <link rel="stylesheet" href="/css/rdf-style.css" type="text/css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .header {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+        .export-options {
+            margin: 15px 0;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+        }
+        .export-options a {
+            margin-right: 15px;
+            text-decoration: none;
+            color: #0066cc;
+        }
+        .collapsible {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+        .collapsible-header {
+            background-color: #f0f0f0;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .collapsible-header:hover {
+            background-color: #e5e5e5;
+        }
+        .collapsible-content {
+            padding: 15px;
+            display: none;
+        }
+        .collapsible-content.show {
+            display: block;
+        }
+        .predicate-object {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .predicate {
+            font-weight: bold;
+            color: #0066cc;
+        }
+        .object {
+            margin-left: 20px;
+        }
+        .object a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        .object a:hover {
+            text-decoration: underline;
+        }
+        #map {
+            height: 500px;
+            width: 100%;
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+        .geo-info {
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #666;
+        }
+    </style>
+</head>
+<body about="" th:about="${uri}">
+    <div class="header">
+        <h1 th:text="${title}">RDF Resource</h1>
+        <p><strong>URI:</strong> <a th:href="${uri}" th:text="${uri}">Resource URI</a></p>
+        <!-- Debug info - remove in production -->
+        <div style="background-color: #fff8e1; padding: 10px; margin-top: 10px; border-radius: 5px; font-size: 0.9em; display: none;">
+            <strong>Debug Info:</strong><br>
+            Has GeoData: <span th:text="${hasGeoData}"></span><br>
+            RDF Sections: <span th:text="${rdfSections != null ? rdfSections.size() : 'null'}"></span><br>
+            Latitude: <span th:text="${latitude}"></span>, Longitude: <span th:text="${longitude}"></span>
+        </div>
+    </div>
+
+    <div class="export-options">
+        <strong>Export formats:</strong>
+        <a th:href="${uri} + '?format=ttl'" target="_blank">Turtle</a>
+        <a th:href="${uri} + '?format=jsonld'" target="_blank">JSON-LD</a>
+        <a th:href="${uri} + '?format=rdf'" target="_blank">RDF/XML</a>
+        <a th:href="${uri} + '?format=nt'" target="_blank">N-Triples</a>
+    </div>
+
+    <!-- Map Section -->
+    <div th:if="${hasGeoData}">
+        <h2>Geografische Informatie</h2>
+        <div id="map"></div>
+        <div class="geo-info">
+            <p th:if="${wgs84Point}"><strong>WGS84:</strong> <span th:text="${wgs84Point}"></span></p>
+            <p th:if="${lambertPoint}"><strong>Lambert72:</strong> <span th:text="${lambertPoint}"></span></p>
+            <p th:if="${latitude}"><strong>Latitude:</strong> <span th:text="${latitude}"></span></p>
+            <p th:if="${longitude}"><strong>Longitude:</strong> <span th:text="${longitude}"></span></p>
+        </div>
+    </div>
+
+    <!-- RDF Data Sections -->
+    <div th:if="${rdfSections != null && !rdfSections.isEmpty()}">
+        <div th:each="section : ${rdfSections}">
+            <div class="collapsible">
+                <div class="collapsible-header">
+                    <span th:text="${section.title}"></span>
+                </div>
+                <div class="collapsible-content">
+                    <div th:if="${section.predicates != null && !section.predicates.isEmpty()}">
+                        <div th:each="predicate : ${section.predicates}">
+                            <div class="predicate-object" about="" th:about="${uri}">
+                                <span class="predicate" property="rdf:predicate" th:property="${predicate.uri}" th:text="${predicate.label}"></span>
+                                <div class="object">
+                                    <span th:each="obj, objStat : ${predicate.objects}">
+                                        <span th:if="${obj.isLiteral}" property="rdf:object" th:property="${predicate.uri}" th:text="${obj.value}"></span>
+                                        <a th:if="${!obj.isLiteral}" property="rdf:object" th:property="${predicate.uri}" th:href="${obj.value}" th:text="${obj.label}"></a>
+                                        <span th:if="${!objStat.last}">, </span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div th:if="${section.predicates == null || section.predicates.isEmpty()}">
+                        <p>Geen gegevens beschikbaar in deze categorie.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:if="${rdfSections == null || rdfSections.isEmpty()}">
+        <p>Geen RDF secties beschikbaar.</p>
+    </div>
+
+    <!-- Incoming/Outgoing Relationships -->
+    <div th:if="${hasIncomingRelations}">
+        <div class="collapsible">
+            <div class="collapsible-header" >
+                Inkomende Relaties
+            </div>
+            <div class="collapsible-content">
+                <div th:each="relation : ${incomingRelations}">
+                    <div class="predicate-object">
+                        <span class="predicate" th:text="${relation.label}"></span>
+                        <div class="object">
+                            <span th:text="${relation.description}"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:if="${hasOutgoingRelations}">
+        <div class="collapsible">
+            <div class="collapsible-header" >
+                Uitgaande Relaties
+            </div>
+            <div class="collapsible-content">
+                <div th:each="relation : ${outgoingRelations}">
+                    <div class="predicate-object">
+                        <span class="predicate" th:text="${relation.label}"></span>
+                        <div class="object">
+                            <a th:href="${relation.target}" th:text="${relation.targetLabel}"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Raw RDF Data -->
+    <div class="collapsible">
+        <div class="collapsible-header" >
+            Ruwe RDF Data
+        </div>
+        <div class="collapsible-content">
+            <textarea style="width: 100%; height: 300px; font-family: monospace;" th:text="${rawRdfData}"></textarea>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        // Set WKT geometry variable if available (using Thymeleaf)
+        var wktGeometryData = null;
+        <span th:if="${wktGeometry}" th:inline="javascript">
+            /*<![CDATA[*/
+
+            wktGeometryData = /*[[${wktGeometry}]]*/ null;
+            /*]]>*/
+        </span>
+        
+        // Define collapsible toggle function in global scope
+        function toggleCollapsible(header) {
+            if (!header || !header.nextElementSibling) {
+                console.error('Invalid header element or missing content sibling');
+                return;
+            }
+            
+            const content = header.nextElementSibling;
+            const isCurrentlyOpen = content.classList.contains('show');
+            
+            console.log('Toggling section, currently ' + (isCurrentlyOpen ? 'open' : 'closed'));
+            
+            // Toggle the clicked section
+            if (isCurrentlyOpen) {
+                content.classList.remove('show');
+                header.classList.remove('expanded');
+                console.log('Section closed');
+            } else {
+                content.classList.add('show');
+                header.classList.add('expanded');
+                console.log('Section opened');
+            }
+        }
+        
+        // Add a visible indicator that JavaScript is working
+        document.addEventListener('DOMContentLoaded', function() {
+            var jsIndicator = document.createElement('div');
+            jsIndicator.style.position = 'fixed';
+            jsIndicator.style.bottom = '10px';
+            jsIndicator.style.right = '10px';
+            jsIndicator.style.backgroundColor = '#4CAF50';
+            jsIndicator.style.color = 'white';
+            jsIndicator.style.padding = '5px 10px';
+            jsIndicator.style.borderRadius = '5px';
+            jsIndicator.style.fontSize = '0.8em';
+            jsIndicator.style.zIndex = '1000';
+            jsIndicator.textContent = '✓ JavaScript Loaded';
+            document.body.appendChild(jsIndicator);
+        });
+        
+        // Initialize collapsible sections when DOM is loaded
+        function initializeCollapsibleSections() {
+            console.log('Initializing collapsible sections...');
+            
+            // Set up collapsible sections
+            var collapsibleHeaders = document.querySelectorAll('.collapsible-header');
+            console.log('Found ' + collapsibleHeaders.length + ' collapsible headers');
+            
+            if (collapsibleHeaders.length === 0) {
+                console.warn('No collapsible headers found - checking if sections exist');
+                var sections = document.querySelectorAll('.collapsible');
+                console.log('Found ' + sections.length + ' collapsible sections');
+                return;
+            }
+            
+            collapsibleHeaders.forEach(function(header, index) {
+                // Add click event listener
+                header.addEventListener('click', function() {
+                    console.log('Header ' + index + ' clicked');
+                    toggleCollapsible(this);
+                });
+                
+                // Add visual indicator that JS is bound
+                header.style.cursor = 'pointer';
+                header.title = 'Click to toggle';
+            });
+            
+            // Optionally open the first few sections by default
+            if (collapsibleHeaders.length > 0) {
+                console.log('Opening first section by default');
+                toggleCollapsible(collapsibleHeaders[0]);
+            }
+            if (collapsibleHeaders.length > 1) {
+                console.log('Opening second section by default');
+                toggleCollapsible(collapsibleHeaders[1]);
+            }
+        }
+        
+        // Run initialization when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeCollapsibleSections);
+        } else {
+            // DOM already loaded
+            initializeCollapsibleSections();
+        }
+        
+
+
+        // Initialize map if geo data is available
+        var hasGeoData = /*[[${hasGeoData}]]*/ false;
+        var latitude = /*[[${latitude}]]*/ 0;
+        var longitude = /*[[${longitude}]]*/ 0;
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize map only if geo data is available
+            if (hasGeoData && document.getElementById('map')) {
+                var map = L.map('map').setView([latitude, longitude], 15);
+                
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '© OpenStreetMap contributors'
+                }).addTo(map);
+                
+                // Add marker
+                L.marker([latitude, longitude]).addTo(map)
+                    .bindPopup('<strong>' + (document.querySelector('.header h1') ? document.querySelector('.header h1').textContent : 'Location') + '</strong><br>Location');
+                
+                // Use the global WKT geometry variable if available
+                if (wktGeometryData) {
+                    // Load Wicket for WKT parsing
+                    var script = document.createElement('script');
+                    script.src = 'https://cdn.jsdelivr.net/npm/wicket/wicket.min.js';
+                    script.onload = function() {
+                        var wicketScript = document.createElement('script');
+                        wicketScript.src = 'https://cdn.jsdelivr.net/npm/wicket/wicket-leaflet.min.js';
+                        wicketScript.onload = function() {
+                            try {
+                                var wicket = new Wkt.Wkt();
+                                wicket.read(wktGeometryData);
+                                var leafletLayer = wicket.toObject({color: 'blue', weight: 2});
+                                leafletLayer.addTo(map);
+                            } catch (e) {
+                                console.error('Error parsing WKT geometry:', e);
+                            }
+                        };
+                        document.head.appendChild(wicketScript);
+                    };
+                    document.head.appendChild(script);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
