@@ -12,6 +12,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ViewResolver;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 
 import java.util.List;
 import java.util.Map;
@@ -47,27 +52,63 @@ public class HTMLController {
         String json = ondernemingsService.getJson(ondernemingsnr);
         String jsonld = ondernemingsService.getJsonLd(json, ondernemingsnr);
 
-        Map<String, Object> jsonAsMap;
-        double lon;
-        double lat;
+        Map<String, Object> jsonAsMap = new HashMap<>();
+        double lon = 0.0;
+        double lat = 0.0;
+        List<Map<String, Object>> locations = new ArrayList<>();
 
         try {
             JsonNode root = objectMapper.readTree(json);
+            JsonNode features = root.get("features");
+            int featureCount = features.size();
 
-            JsonNode feature = root.get("features").get(0);
-            JsonNode props = feature.get("properties");
-            ArrayNode coords = (ArrayNode) feature.get("geometry").get("coordinates");
+            // Process all features to extract locations
+            for (int i = 0; i < featureCount; i++) {
+                JsonNode feature = features.get(i);
+                JsonNode props = feature.get("properties");
+                ArrayNode coords = (ArrayNode) feature.get("geometry").get("coordinates");
 
-            lon = coords.get(0).asDouble();
-            lat = coords.get(1).asDouble();
+                double featureLon = coords.get(0).asDouble();
+                double featureLat = coords.get(1).asDouble();
 
-            jsonAsMap = objectMapper.convertValue(props, Map.class);
+                // Store first feature coordinates for backward compatibility
+                if (i == 0) {
+                    lon = featureLon;
+                    lat = featureLat;
+                    jsonAsMap = objectMapper.convertValue(props, Map.class);
+                }
+
+                // Create location info for all features
+                Map<String, Object> location = new HashMap<>();
+                location.put("lon", featureLon);
+                location.put("lat", featureLat);
+                location.put("name", props.has("Maatschappelijke_naam") ? props.get("Maatschappelijke_naam").asText() : "Onbekend");
+                
+                // Build address string
+                StringBuilder address = new StringBuilder();
+                if (props.has("VKBO_Straat")) {
+                    address.append(props.get("VKBO_Straat").asText());
+                }
+                if (props.has("VKBO_Huisnr")) {
+                    String huisnr = props.get("VKBO_Huisnr").asText();
+                    if (!huisnr.equals(" ")) {
+                        address.append(" ").append(huisnr);
+                    }
+                }
+                if (props.has("VKBO_Gemeente")) {
+                    if (address.length() > 0) address.append(", ");
+                    address.append(props.get("VKBO_Gemeente").asText());
+                }
+                
+                location.put("address", address.toString());
+                locations.add(location);
+            }
         }
         catch (Exception e) {
             throw new RuntimeException("Kon JSON niet verwerken", e);
         }
 
-        // WKT POINT maken (EPSG:4326)
+        // WKT POINT maken (EPSG:4326) - gebruik eerste feature voor backward compatibility
         String wktPoint = "POINT(" + lon + " " + lat + ")";
 
         JsonNode context = jsonldConfiguration.getJsonLDContext();
@@ -79,6 +120,7 @@ public class HTMLController {
         model.addAttribute("centerY", lat);
         model.addAttribute("fields", jsonAsMap);
         model.addAttribute("jsonld", jsonld);
+        model.addAttribute("locations", locations);
 
         return "fiche";
     }

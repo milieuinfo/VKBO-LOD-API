@@ -1,4 +1,4 @@
 {
-  "@type": ["org:FormalOrganization"],
+  "@type": ["org:FormalOrganization", "regorg:RegisteredOrganization"],
   "@embed": "@always"
 }

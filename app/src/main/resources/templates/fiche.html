@@ -56,15 +56,9 @@
     // var centerLng = 4.6992; // x
     var centerLat = [[${centerY}]]
     var centerLng = [[${centerX}]]
+    var locations = [[${locations}]]
 
     var center = L.latLng(centerLat, centerLng);
-
-    // Gebruik Wicket om WKT te parsen
-    var wicket = new Wkt.Wkt();
-
-    wicket.read(wktLiteral);
-    // Converteer naar Leaflet laag
-    var leafletLayer = wicket.toObject({color: 'blue', weight: 2});
 
     // Initialiseer de kaart en zet centrum
     var map = L.map('map').setView(center, 18);
@@ -74,9 +68,31 @@
         attribution: '© OpenStreetMap contributors'
     }).addTo(map);
 
-    var marker = L.marker(center).addTo(map);
+    // Gebruik Wicket om WKT te parsen
+    var wicket = new Wkt.Wkt();
+    wicket.read(wktLiteral);
+    // Converteer naar Leaflet laag
+    var leafletLayer = wicket.toObject({color: 'blue', weight: 2});
     // Voeg de polygoon toe aan de kaart
     leafletLayer.addTo(map);
+
+    // Voeg markers toe voor alle locaties
+    if (locations && locations.length > 0) {
+        var featureGroup = L.featureGroup();
+        
+        locations.forEach(function(location) {
+            var marker = L.marker([location.lat, location.lon]);
+            featureGroup.addLayer(marker);
+            marker.bindPopup("<b>" + location.name + "</b><br>" + location.address);
+        });
+        
+        featureGroup.addTo(map);
+        
+        // Pas de kaart aan om alle markers te tonen
+        if (locations.length > 1) {
+            map.fitBounds(featureGroup.getBounds().pad(0.5));
+        }
+    }
 </script>
 <script src="https://d3js.org/d3.v3.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.js"></script>
