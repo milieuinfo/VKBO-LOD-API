@@ -80,6 +80,27 @@
             font-size: 0.95em;
         }
         
+        .predicate-link {
+            font-weight: 600;
+            color: #3498db;
+            text-decoration: none;
+            border-bottom: 1px dashed #3498db;
+            padding: 2px 0;
+            display: inline-block;
+        }
+        
+        .predicate-link:hover {
+            color: #2980b9;
+            border-bottom: 1px solid #2980b9;
+            background-color: #f0f8ff;
+        }
+        
+        .predicate-link::after {
+            content: " 🔗";
+            font-size: 0.8em;
+            opacity: 0.5;
+        }
+        
         .object {
             margin-left: 20px;
             color: #555;
@@ -158,11 +179,11 @@
                     <div th:if="${section.predicates != null && !section.predicates.isEmpty()}">
                         <div th:each="predicate : ${section.predicates}">
                             <div class="predicate-object" about="" th:about="${uri}">
-                                <span class="predicate" property="rdf:predicate" th:property="${predicate.uri}" th:text="${predicate.label}"></span>
+                                <a class="predicate-link" href="" th:href="${predicate.uri}" th:text="${predicate.label}" title="Click to view predicate definition"></a>
                                 <div class="object">
                                     <span th:each="obj, objStat : ${predicate.objects}">
                                         <span th:if="${obj.isLiteral}" property="rdf:object" th:property="${predicate.uri}" th:text="${obj.value}"></span>
-                                        <a th:if="${!obj.isLiteral}" property="rdf:object" th:property="${predicate.uri}" th:href="${obj.value}" th:text="${obj.label}"></a>
+                                        <a th:if="${!obj.isLiteral}" property="rdf:object" th:property="${predicate.uri}" th:href="${obj.value}" th:text="${obj.label}" title="Click to view resource"></a>
                                         <span th:if="${!objStat.last}">, </span>
                                     </span>
                                 </div>

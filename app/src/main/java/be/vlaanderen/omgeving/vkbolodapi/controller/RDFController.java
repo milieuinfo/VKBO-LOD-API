@@ -1,6 +1,7 @@
 package be.vlaanderen.omgeving.vkbolodapi.controller;
 
 import be.vlaanderen.omgeving.vkbolodapi.configuration.JsonldConfiguration;
+import be.vlaanderen.omgeving.vkbolodapi.configuration.ReasoningModelConfiguration;
 import be.vlaanderen.omgeving.vkbolodapi.service.OndernemingsService;
 import org.apache.jena.rdf.model.*;
 import org.apache.jena.vocabulary.RDF;
@@ -25,6 +26,9 @@ public class RDFController {
 
     @Autowired
     private JsonldConfiguration jsonldConfiguration;
+
+    @Autowired
+    private ReasoningModelConfiguration reasoningModelConfiguration;
 
     @GetMapping(value = "rdf/organisatie/{ondernemingsnr}")
     public String getOndernemingAsRdfHtml(
@@ -74,11 +78,13 @@ public class RDFController {
         private final org.apache.jena.rdf.model.Model jenaModel;
         private final String ondernemingsnr;
         private final Resource subject;
+        private final org.apache.jena.rdf.model.Model reasoningModel;
         
         public RDFDataExtractor(org.apache.jena.rdf.model.Model jenaModel, String ondernemingsnr) {
             this.jenaModel = jenaModel;
             this.ondernemingsnr = ondernemingsnr;
             this.subject = jenaModel.createResource(getUri());
+            this.reasoningModel = reasoningModelConfiguration.loadTurtleFromClasspath();
         }
         
         public String getUri() {
@@ -215,10 +221,11 @@ public class RDFController {
                 if (object.isLiteral()) {
                     rdfObject.isLiteral = true;
                     rdfObject.value = object.asLiteral().getString();
+                    rdfObject.label = object.asLiteral().getString(); // For literals, label = value
                 } else if (object.isResource()) {
                     rdfObject.isLiteral = false;
                     rdfObject.value = object.asResource().getURI();
-                    rdfObject.label = getResourceLabel(object.asResource());
+                    rdfObject.label = getResourceLabel(object.asResource()); // Use reasoning model for labels
                 }
                 
                 // Add to appropriate category
@@ -235,8 +242,36 @@ public class RDFController {
         }
         
         private String getPredicateLabel(Property predicate) {
-            // Try to find rdfs:label for the predicate
-            StmtIterator iter = jenaModel.listStatements(predicate, RDFS.label, (RDFNode) null);
+            // Try to find rdfs:label with language preference: @nl first, then @en, then any
+            String label = findLabelByLanguage(predicate, reasoningModel, "nl");
+            if (label != null && !label.isEmpty()) {
+                return label;
+            }
+            
+            label = findLabelByLanguage(predicate, reasoningModel, "en");
+            if (label != null && !label.isEmpty()) {
+                return label;
+            }
+            
+            // Fallback: any label from reasoning model
+            StmtIterator iter = reasoningModel.listStatements(predicate, RDFS.label, (RDFNode) null);
+            if (iter.hasNext()) {
+                return iter.next().getObject().toString();
+            }
+            
+            // Fallback: try in main model with language preference
+            label = findLabelByLanguage(predicate, jenaModel, "nl");
+            if (label != null && !label.isEmpty()) {
+                return label;
+            }
+            
+            label = findLabelByLanguage(predicate, jenaModel, "en");
+            if (label != null && !label.isEmpty()) {
+                return label;
+            }
+            
+            // Fallback: any label from main model
+            iter = jenaModel.listStatements(predicate, RDFS.label, (RDFNode) null);
             if (iter.hasNext()) {
                 return iter.next().getObject().toString();
             }
@@ -246,14 +281,96 @@ public class RDFController {
         }
         
         private String getResourceLabel(Resource resource) {
-            // Try to find rdfs:label for the resource
-            StmtIterator iter = jenaModel.listStatements(resource, RDFS.label, (RDFNode) null);
+            // Handle null resource
+            if (resource == null) {
+                return "";
+            }
+            
+            // Try to find rdfs:label with language preference: @nl first, then @en, then any
+            String label = findLabelByLanguage(resource, reasoningModel, "nl");
+            if (label != null && !label.isEmpty()) {
+                return label;
+            }
+            
+            label = findLabelByLanguage(resource, reasoningModel, "en");
+            if (label != null && !label.isEmpty()) {
+                return label;
+            }
+            
+            // Fallback: any label from reasoning model
+            StmtIterator iter = reasoningModel.listStatements(resource, RDFS.label, (RDFNode) null);
             if (iter.hasNext()) {
                 return iter.next().getObject().toString();
             }
             
-            // Fallback: use URI
-            return resource.getURI();
+            // Fallback: try in the main model with language preference
+            label = findLabelByLanguage(resource, jenaModel, "nl");
+            if (label != null && !label.isEmpty()) {
+                return label;
+            }
+            
+            label = findLabelByLanguage(resource, jenaModel, "en");
+            if (label != null && !label.isEmpty()) {
+                return label;
+            }
+            
+            // Fallback: any label from main model
+            iter = jenaModel.listStatements(resource, RDFS.label, (RDFNode) null);
+            if (iter.hasNext()) {
+                return iter.next().getObject().toString();
+            }
+            
+            // Fallback: extract local name from URI
+            String uri = resource.getURI();
+            if (uri == null) {
+                return ""; // Handle null URI
+            }
+            
+            if (uri.contains("#")) {
+                return uri.substring(uri.indexOf("#") + 1);
+            } else if (uri.contains("/")) {
+                return uri.substring(uri.lastIndexOf("/") + 1);
+            }
+            
+            // Final fallback: use full URI
+            return uri;
+        }
+        
+        /**
+         * Find a label with a specific language tag
+         */
+        private String findLabelByLanguage(Resource resource, org.apache.jena.rdf.model.Model model, String language) {
+            if (resource == null || model == null || language == null) {
+                return null;
+            }
+            
+            // Look for rdfs:label with language tag
+            StmtIterator iter = model.listStatements(
+                resource, 
+                RDFS.label, 
+                (RDFNode) null
+            );
+            
+            while (iter.hasNext()) {
+                Statement stmt = iter.next();
+                RDFNode object = stmt.getObject();
+                if (object.isLiteral()) {
+                    Literal literal = object.asLiteral();
+                    if (language.equals(literal.getLanguage())) {
+                        return literal.getString();
+                    }
+                }
+            }
+            return null;
+        }
+        
+        private String getLabelFromReasoningModel(String uri) {
+            if (uri == null || uri.isEmpty()) {
+                return "";
+            }
+            
+            Resource resource = jenaModel.createResource(uri);
+            return getResourceLabel(resource);
         }
         
         private String getCategoryForPredicate(Property predicate) {
