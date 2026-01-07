@@ -1,288 +1,238 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+        xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+
 <head>
+    <meta charset="UTF-8"/>
     <title th:text="'RDF Fiche: ' + ${uri}">RDF Fiche</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <!-- External CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
-    <link rel="stylesheet" href="/css/rdf-style.css" type="text/css" />
+    <link rel="stylesheet" href="/css/rdf-style.css"/>
+
+    <!-- Inline page CSS -->
     <style>
-        /* Simple, reliable styling - no complex transitions */
+        /* Vlaanderen.be-like base */
+        :root {
+            --vl-blue: #0055cc;
+            --vl-text: #1a1a1a;
+            --vl-muted: #6f6f6f;
+            --vl-border: #d8d8d8;
+            --vl-bg: #ffffff;
+            --vl-bg-light: #f4f4f4;
+        }
+
+        /* Page base */
         body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
             margin: 0;
-            padding: 20px;
-            color: #333;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 16px;
+            line-height: 1.75;
+            color: var(--vl-text);
+            background: var(--vl-bg);
         }
-        
+
+        /* Centered content column (CRUCIAL) */
+        body > * {
+            max-width: 760px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+
+        /* Page title */
         .header {
-            background-color: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 25px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-top: 32px;
+            margin-bottom: 48px;
         }
-        
+
+        .header h1 {
+            font-size: 2.6rem;
+            line-height: 1.2;
+            margin: 0 0 16px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 0.95rem;
+            color: var(--vl-muted);
+        }
+
+        .header a {
+            color: var(--vl-blue);
+            word-break: break-all;
+        }
+
+        /* Export links — simple text links */
         .export-options {
-            background-color: #e9f7fe;
-            border-left: 4px solid #3498db;
-            padding: 15px;
-            margin-bottom: 25px;
+            margin-bottom: 48px;
+            font-size: 0.95rem;
         }
-        
-        /* Use native HTML5 details/summary for reliability */
+
+        .export-options strong {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .export-options a {
+            margin-right: 16px;
+            color: var(--vl-blue);
+        }
+
+        /* Section headings */
+        h2 {
+            font-size: 1.6rem;
+            margin-top: 56px;
+            margin-bottom: 16px;
+        }
+
+        /* Map */
+        #map {
+            height: 360px;
+            margin-bottom: 32px;
+            border: 1px solid var(--vl-border);
+        }
+
+        /* Details behave like content sections */
         details {
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            overflow: hidden;
+            margin-bottom: 48px;
+            border-top: 1px solid var(--vl-border);
+            padding-top: 24px;
         }
-        
+
         summary {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            padding: 15px 20px;
+            font-size: 1.4rem;
+            font-weight: 700;
             cursor: pointer;
-            font-weight: 600;
-            color: #2c3e50;
             list-style: none;
         }
-        
+
         summary::-webkit-details-marker {
             display: none;
         }
-        
-        summary::after {
-            content: "▼";
-            font-size: 12px;
-            color: #666;
-        }
-        
-        details[open] summary::after {
-            transform: rotate(180deg);
-        }
-        
+
+        /* Section content */
         .rdf-section-content {
-            padding: 20px;
-            background-color: white;
+            margin-top: 24px;
         }
-        
+
+        /* Predicate rows */
         .predicate-object {
-            margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #f0f0f0;
+            margin-bottom: 24px;
         }
-        
-        .predicate {
-            font-weight: 600;
-            color: #3498db;
-            display: block;
-            margin-bottom: 5px;
-            font-size: 0.95em;
-        }
-        
+
         .predicate-link {
             font-weight: 600;
-            color: #3498db;
-            text-decoration: none;
-            border-bottom: 1px dashed #3498db;
-            padding: 2px 0;
-            display: inline-block;
+            color: var(--vl-blue);
         }
-        
-        .predicate-link:hover {
-            color: #2980b9;
-            border-bottom: 1px solid #2980b9;
-            background-color: #f0f8ff;
-        }
-        
-        .predicate-link::after {
-            content: " 🔗";
-            font-size: 0.8em;
-            opacity: 0.5;
-        }
-        
+
+        /* Objects */
         .object {
-            margin-left: 20px;
-            color: #555;
+            margin-left: 24px;
+            color: var(--vl-text);
         }
-        
-        .object a {
-            color: #2980b9;
-            text-decoration: none;
-            border-bottom: 1px dashed #2980b9;
-        }
-        
-        .object a:hover {
-            color: #1a5276;
-            border-bottom: 1px solid #1a5276;
-        }
-        
-        #map {
-            height: 500px;
-            width: 100%;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            margin-bottom: 20px;
-        }
-        
-        .geo-info {
-            background-color: #f8f9fa;
-            padding: 15px;
-            border-radius: 6px;
-            font-size: 0.9em;
-        }
-        
+
+        /* Raw RDF */
         textarea {
             width: 100%;
-            height: 300px;
-            font-family: "Courier New", monospace;
-            font-size: 0.9em;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            resize: vertical;
+            height: 320px;
+            border: 1px solid var(--vl-border);
+            padding: 12px;
+            font-family: monospace;
+            background: #fafafa;
         }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body > * {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+
+
     </style>
 </head>
-<body about="" th:about="${uri}">
-    <div class="header">
-        <h1 th:text="${title}">RDF Resource</h1>
-        <p><strong>URI:</strong> <a th:href="${uri}" th:text="${uri}">Resource URI</a></p>
-    </div>
 
-    <div class="export-options">
-        <strong>Export formats:</strong>
-        <a th:href="${uri} + '?format=ttl'" target="_blank">Turtle</a>
-        <a th:href="${uri} + '?format=jsonld'" target="_blank">JSON-LD</a>
-        <a th:href="${uri} + '?format=rdf'" target="_blank">RDF/XML</a>
-        <a th:href="${uri} + '?format=nt'" target="_blank">N-Triples</a>
-    </div>
+<body th:about="${uri}">
+<div class="header">
+    <h1 th:text="${title}">RDF Resource</h1>
+    <p>
+        <strong>URI:</strong>
+        <a th:href="${uri}" th:text="${uri}">Resource URI</a>
+    </p>
+</div>
 
-    <!-- Map Section -->
-    <div th:if="${hasGeoData}">
-        <h2>Geografische Informatie</h2>
-        <div id="map"></div>
-        <div class="geo-info">
-            <p th:if="${wgs84Point}"><strong>WGS84:</strong> <span th:text="${wgs84Point}"></span></p>
-            <p th:if="${lambertPoint}"><strong>Lambert72:</strong> <span th:text="${lambertPoint}"></span></p>
-            <p th:if="${latitude}"><strong>Latitude:</strong> <span th:text="${latitude}"></span></p>
-            <p th:if="${longitude}"><strong>Longitude:</strong> <span th:text="${longitude}"></span></p>
-        </div>
-    </div>
+<div class="export-options">
+    <strong>Export formats:</strong>
+    <a th:href="${uri} + '?format=ttl'">Turtle</a>
+    <a th:href="${uri} + '?format=jsonld'">JSON-LD</a>
+    <a th:href="${uri} + '?format=rdf'">RDF/XML</a>
+    <a th:href="${uri} + '?format=nt'">N-Triples</a>
+</div>
 
-    <!-- RDF Data Sections - Using native HTML5 details/summary -->
-    <div th:if="${rdfSections != null && !rdfSections.isEmpty()}">
-        <div th:each="section : ${rdfSections}">
-            <details open="open">
-                <summary th:text="${section.title}"></summary>
-                <div class="rdf-section-content">
-                    <div th:if="${section.predicates != null && !section.predicates.isEmpty()}">
-                        <div th:each="predicate : ${section.predicates}">
-                            <div class="predicate-object" about="" th:about="${uri}">
-                                <a class="predicate-link" href="" th:href="${predicate.uri}" th:text="${predicate.label}" title="Click to view predicate definition"></a>
-                                <div class="object">
-                                    <span th:each="obj, objStat : ${predicate.objects}">
-                                        <span th:if="${obj.isLiteral}" property="rdf:object" th:property="${predicate.uri}" th:text="${obj.value}"></span>
-                                        <a th:if="${!obj.isLiteral}" property="rdf:object" th:property="${predicate.uri}" th:href="${obj.value}" th:text="${obj.label}" title="Click to view resource"></a>
-                                        <span th:if="${!objStat.last}">, </span>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div th:if="${section.predicates == null || section.predicates.isEmpty()}">
-                        <p>Geen gegevens beschikbaar in deze categorie.</p>
-                    </div>
-                </div>
-            </details>
-        </div>
-    </div>
-    <div th:if="${rdfSections == null || rdfSections.isEmpty()}">
-        <p>Geen RDF secties beschikbaar.</p>
-    </div>
+<!-- Map -->
+<div th:if="${hasGeoData}">
+    <h2>Geografische Informatie</h2>
+    <div id="map"></div>
+</div>
 
-    <!-- Incoming/Outgoing Relationships -->
-    <div th:if="${hasIncomingRelations}">
-        <details open="open">
-            <summary>Inkomende Relaties</summary>
-            <div class="rdf-section-content">
-                <div th:each="relation : ${incomingRelations}">
-                    <div class="predicate-object">
-                        <span class="predicate" th:text="${relation.label}"></span>
-                        <div class="object">
-                            <span th:text="${relation.description}"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </details>
-    </div>
-
-    <div th:if="${hasOutgoingRelations}">
-        <details open="open">
-            <summary>Uitgaande Relaties</summary>
-            <div class="rdf-section-content">
-                <div th:each="relation : ${outgoingRelations}">
-                    <div class="predicate-object">
-                        <span class="predicate" th:text="${relation.label}"></span>
-                        <div class="object">
-                            <a th:href="${relation.target}" th:text="${relation.targetLabel}"></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </details>
-    </div>
-
-    <!-- Raw RDF Data -->
-    <details>
-        <summary>Ruwe RDF Data</summary>
+<!-- RDF Sections -->
+<div th:each="section : ${rdfSections}">
+    <details open>
+        <summary th:text="${section.title}"></summary>
         <div class="rdf-section-content">
-            <textarea style="width: 100%; height: 300px; font-family: monospace;" th:text="${rawRdfData}"></textarea>
+            <div th:each="predicate : ${section.predicates}">
+                <div class="predicate-object">
+                    <a class="predicate-link"
+                       th:href="${predicate.uri}"
+                       th:text="${predicate.label}"></a>
+
+                    <div class="object">
+                        <span th:each="obj,stat : ${predicate.objects}">
+                            <span th:if="${obj.isLiteral}"
+                                  th:text="${obj.value}"></span>
+                            <a th:if="${!obj.isLiteral}"
+                               th:href="${obj.value}"
+                               th:text="${obj.label}"></a>
+                            <span th:if="${!stat.last}">, </span>
+                        </span>
+                    </div>
+                </div>
+            </div>
         </div>
     </details>
+</div>
 
-    <!-- Simple JavaScript for map only (no complex collapsible logic) -->
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script th:if="${hasGeoData}">
-        document.addEventListener('DOMContentLoaded', function() {
-            if (document.getElementById('map')) {
-                var map = L.map('map').setView([${latitude}, ${longitude}], 15);
-                
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '© OpenStreetMap contributors'
-                }).addTo(map);
-                
-                L.marker([${latitude}, ${longitude}]).addTo(map)
-                    .bindPopup('<strong>' + (document.querySelector('.header h1') ? document.querySelector('.header h1').textContent : 'Location') + '</strong><br>Location');
-                
-                // Add WKT layer if available
-                <span th:if="${wktGeometry}" th:remove="tag">
-                    var wktGeometry = '${wktGeometry}';
-                </span>
-                
-                if (typeof wktGeometry !== 'undefined' && wktGeometry) {
-                    var script = document.createElement('script');
-                    script.src = 'https://cdn.jsdelivr.net/npm/wicket/wicket.min.js';
-                    script.onload = function() {
-                        var wicketScript = document.createElement('script');
-                        wicketScript.src = 'https://cdn.jsdelivr.net/npm/wicket/wicket-leaflet.min.js';
-                        wicketScript.onload = function() {
-                            try {
-                                var wicket = new Wkt.Wkt();
-                                wicket.read(wktGeometry);
-                                var leafletLayer = wicket.toObject({color: 'blue', weight: 2});
-                                leafletLayer.addTo(map);
-                            } catch (e) {
-                                console.error('Error parsing WKT geometry:', e);
-                            }
-                        };
-                        document.head.appendChild(wicketScript);
-                    };
-                    document.head.appendChild(script);
-                }
-            }
-        });
-    </script>
+<!-- Raw RDF -->
+<details>
+    <summary>Ruwe RDF Data</summary>
+    <div class="rdf-section-content">
+        <textarea th:text="${rawRdfData}"></textarea>
+    </div>
+</details>
+
+<!-- Leaflet -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script th:if="${hasGeoData}" th:inline="javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        var map = L.map('map').setView([[${latitude}], [${longitude}]], 15);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        L.marker([[${latitude}], [${longitude}]]).addTo(map);
+    });
+</script>
+
 </body>
 </html>
