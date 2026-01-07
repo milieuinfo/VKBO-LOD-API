@@ -182,6 +182,23 @@
 <div th:if="${hasGeoData}">
     <h2>Geografische Informatie</h2>
     <div id="map"></div>
+    <div class="geo-debug-info" style="margin-top: 10px; padding: 10px; background: #f0f0f0; border: 1px solid #ddd; font-size: 0.9em;">
+        <strong>Debug Info:</strong><br>
+        Latitude: <span th:text="${latitude}">null</span><br>
+        Longitude: <span th:text="${longitude}">null</span><br>
+        WKT Geometry: <span th:text="${wktGeometry}">null</span><br>
+        Has Geo Data: <span th:text="${hasGeoData}">false</span>
+        <br><br>
+        <strong>JavaScript Test:</strong><br>
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            console.log("HTML Debug - WKT Geometry from Thymeleaf:", [[${wktGeometry}]]);
+            var testWkt = [[${wktGeometry}]];
+            document.write("JS Test WKT: " + (testWkt ? testWkt : "NULL") + "<br>");
+            document.write("JS Test Type: " + typeof testWkt + "<br>");
+            /*]]>*/
+        </script>
+    </div>
 </div>
 
 <!-- RDF Sections -->
@@ -223,14 +240,114 @@
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
 <script th:if="${hasGeoData}" th:inline="javascript">
+    // Debug: Log the values being passed to the template
+    console.log("DEBUG: Template received - hasGeoData: true");
+    console.log("DEBUG: Template received - latitude:", [[${latitude}]], "null");
+    console.log("DEBUG: Template received - longitude:", [[${longitude}]], "null");
+    console.log("DEBUG: Template received - wktGeometry:", [[${wktGeometry}]], "null");
+    
+    // Set default coordinates (Brussels) as fallback
+    var latitude = [[${latitude}]] ? [[${latitude}]] : 50.8503;
+    var longitude = [[${longitude}]] ? [[${longitude}]] : 4.3517;
+    var wktGeometryData = [[${wktGeometry}]] ? [[${wktGeometry}]] : null;
+    
+    console.log("DEBUG: JavaScript variables - latitude:", latitude, "longitude:", longitude, "wktGeometryData:", wktGeometryData);
+    console.log("DEBUG: WKT data type:", typeof wktGeometryData, "WKT data value:", wktGeometryData);
+    
+    // Debug: Check if we should proceed with map initialization
+    if (wktGeometryData) {
+        console.log("DEBUG: WKT data available, proceeding with map initialization:", wktGeometryData);
+    } else if (latitude && longitude) {
+        console.log("DEBUG: No WKT data, but lat/long available:", latitude, longitude);
+        console.log("DEBUG: Will use lat/long for map initialization");
+    } else {
+        console.log("DEBUG: No geo data available (no WKT and no lat/long), skipping map initialization");
+    }
+    
     document.addEventListener('DOMContentLoaded', function () {
-        var map = L.map('map').setView([[${latitude}], [${longitude}]], 15);
+        console.log("DEBUG: DOMContentLoaded event fired, initializing map...");
+        
+        // Check if map element exists
+        var mapElement = document.getElementById('map');
+        if (!mapElement) {
+            console.error("DEBUG: Map element not found!");
+            return;
+        }
+        console.log("DEBUG: Map element found:", mapElement);
+        
+        try {
+            var map = L.map('map').setView([latitude, longitude], 15);
+            console.log("DEBUG: Map initialized successfully");
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors'
-        }).addTo(map);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+            console.log("DEBUG: Tile layer added to map");
 
-        L.marker([[${latitude}], [${longitude}]]).addTo(map);
+            // Add marker if we have latitude/longitude (not default values)
+            if (latitude !== 50.8503 && longitude !== 4.3517) {
+                L.marker([latitude, longitude]).addTo(map);
+                console.log("DEBUG: Added marker at lat/long:", latitude, longitude);
+            }
+        
+            // Add error handling for map initialization
+        } catch (e) {
+            console.error("DEBUG: Error initializing map:", e);
+            return;
+        }
+        
+        // Use WKT geometry if available
+        if (wktGeometryData) {
+            console.log("DEBUG: Processing WKT geometry:", wktGeometryData);
+            
+            // Load Wicket for WKT parsing
+            var script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/wicket/wicket.min.js';
+            script.onerror = function() {
+                console.error("DEBUG: Failed to load Wicket library");
+            };
+            script.onload = function() {
+                console.log("DEBUG: Wicket library loaded successfully");
+                
+                var wicketScript = document.createElement('script');
+                wicketScript.src = 'https://cdn.jsdelivr.net/npm/wicket/wicket-leaflet.min.js';
+                wicketScript.onerror = function() {
+                    console.error("DEBUG: Failed to load Wicket-Leaflet library");
+                };
+                wicketScript.onload = function() {
+                    console.log("DEBUG: Wicket-Leaflet library loaded successfully");
+                    
+                    try {
+                        console.log("DEBUG: Creating Wicket parser and parsing WKT...");
+                        var wicket = new Wkt.Wkt();
+                        wicket.read(wktGeometryData);
+                        var leafletLayer = wicket.toObject({color: 'blue', weight: 2});
+                        leafletLayer.addTo(map);
+                        console.log("DEBUG: WKT geometry added to map as Leaflet layer");
+                        
+                        // Try to extract coordinates from WKT POINT for centering
+                        if (wktGeometryData.startsWith('POINT(')) {
+                            var coordPart = wktGeometryData.substring('POINT('.length, wktGeometryData.length - 1).trim();
+                            var coords = coordPart.split(/\s+/);
+                            if (coords.length >= 2) {
+                                var wktLon = parseFloat(coords[0]);
+                                var wktLat = parseFloat(coords[1]);
+                                if (!isNaN(wktLat) && !isNaN(wktLon)) {
+                                    map.setView([wktLat, wktLon], 15);
+                                    console.log("DEBUG: Map centered on WKT coordinates:", wktLat, wktLon);
+                                }
+                            }
+                        }
+                    } catch (e) {
+                        console.error('DEBUG: Error parsing WKT geometry:', e);
+                    }
+                };
+                document.head.appendChild(wicketScript);
+            };
+            document.head.appendChild(script);
+        } else {
+            console.log("DEBUG: No WKT geometry data available");
+        }
     });
 </script>
 
