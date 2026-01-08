@@ -1,0 +1,2153 @@
+PREFIX access_right:         <http://publications.europa.eu/resource/authority/access-right/>
+PREFIX adms:                 <http://www.w3.org/ns/adms#>
+PREFIX assettype:            <http://purl.org/adms/assettype/>
+PREFIX chemische_stof:       <https://data.omgeving.vlaanderen.be/id/concept/chemische_stof/>
+PREFIX compound:             <https://pubchem.ncbi.nlm.nih.gov/compound/>
+PREFIX conceptscheme:        <https://data.omgeving.vlaanderen.be/id/conceptscheme/>
+PREFIX country:              <http://publications.europa.eu/resource/authority/country/>
+PREFIX datasets:             <https://datasets.omgeving.vlaanderen.be/>
+PREFIX datatheme_be:         <http://vocab.belgif.be/auth/datatheme/>
+PREFIX datatheme_eu:         <http://publications.europa.eu/resource/authority/data-theme/>
+PREFIX dbo:                  <http://dbpedia.org/ontology/>
+PREFIX dc:                   <http://purl.org/dc/elements/1.1/>
+PREFIX dcat:                 <http://www.w3.org/ns/dcat#>
+PREFIX dct:                  <http://purl.org/dc/terms/>
+PREFIX dcterms:              <http://purl.org/dc/terms/>
+PREFIX eurovoc:              <http://eurovoc.europa.eu/>
+PREFIX file_type:            <http://publications.europa.eu/resource/authority/file-type/>
+PREFIX foaf:                 <http://xmlns.com/foaf/0.1/>
+PREFIX formats:              <http://www.w3.org/ns/formats/>
+PREFIX frequency:            <http://publications.europa.eu/resource/authority/frequency/>
+PREFIX gemet:                <http://www.eionet.europa.eu/gemet/concept/>
+PREFIX licence:              <http://data.vlaanderen.be/id/licentie/modellicentie-gratis-hergebruik/>
+PREFIX metadata:             <https://data.omgeving.vlaanderen.be/ns/metadata#>
+PREFIX my_depth:             <https://data.omgeving.vlaanderen.be/ns/xkos#>
+PREFIX nace:                 <https://data.omgeving.vlaanderen.be/id/concept/nace/>
+PREFIX nace21:               <http://data.europa.eu/ux2/nace2.1/>
+PREFIX omg_catalog:          <https://data.omgeving.vlaanderen.be/id/catalog/>
+PREFIX omg_catalog_doc:      <https://data.omgeving.vlaanderen.be/doc/catalog/>
+PREFIX omg_collection:       <https://data.omgeving.vlaanderen.be/id/collection/>
+PREFIX omg_dataservice:      <https://data.omgeving.vlaanderen.be/id/dataservice/>
+PREFIX omg_dataset:          <https://data.omgeving.vlaanderen.be/id/dataset/>
+PREFIX omg_dataset_doc:      <https://data.omgeving.vlaanderen.be/doc/dataset/>
+PREFIX omg_distribution:     <https://data.omgeving.vlaanderen.be/id/distribution/>
+PREFIX omg_distribution_doc: <https://data.omgeving.vlaanderen.be/doc/distribution/>
+PREFIX omg_graph:            <https://data.omgeving.vlaanderen.be/id/graph/>
+PREFIX omg_graphcollection:  <https://data.omgeving.vlaanderen.be/id/graphcollection/>
+PREFIX omg_id:               <https://data.omgeving.vlaanderen.be/id/>
+PREFIX omg_named_graph:      <https://data.omgeving.vlaanderen.be/id/namedgraph/>
+PREFIX omg_ontology:         <https://data.omgeving.vlaanderen.be/id/ontology/>
+PREFIX omg_package:          <https://data.omgeving.vlaanderen.be/id/package/>
+PREFIX omg_periodoftime:     <https://data.omgeving.vlaanderen.be/id/periodoftime/>
+PREFIX omg_service:          <https://data.omgeving.vlaanderen.be/id/service/>
+PREFIX omg_vcard:            <https://data.omgeving.vlaanderen.be/id/vcard/>
+PREFIX ovo:                  <http://data.vlaanderen.be/id/organisatie/>
+PREFIX owl:                  <http://www.w3.org/2002/07/owl#>
+PREFIX rdf:                  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:                 <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX repo:                 <https://repo.omgeving.vlaanderen.be/artifactory/release/>
+PREFIX sd:                   <http://www.w3.org/ns/sparql-service-description#>
+PREFIX skos:                 <http://www.w3.org/2004/02/skos/core#>
+PREFIX spdx:                 <http://spdx.org/rdf/terms#>
+PREFIX ssd:                  <http://www.w3.org/ns/sparql-service-description#>
+PREFIX thema:                <http://www.eionet.europa.eu/gemet/theme/>
+PREFIX ts:                   <http://www.w3.org/ns/formats/>
+PREFIX vcard:                <http://www.w3.org/2006/vcard/ns#>
+PREFIX void:                 <http://rdfs.org/ns/void#>
+PREFIX wise:                 <http://dd.eionet.europa.eu/vocabulary/wise/ObservedProperty/>
+PREFIX xkos:                 <http://rdf-vocabulary.ddialliance.org/xkos#>
+PREFIX xsd:                  <http://www.w3.org/2001/XMLSchema#>
+
+nace21:06  rdfs:label  "06 Winning van aardolie en aardgas"@nl .
+
+nace21:2829  rdfs:label  "28.29 Vervaardiging van andere machines en apparaten voor algemeen gebruik, n.e.g."@nl .
+
+nace21:969  rdfs:label  "96.9 Overige persoonlijke dienstverlening"@nl .
+
+nace21:352  rdfs:label  "35.2 Productie van gas, en distributie van gasvormige brandstoffen via leidingen"@nl .
+
+nace21:9700  rdfs:label  "97.00 Activiteiten van huishoudens als werkgever van huishoudelijk personeel"@nl .
+
+nace21:871  rdfs:label  "87.1 Activiteiten van verpleegtehuizen"@nl .
+
+nace21:1061  rdfs:label  "10.61 Vervaardiging van maalderijproducten"@nl .
+
+nace21:9329  rdfs:label  "93.29 Ontspanning en recreatie, n.e.g."@nl .
+
+nace21:4637  rdfs:label  "46.37 Groothandel in koffie, thee, cacao en specerijen"@nl .
+
+nace21:553  rdfs:label  "55.3 Kampeer- en caravanterreinen"@nl .
+
+nace21:6630  rdfs:label  "66.30 Vermogensbeheer"@nl .
+
+nace21:3524  rdfs:label  "35.24 Opslag van gas als onderdeel van netwerkleveringsdiensten"@nl .
+
+nace21:5912  rdfs:label  "59.12 Activiteiten in verband met films en video- en televisieprogramma’s na de productie"@nl .
+
+nace21:4332  rdfs:label  "43.32 Schrijnwerk"@nl .
+
+nace21:2453  rdfs:label  "24.53 Gieten van lichte metalen"@nl .
+
+nace21:4920  rdfs:label  "49.20 Goederenvervoer per spoor"@nl .
+
+nace21:304  rdfs:label  "30.4 Vervaardiging van militaire gevechtsvoertuigen"@nl .
+
+nace21:8424  rdfs:label  "84.24 Openbare orde en veiligheid"@nl .
+
+nace21:H  rdfs:label  "H VERVOER EN OPSLAG"@nl .
+
+nace21:2561  rdfs:label  "25.61 Vervaardiging van scharen, messen, bestekken enz."@nl .
+
+nace21:1107  rdfs:label  "11.07 Vervaardiging van frisdranken en water in flessen"@nl .
+
+nace21:255  rdfs:label  "25.5 Oppervlaktebehandeling van metalen; verspanend bewerken van metalen"@nl .
+
+nace21:5510  rdfs:label  "55.10 Hotels en dergelijke accommodatie"@nl .
+
+nace21:1511  rdfs:label  "15.11 Looien, bereiden en verven van leder en bont"@nl .
+
+nace21:3040  rdfs:label  "30.40 Vervaardiging van militaire gevechtsvoertuigen"@nl .
+
+nace21:5030  rdfs:label  "50.30 Personenvervoer over binnenwateren"@nl .
+
+nace21:5811  rdfs:label  "58.11 Uitgeven van boeken"@nl .
+
+nace21:17  rdfs:label  "17 Vervaardiging van papier en papierwaren"@nl .
+
+nace21:9640  rdfs:label  "96.40 Bemiddelingsactiviteiten op het gebied van persoonlijke dienstverlening"@nl .
+
+nace21:8623  rdfs:label  "86.23 Activiteiten van tandartspraktijken"@nl .
+
+nace21:N  rdfs:label  "N WETENSCHAPPELIJKE EN TECHNISCHE ACTIVITEITEN EN SPECIALISTISCHE ZAKELIJKE DIENSTVERLENING"@nl .
+
+nace21:8413  rdfs:label  "84.13 Openbaar bestuur op het gebied van het bedrijfsleven; stimuleren van het bedrijfsleven"@nl .
+
+nace21:2059  rdfs:label  "20.59 Vervaardiging van andere chemische producten, n.e.g."@nl .
+
+nace21:5590  rdfs:label  "55.90 Overige accommodatie"@nl .
+
+nace21:1721  rdfs:label  "17.21 Vervaardiging van gegolfd papier, golfkarton en verpakkingsmateriaal van papier en karton"@nl .
+
+nace21:811  rdfs:label  "81.1 Diverse ondersteunende activiteiten ten behoeve van voorzieningen"@nl .
+
+nace21:4643  rdfs:label  "46.43 Groothandel in elektrische huishoudelijke apparaten"@nl .
+
+nace21:0126  rdfs:label  "01.26 Teelt van oliehoudende vruchten"@nl .
+
+nace21:1392  rdfs:label  "13.92 Vervaardiging van huishoudtextiel en geconfectioneerde artikelen voor stoffering"@nl .
+
+nace21:2015  rdfs:label  "20.15 Vervaardiging van kunstmeststoffen en stikstofverbindingen"@nl .
+
+nace21:099  rdfs:label  "09.9 Ondersteunende activiteiten in verband met de overige winning van delfstoffen"@nl .
+
+nace21:856  rdfs:label  "85.6 Onderwijsondersteunende activiteiten"@nl .
+
+nace21:6190  rdfs:label  "61.90 Overige activiteiten op het gebied van telecommunicatie"@nl .
+
+nace21:492  rdfs:label  "49.2 Goederenvervoer per spoor"@nl .
+
+nace21:31  rdfs:label  "31 Vervaardiging van meubelen"@nl .
+
+nace21:6391  rdfs:label  "63.91 Activiteiten van webportalen"@nl .
+
+nace21:2823  rdfs:label  "28.23 Vervaardiging van kantoormachines en -uitrusting (exclusief computers en randapparatuur)"@nl .
+
+nace21:9630  rdfs:label  "96.30 Begrafeniswezen en aanverwante activiteiten"@nl .
+
+nace21:1624  rdfs:label  "16.24 Vervaardiging van houten emballage"@nl .
+
+nace21:4621  rdfs:label  "46.21 Groothandel in granen, ruwe tabak, zaden en diervoeders"@nl .
+
+nace21:0148  rdfs:label  "01.48 Fokken en houden van andere dieren"@nl .
+
+nace21:013  rdfs:label  "01.3 Plantenvermeerdering"@nl .
+
+nace21:0112  rdfs:label  "01.12 Teelt van rijst"@nl .
+
+nace21:7220  rdfs:label  "72.20 Speur- en ontwikkelingswerk op het gebied van de maatschappij- en geesteswetenschappen"@nl .
+
+nace21:4792  rdfs:label  "47.92 Bemiddelingsactiviteiten voor de gespecialiseerde detailhandel"@nl .
+
+nace21:551  rdfs:label  "55.1 Hotels en dergelijke accommodatie"@nl .
+
+nace21:4682  rdfs:label  "46.82 Groothandel in metalen en metaalertsen"@nl .
+
+nace21:6832  rdfs:label  "68.32 Overige bemiddeling in en beheer van onroerend goed voor een vast bedrag of op contractbasis"@nl .
+
+nace21:360  rdfs:label  "36.0 Winning, behandeling en distributie van water"@nl .
+
+nace21:2442  rdfs:label  "24.42 Productie van aluminium"@nl .
+
+nace21:244  rdfs:label  "24.4 Productie van edelmetalen en van andere non-ferrometalen"@nl .
+
+nace21:B  rdfs:label  "B WINNING VAN DELFSTOFFEN"@nl .
+
+nace21:265  rdfs:label  "26.5 Vervaardiging van meet-en controle-instrumenten, klokken en horloges"@nl .
+
+nace21:106  rdfs:label  "10.6 Vervaardiging van maalderijproducten, zetmeel en zetmeelproducten"@nl .
+
+nace21:5010  rdfs:label  "50.10 Personenvervoer over zee- en kustwateren"@nl .
+
+nace21:77  rdfs:label  "77 Verhuur en lease"@nl .
+
+nace21:8692  rdfs:label  "86.92 Patiëntenvervoer per ambulance"@nl .
+
+nace21:2732  rdfs:label  "27.32 Vervaardiging van andere elektrische en elektronische kabels"@nl .
+
+nace21:4649  rdfs:label  "46.49 Groothandel in andere consumentenartikelen"@nl .
+
+nace21:564  rdfs:label  "56.4 Bemiddelingsactiviteiten in verband met eet- en drinkgelegenheden"@nl .
+
+nace21:2420  rdfs:label  "24.20 Vervaardiging van buizen, pijpen, holle profielen en fittings daarvoor, van staal"@nl .
+
+nace21:475  rdfs:label  "47.5 Detailhandel in andere consumentenartikelen"@nl .
+
+nace21:2522  rdfs:label  "25.22 Vervaardiging van andere tanks, reservoirs en bergingsmiddelen, van metaal"@nl .
+
+nace21:4933  rdfs:label  "49.33 Diensten voor personenvervoer op aanvraag per voertuig met chauffeur"@nl .
+
+nace21:56  rdfs:label  "56 Activiteiten van eet- en drinkgelegenheden"@nl .
+
+nace21:683  rdfs:label  "68.3 Bemiddeling in en beheer van onroerend goed voor een vast bedrag of op contractbasis"@nl .
+
+nace21:1041  rdfs:label  "10.41 Vervaardiging van oliën en vetten"@nl .
+
+nace21:8291  rdfs:label  "82.91 Activiteiten van incasso- en kredietbureaus"@nl .
+
+nace21:7311  rdfs:label  "73.11 Activiteiten van reclamebureaus"@nl .
+
+nace21:4638  rdfs:label  "46.38 Groothandel in andere voedingsmiddelen"@nl .
+
+nace21:5224  rdfs:label  "52.24 Vrachtbehandeling"@nl .
+
+nace21:93  rdfs:label  "93 Sport, ontspanning en recreatie"@nl .
+
+nace21:132  rdfs:label  "13.2 Weven van textiel"@nl .
+
+nace21:434  rdfs:label  "43.4 Gespecialiseerde bouwactiviteiten in de constructie van gebouwen"@nl .
+
+nace21:9522  rdfs:label  "95.22 Reparatie en onderhoud van huishoudapparaten en van werktuigen voor gebruik in huis en tuin"@nl .
+
+nace21:749  rdfs:label  "74.9 Overige wetenschappelijke en technische activiteiten en overige specialistische zakelijke dienstverlening, n.e.g."@nl .
+
+nace21:4950  rdfs:label  "49.50 Vervoer via pijpleidingen"@nl .
+
+nace21:9130  rdfs:label  "91.30 Instandhouding, restauratie en andere ondersteunende activiteiten voor cultureel erfgoed"@nl .
+
+nace21:603  rdfs:label  "60.3 Activiteiten van persagentschappen en andere activiteiten op het gebied van de verspreiding van inhoud"@nl .
+
+nace21:4321  rdfs:label  "43.21 Elektrische installatie"@nl .
+
+nace21:2363  rdfs:label  "23.63 Vervaardiging van stortklare beton"@nl .
+
+nace21:0145  rdfs:label  "01.45 Fokken en houden van schapen en geiten"@nl .
+
+nace21:7739  rdfs:label  "77.39 Verhuur en lease van andere machines en werktuigen en andere materiële goederen, n.e.g."@nl .
+
+nace21:13  rdfs:label  "13 Vervaardiging van textiel"@nl .
+
+nace21:3011  rdfs:label  "30.11 Bouw van civiele schepen en drijvend materieel"@nl .
+
+nace21:5221  rdfs:label  "52.21 Diensten in verband met vervoer te land"@nl .
+
+nace21:8240  rdfs:label  "82.40 Bemiddelingsactiviteiten in verband met zakelijke dienstverlening, n.e.g."@nl .
+
+nace21:3315  rdfs:label  "33.15 Reparatie en onderhoud van civiele schepen"@nl .
+
+nace21:1396  rdfs:label  "13.96 Vervaardiging van ander technisch en industrieel textiel"@nl .
+
+nace21:3230  rdfs:label  "32.30 Vervaardiging van sportartikelen"@nl .
+
+nace21:4724  rdfs:label  "47.24 Detailhandel in brood, banket en suikerwerk"@nl .
+
+nace21:9623  rdfs:label  "96.23 Activiteiten van kuuroorden, sauna’s en stoombaden"@nl .
+
+nace21:3092  rdfs:label  "30.92 Vervaardiging van fietsen en invalidenwagens"@nl .
+
+nace21:502  rdfs:label  "50.2 Goederenvervoer over zee- en kustwateren"@nl .
+
+nace21:733  rdfs:label  "73.3 Activiteiten van adviesbureaus op het gebied van public relations en communicatie"@nl .
+
+nace21:1811  rdfs:label  "18.11 Drukken van dagbladen"@nl .
+
+nace21:9610  rdfs:label  "96.10 Wassen en chemisch reinigen van textiel en bontproducten"@nl .
+
+nace21:8696  rdfs:label  "86.96 Traditionele, aanvullende en alternatieve geneeskunde"@nl .
+
+nace21:464  rdfs:label  "46.4 Groothandel in consumentenartikelen"@nl .
+
+nace21:6511  rdfs:label  "65.11 Levensverzekeringen"@nl .
+
+nace21:1102  rdfs:label  "11.02 Vervaardiging van wijn uit druiven"@nl .
+
+nace21:912  rdfs:label  "91.2 Activiteiten van musea, collecties, historische locaties en monumenten"@nl .
+
+nace21:T  rdfs:label  "T OVERIGE DIENSTEN"@nl .
+
+nace21:4291  rdfs:label  "42.91 Waterbouw"@nl .
+
+nace21:4648  rdfs:label  "46.48 Groothandel in uurwerken en sieraden"@nl .
+
+nace21:4612  rdfs:label  "46.12 Handelsbemiddeling in de groothandel in brandstoffen, ertsen, metalen en chemische producten"@nl .
+
+nace21:800  rdfs:label  "80.0 Opsporings- en beveiligingsdiensten"@nl .
+
+nace21:28  rdfs:label  "28 Vervaardiging van machines, apparaten en werktuigen, n.e.g"@nl .
+
+nace21:182  rdfs:label  "18.2 Reproductie van opgenomen media"@nl .
+
+nace21:4727  rdfs:label  "47.27 Detailhandel in andere voedingsmiddelen"@nl .
+
+nace21:661  rdfs:label  "66.1 Ondersteunende activiteiten in verband met financiële diensten, exclusief verzekeringen en pensioenfondsen"@nl .
+
+nace21:142  rdfs:label  "14.2 Vervaardiging van andere kleding en toebehoren"@nl .
+
+nace21:4391  rdfs:label  "43.91 Metselwerk"@nl .
+
+nace21:0990  rdfs:label  "09.90 Ondersteunende activiteiten in verband met de overige winning van delfstoffen"@nl .
+
+nace21:5622  rdfs:label  "56.22 Cateringdiensten op contractbasis en overige diensten in verband met maaltijden"@nl .
+
+nace21:0321  rdfs:label  "03.21 Mariene aquacultuur"@nl .
+
+nace21:2312  rdfs:label  "23.12 Vormen en bewerken van vlakglas"@nl .
+
+nace21:7413  rdfs:label  "74.13 Interieurontwerp"@nl .
+
+nace21:2431  rdfs:label  "24.31 Koudtrekken van staven"@nl .
+
+nace21:1092  rdfs:label  "10.92 Vervaardiging van voeders voor huisdieren"@nl .
+
+nace21:73  rdfs:label  "73 Reclameactiviteiten, marktonderzoek en public relations"@nl .
+
+nace21:1012  rdfs:label  "10.12 Verwerking en conservering van vlees van gevogelte"@nl .
+
+nace21:7020  rdfs:label  "70.20 Activiteiten van adviesbureaus op het gebied van bedrijfsvoering en overig managementadvies"@nl .
+
+nace21:322  rdfs:label  "32.2 Vervaardiging van muziekinstrumenten"@nl .
+
+nace21:0910  rdfs:label  "09.10 Ondersteunende activiteiten in verband met de aardolie- en aardgaswinning"@nl .
+
+nace21:889  rdfs:label  "88.9 Overige maatschappelijke dienstverlening waarbij geen onderdak wordt verschaft"@nl .
+
+nace21:52  rdfs:label  "52 Opslag en vervoerondersteunende activiteiten"@nl .
+
+nace21:823  rdfs:label  "82.3 Organisatie van congressen en beurzen"@nl .
+
+nace21:5210  rdfs:label  "52.10 Opslag"@nl .
+
+nace21:283  rdfs:label  "28.3 Vervaardiging van machines en werktuigen voor de landbouw en de bosbouw"@nl .
+
+nace21:431  rdfs:label  "43.1 Slopen en bouwrijp maken van terreinen"@nl .
+
+nace21:0230  rdfs:label  "02.30 Verzamelen van in het wild groeiende producten met uitzondering van hout"@nl .
+
+nace21:3812  rdfs:label  "38.12 Inzameling van gevaarlijk afval"@nl .
+
+nace21:8532  rdfs:label  "85.32 Middelbaar beroepsonderwijs"@nl .
+
+nace21:941  rdfs:label  "94.1 Activiteiten van bedrijfs-, werkgevers- en beroepsorganisaties"@nl .
+
+nace21:5640  rdfs:label  "56.40 Bemiddelingsactiviteiten in verband met eet- en drinkgelegenheden"@nl .
+
+nace21:9121  rdfs:label  "91.21 Activiteiten van musea en collecties"@nl .
+
+nace21:2931  rdfs:label  "29.31 Vervaardiging van elektrische en elektronische benodigdheden voor motorvoertuigen"@nl .
+
+nace21:171  rdfs:label  "17.1 Vervaardiging van papierpulp, papier en karton"@nl .
+
+nace21:033  rdfs:label  "03.3 Ondersteunende activiteiten voor visserij en aquacultuur"@nl .
+
+nace21:3823  rdfs:label  "38.23 Andere terugwinning uit afval"@nl .
+
+nace21:2893  rdfs:label  "28.93 Vervaardiging van machines voor de productie van voedings- en genotmiddelen"@nl .
+
+nace21:582  rdfs:label  "58.2 Uitgeven van software"@nl .
+
+nace21:353  rdfs:label  "35.3 Productie en distributie van stoom en gekoelde lucht"@nl .
+
+nace21:2042  rdfs:label  "20.42 Vervaardiging van parfums en toiletartikelen"@nl .
+
+nace21:5819  rdfs:label  "58.19 Overige activiteiten van uitgeverijen, met uitzondering van het uitgeven van software"@nl .
+
+nace21:2594  rdfs:label  "25.94 Vervaardiging van bouten, schroeven en moeren"@nl .
+
+nace21:8695  rdfs:label  "86.95 Activiteiten op het gebied van fysiotherapie"@nl .
+
+nace21:2521  rdfs:label  "25.21 Vervaardiging van radiatoren en ketels voor centrale verwarming"@nl .
+
+nace21:2841  rdfs:label  "28.41 Vervaardiging van niet-verspanende machines voor de metaalbewerking en van gereedschapswerktuigen voor metaalbewerking"@nl .
+
+nace21:711  rdfs:label  "71.1 Activiteiten van architecten, ingenieurs en aanverwante technische adviseurs"@nl .
+
+nace21:4634  rdfs:label  "46.34 Groothandel in dranken"@nl .
+
+nace21:0141  rdfs:label  "01.41 Fokken en houden van melkvee"@nl .
+
+nace21:4213  rdfs:label  "42.13 Bouw van bruggen en tunnels"@nl .
+
+nace21:091  rdfs:label  "09.1 Ondersteunende activiteiten in verband met de aardolie- en aardgaswinning"@nl .
+
+nace21:88  rdfs:label  "88 Maatschappelijke dienstverlening waarbij geen onderdak wordt verschaft"@nl .
+
+nace21:2920  rdfs:label  "29.20 Vervaardiging van carrosserieën voor motorvoertuigen; vervaardiging van aanhangwagens en opleggers"@nl .
+
+nace21:062  rdfs:label  "06.2 Winning van aardgas"@nl .
+
+nace21:252  rdfs:label  "25.2 Vervaardiging van tanks, reservoirs en bergingsmiddelen, van metaal"@nl .
+
+nace21:14  rdfs:label  "14 Vervaardiging van kleding"@nl .
+
+nace21:9540  rdfs:label  "95.40 Bemiddelingsactiviteiten in verband met reparatie en onderhoud van computers, consumentenartikelen, motorvoertuigen en motorfietsen"@nl .
+
+nace21:4778  rdfs:label  "47.78 Detailhandel in andere nieuwe goederen"@nl .
+
+nace21:5231  rdfs:label  "52.31 Bemiddelingsactiviteiten in verband met goederenvervoer"@nl .
+
+nace21:022  rdfs:label  "02.2 Exploitatie van bossen"@nl .
+
+nace21:291  rdfs:label  "29.1 Vervaardiging van motorvoertuigen"@nl .
+
+nace21:9411  rdfs:label  "94.11 Activiteiten van bedrijfs- en werkgeversorganisaties"@nl .
+
+nace21:39  rdfs:label  "39 Sanering en ander afvalbeheer"@nl .
+
+nace21:6431  rdfs:label  "64.31 Activiteiten van geldmarkt- en niet-geldmarktbeleggingsfondsen"@nl .
+
+nace21:461  rdfs:label  "46.1 Handelsbemiddeling"@nl .
+
+nace21:2640  rdfs:label  "26.40 Vervaardiging van consumentenelektronica"@nl .
+
+nace21:4616  rdfs:label  "46.16 Handelsbemiddeling in de groothandel in textiel, kleding, bont, schoeisel en lederwaren"@nl .
+
+nace21:8122  rdfs:label  "81.22 Overige reiniging van gebouwen; industriële reiniging"@nl .
+
+nace21:2733  rdfs:label  "27.33 Vervaardiging van schakelaars, stekkers, stopcontacten e.d."@nl .
+
+nace21:2345  rdfs:label  "23.45 Vervaardiging van andere keramische producten"@nl .
+
+nace21:2812  rdfs:label  "28.12 Vervaardiging van hydraulische apparatuur"@nl .
+
+nace21:85  rdfs:label  "85 Onderwijs"@nl .
+
+nace21:015  rdfs:label  "01.5 Gemengd bedrijf"@nl .
+
+nace21:0130  rdfs:label  "01.30 Plantenvermeerdering"@nl .
+
+nace21:861  rdfs:label  "86.1 Activiteiten van ziekenhuizen"@nl .
+
+nace21:4942  rdfs:label  "49.42 Activiteiten van verhuisbedrijven"@nl .
+
+nace21:2651  rdfs:label  "26.51 Vervaardiging van meet-, controle- en navigatie-instrumenten en -apparatuur"@nl .
+
+nace21:9141  rdfs:label  "91.41 Activiteiten van botanische tuinen en dierentuinen"@nl .
+
+nace21:192  rdfs:label  "19.2 Vervaardiging van geraffineerde aardolieproducten en van producten uit fossiele brandstoffen"@nl .
+
+nace21:4723  rdfs:label  "47.23 Detailhandel in vis en schaal- en weekdieren"@nl .
+
+nace21:8510  rdfs:label  "85.10 Kleuteronderwijs"@nl .
+
+nace21:4912  rdfs:label  "49.12 Personenvervoer per spoor anders dan per trein"@nl .
+
+nace21:872  rdfs:label  "87.2 Residentiële zorg voor personen met een al dan niet gediagnosticeerde psychische aandoening of voor drugs- of alcoholverslaafden"@nl .
+
+nace21:181  rdfs:label  "18.1 Activiteiten op het gebied van drukwerk en gerelateerde dienstverlening"@nl .
+
+nace21:1086  rdfs:label  "10.86 Vervaardiging van gehomogeniseerde voedingspreparaten en dieetvoeding"@nl .
+
+nace21:133  rdfs:label  "13.3 Textielveredeling"@nl .
+
+nace21:2752  rdfs:label  "27.52 Vervaardiging van niet-elektrische huishoudapparaten"@nl .
+
+nace21:3521  rdfs:label  "35.21 Productie van gas"@nl .
+
+nace21:96  rdfs:label  "96 Persoonlijke dienstverlening"@nl .
+
+nace21:8430  rdfs:label  "84.30 Verplichte sociale verzekeringen"@nl .
+
+nace21:0893  rdfs:label  "08.93 Zoutwinning"@nl .
+
+nace21:4632  rdfs:label  "46.32 Groothandel in vlees, vleesproducten, vis en visproducten"@nl .
+
+nace21:8720  rdfs:label  "87.20 Residentiële zorg voor personen met een al dan niet gediagnosticeerde psychische aandoening of voor drugs- of alcoholverslaafden"@nl .
+
+nace21:8710  rdfs:label  "87.10 Activiteiten van verpleegtehuizen"@nl .
+
+nace21:4931  rdfs:label  "49.31 Personenvervoer over de weg volgens dienstregeling"@nl .
+
+nace21:653  rdfs:label  "65.3 Activiteiten van pensioenfondsen"@nl .
+
+nace21:2222  rdfs:label  "22.22 Vervaardiging van verpakkingsmateriaal van kunststof"@nl .
+
+nace21:4782  rdfs:label  "47.82 Detailhandel in onderdelen en accessoires van motorvoertuigen"@nl .
+
+nace21:3700  rdfs:label  "37.00 Afvalwaterafvoer"@nl .
+
+nace21:494  rdfs:label  "49.4 Goederenvervoer over de weg en verhuisbedrijven"@nl .
+
+nace21:2110  rdfs:label  "21.10 Vervaardiging van farmaceutische grondstoffen"@nl .
+
+nace21:4771  rdfs:label  "47.71 Detailhandel in kleding"@nl .
+
+nace21:467  rdfs:label  "46.7 Groothandel in motorvoertuigen, motorfietsen en delen en toebehoren van motorvoertuigen en motorfietsen"@nl .
+
+nace21:7732  rdfs:label  "77.32 Verhuur en lease van machines en installaties voor de bouwnijverheid en de weg- en waterbouw"@nl .
+
+nace21:619  rdfs:label  "61.9 Overige activiteiten op het gebied van telecommunicatie"@nl .
+
+nace21:1725  rdfs:label  "17.25 Vervaardiging van andere artikelen van papier of karton"@nl .
+
+nace21:643  rdfs:label  "64.3 Activiteiten van beleggingstrusts en -fondsen en andere financiële instrumenten"@nl .
+
+nace21:5913  rdfs:label  "59.13 Activiteiten op het gebied van de distributie van films en video’s"@nl .
+
+nace21:2711  rdfs:label  "27.11 Vervaardiging van elektromotoren en van elektrische generatoren en transformatoren"@nl .
+
+nace21:2830  rdfs:label  "28.30 Vervaardiging van machines en werktuigen voor de landbouw en de bosbouw"@nl .
+
+nace21:0312  rdfs:label  "03.12 Binnenvisserij"@nl .
+
+nace21:D  rdfs:label  "D PRODUCTIE EN DISTRIBUTIE VAN ELEKTRICITEIT, GAS, STOOM EN GEKOELDE LUCHT"@nl .
+
+nace21:0113  rdfs:label  "01.13 Teelt van groenten, meloenen en wortel- en knolgewassen"@nl .
+
+nace21:3513  rdfs:label  "35.13 Transmissie van elektriciteit"@nl .
+
+nace21:5611  rdfs:label  "56.11 Activiteiten van restaurants"@nl .
+
+nace21:621  rdfs:label  "62.1 Ontwerpen van computerprogramma’s"@nl .
+
+nace21:20  rdfs:label  "20 Vervaardiging van chemische producten"@nl .
+
+nace21:2020  rdfs:label  "20.20 Vervaardiging van verdelgingsmiddelen, ontsmettingsmiddelen en andere chemische producten voor de landbouw"@nl .
+
+nace21:6612  rdfs:label  "66.12 Bemiddeling in effecten- en goederencontracten"@nl .
+
+nace21:8561  rdfs:label  "85.61 Bemiddeling op het gebied van academische ondersteuning en studiebegeleiding"@nl .
+
+nace21:63  rdfs:label  "63 Computerinfrastructuur, gegevensverwerking, hosting en andere informatiediensten"@nl .
+
+nace21:561  rdfs:label  "56.1 Activiteiten van restaurants en mobiele eetgelegenheden"@nl .
+
+nace21:241  rdfs:label  "24.1 Vervaardiging van ijzer en staal en van ferrolegeringen"@nl .
+
+nace21:2341  rdfs:label  "23.41 Vervaardiging van huishoudelijk en sieraardewerk"@nl .
+
+nace21:3291  rdfs:label  "32.91 Vervaardiging van borstelwaren"@nl .
+
+nace21:2060  rdfs:label  "20.60 Vervaardiging van synthetische en kunstmatige vezels"@nl .
+
+nace21:41  rdfs:label  "41 Burgerlijke en utiliteitsbouw"@nl .
+
+nace21:2352  rdfs:label  "23.52 Vervaardiging van kalk en gips"@nl .
+
+nace21:0116  rdfs:label  "01.16 Teelt van vezelgewassen"@nl .
+
+nace21:236  rdfs:label  "23.6 Vervaardiging van artikelen van beton, cement en gips"@nl .
+
+nace21:722  rdfs:label  "72.2 Speur- en ontwikkelingswerk op het gebied van de maatschappij- en geesteswetenschappen"@nl .
+
+nace21:3833  rdfs:label  "38.33 Andere afvalverwijdering"@nl .
+
+nace21:1627  rdfs:label  "16.27 Afwerking van houten producten"@nl .
+
+nace21:791  rdfs:label  "79.1 Activiteiten van reisbureaus en reisorganisatoren"@nl .
+
+nace21:0161  rdfs:label  "01.61 Ondersteunende activiteiten in verband met de teelt van gewassen"@nl .
+
+nace21:472  rdfs:label  "47.2 Detailhandel in voedingsmiddelen, dranken en genotmiddelen"@nl .
+
+nace21:99  rdfs:label  "99 Activiteiten van extraterritoriale organisaties en instanties"@nl .
+
+nace21:261  rdfs:label  "26.1 Vervaardiging van elektronische onderdelen en printplaten"@nl .
+
+nace21:1103  rdfs:label  "11.03 Vervaardiging van cider en andere gefermenteerde vruchtendranken"@nl .
+
+nace21:8299  rdfs:label  "82.99 Overige zakelijke dienstverlening, n.e.g."@nl .
+
+nace21:4681  rdfs:label  "46.81 Groothandel in vaste, vloeibare en gasvormige brandstoffen en aanverwante producten"@nl .
+
+nace21:272  rdfs:label  "27.2 Vervaardiging van batterijen en accumulatoren"@nl .
+
+nace21:4791  rdfs:label  "47.91 Bemiddelingsactiviteiten in verband met de niet-gespecialiseerde detailhandel"@nl .
+
+nace21:1512  rdfs:label  "15.12 Vervaardiging van koffers, tassen, zadel- en tuigmakerswerk van ongeacht welk materiaal"@nl .
+
+nace21:4774  rdfs:label  "47.74 Detailhandel in medische en orthopedische artikelen"@nl .
+
+nace21:92  rdfs:label  "92 Activiteiten van loterijen en kansspelen"@nl .
+
+nace21:9200  rdfs:label  "92.00 Activiteiten van loterijen en kansspelen"@nl .
+
+nace21:K  rdfs:label  "K TELECOMMUNICATIE, COMPUTERPROGRAMMERING, CONSULTANCY, INFORMATICA-INFRASTRUCTUUR EN ANDERE ACTIVITEITEN OP HET GEBIED VAN INFORMATIEDIENSTEN"@nl .
+
+nace21:264  rdfs:label  "26.4 Vervaardiging van consumentenelektronica"@nl .
+
+nace21:0111  rdfs:label  "01.11 Teelt van andere granen dan rijst, en van peulgewassen en oliehoudende zaden"@nl .
+
+nace21:383  rdfs:label  "38.3 Verwijdering van afval zonder terugwinning"@nl .
+
+nace21:0240  rdfs:label  "02.40 Ondersteunende diensten in verband met de bosbouw"@nl .
+
+nace21:69  rdfs:label  "69 Rechtskundige en boekhoudkundige dienstverlening"@nl .
+
+nace21:5310  rdfs:label  "53.10 Postdiensten in het kader van de universeledienstverplichting"@nl .
+
+nace21:12  rdfs:label  "12 Vervaardiging van tabaksproducten"@nl .
+
+nace21:842  rdfs:label  "84.2 Algemene overheidsdiensten"@nl .
+
+nace21:4763  rdfs:label  "47.63 Detailhandel in sportartikelen"@nl .
+
+nace21:4721  rdfs:label  "47.21 Detailhandel in groenten en fruit"@nl .
+
+nace21:1393  rdfs:label  "13.93 Vervaardiging van vloerkleden en tapijt"@nl .
+
+nace21:293  rdfs:label  "29.3 Vervaardiging van delen en toebehoren voor motorvoertuigen"@nl .
+
+nace21:478  rdfs:label  "47.8 Detailhandel in motorvoertuigen, motorfietsen en delen en toebehoren van motorfietsen"@nl .
+
+nace21:23  rdfs:label  "23 Vervaardiging van andere niet-metaalhoudende minerale producten"@nl .
+
+nace21:799  rdfs:label  "79.9 Activiteiten van reserveringsbureaus en aanverwante activiteiten"@nl .
+
+nace21:329  rdfs:label  "32.9 Industrie, n.e.g."@nl .
+
+nace21:1310  rdfs:label  "13.10 Bewerken en spinnen van textielvezels"@nl .
+
+nace21:774  rdfs:label  "77.4 Lease van intellectuele eigendom en vergelijkbare producten, met uitzondering van werken onder auteursrecht"@nl .
+
+nace21:3032  rdfs:label  "30.32 Vervaardiging van militaire lucht- en ruimtevaartuigen en van toestellen in verband daarmee"@nl .
+
+nace21:1071  rdfs:label  "10.71 Vervaardiging van brood; vervaardiging van vers banketbakkerswerk"@nl .
+
+nace21:851  rdfs:label  "85.1 Kleuteronderwijs"@nl .
+
+nace21:0150  rdfs:label  "01.50 Gemengd bedrijf"@nl .
+
+nace21:G  rdfs:label  "G GROOT- EN DETAILHANDEL"@nl .
+
+nace21:8110  rdfs:label  "81.10 Diverse ondersteunende activiteiten ten behoeve van voorzieningen"@nl .
+
+nace21:7721  rdfs:label  "77.21 Verhuur en lease van sport- en recreatieartikelen"@nl .
+
+nace21:275  rdfs:label  "27.5 Vervaardiging van huishoudapparaten"@nl .
+
+nace21:2226  rdfs:label  "22.26 Vervaardiging van andere producten van kunststof"@nl .
+
+nace21:781  rdfs:label  "78.1 Arbeidsbemiddeling"@nl .
+
+nace21:4664  rdfs:label  "46.64 Groothandel in andere machines en werktuigen"@nl .
+
+nace21:433  rdfs:label  "43.3 Afwerking van gebouwen"@nl .
+
+nace21:8553  rdfs:label  "85.53 Activiteiten van auto- en motorrijscholen"@nl .
+
+nace21:9900  rdfs:label  "99.00 Activiteiten van extraterritoriale organisaties en instanties"@nl .
+
+nace21:109  rdfs:label  "10.9 Vervaardiging van diervoeders"@nl .
+
+nace21:03  rdfs:label  "03 Visserij en aquacultuur"@nl .
+
+nace21:70  rdfs:label  "70 Activiteiten van hoofdkantoren en managementadvies"@nl .
+
+nace21:55  rdfs:label  "55 Verschaffen van accommodatie"@nl .
+
+nace21:963  rdfs:label  "96.3 Begrafeniswezen en aanverwante activiteiten"@nl .
+
+nace21:4779  rdfs:label  "47.79 Detailhandel in tweedehandsgoederen"@nl .
+
+nace21:282  rdfs:label  "28.2 Vervaardiging van andere machines en apparaten voor algemeen gebruik"@nl .
+
+nace21:4331  rdfs:label  "43.31 Stukadoorswerk"@nl .
+
+nace21:2452  rdfs:label  "24.52 Gieten van staal"@nl .
+
+nace21:1082  rdfs:label  "10.82 Vervaardiging van cacao, chocolade en suikerwerk"@nl .
+
+nace21:2370  rdfs:label  "23.70 Houwen, bewerken en afwerken van natuursteen"@nl .
+
+nace21:25  rdfs:label  "25 Vervaardiging van producten van metaal, exclusief machines en apparatuur"@nl .
+
+nace21:422  rdfs:label  "42.2 Bouw van civieltechnische werken ten behoeve van nutsbedrijven"@nl .
+
+nace21:4624  rdfs:label  "46.24 Groothandel in huiden, vellen en leer"@nl .
+
+nace21:7210  rdfs:label  "72.10 Speur- en ontwikkelingswerk op natuurwetenschappelijk gebied"@nl .
+
+nace21:4776  rdfs:label  "47.76 Detailhandel in bloemen, planten, kunstmeststoffen, huisdieren en voer voor huisdieren"@nl .
+
+nace21:37  rdfs:label  "37 Afvalwaterafvoer"@nl .
+
+nace21:2315  rdfs:label  "23.15 Vervaardiging en bewerking van overig glas, inclusief technisch glaswerk"@nl .
+
+nace21:2313  rdfs:label  "23.13 Vervaardiging van holglas"@nl .
+
+nace21:0322  rdfs:label  "03.22 Aquacultuur in zoet water"@nl .
+
+nace21:4911  rdfs:label  "49.11 Personenvervoer per trein"@nl .
+
+nace21:239  rdfs:label  "23.9 Vervaardiging van andere schuurmiddelen en niet-metaalhoudende minerale producten n.e.g."@nl .
+
+nace21:6422  rdfs:label  "64.22 Activiteiten van financieringskanalen"@nl .
+
+nace21:1020  rdfs:label  "10.20 Verwerking en conservering van vis en van schaal- en weekdieren"@nl .
+
+nace21:0142  rdfs:label  "01.42 Fokken en houden van andere runderen en buffels"@nl .
+
+nace21:2553  rdfs:label  "25.53 Verspanend bewerken van metalen"@nl .
+
+nace21:325  rdfs:label  "32.5 Vervaardiging van medische en tandheelkundige instrumenten en benodigdheden"@nl .
+
+nace21:2012  rdfs:label  "20.12 Vervaardiging van kleurstoffen en pigmenten"@nl .
+
+nace21:1089  rdfs:label  "10.89 Vervaardiging van andere voedingsmiddelen, n.e.g."@nl .
+
+nace21:6310  rdfs:label  "63.10 Computerinfrastructuur, gegevensverwerking, hosting en aanverwante activiteiten"@nl .
+
+nace21:0892  rdfs:label  "08.92 Winning van turf"@nl .
+
+nace21:4725  rdfs:label  "47.25 Detailhandel in dranken"@nl .
+
+nace21:8699  rdfs:label  "86.99 Overige menselijke gezondheidszorg, n.e.g."@nl .
+
+nace21:2811  rdfs:label  "28.11 Vervaardiging van motoren en turbines, exclusief motoren voor luchtvaartuigen, motorvoertuigen en bromfietsen"@nl .
+
+nace21:8569  rdfs:label  "85.69 Onderwijsondersteunende activiteiten, n.e.g."@nl .
+
+nace21:1101  rdfs:label  "11.01 Vervaardiging van gedistilleerde dranken door distilleren, rectificeren en mengen"@nl .
+
+nace21:6512  rdfs:label  "65.12 Schadeverzekeringen"@nl .
+
+nace21:911  rdfs:label  "91.1 Activiteiten van bibliotheken en archieven"@nl .
+
+nace21:611  rdfs:label  "61.1 Draadgebonden en draadloze telecommunicatie en telecommunicatie via satelliet"@nl .
+
+nace21:9529  rdfs:label  "95.29 Reparatie en onderhoud van consumentenartikelen, n.e.g."@nl .
+
+nace21:4100  rdfs:label  "41.00 Burgerlijke en utiliteitsbouw"@nl .
+
+nace21:4613  rdfs:label  "46.13 Handelsbemiddeling in de groothandel in hout en bouwmaterialen"@nl .
+
+nace21:4645  rdfs:label  "46.45 Groothandel in parfumerieën en cosmetica"@nl .
+
+nace21:4639  rdfs:label  "46.39 Niet-gespecialiseerde groothandel in voedings- en genotmiddelen"@nl .
+
+nace21:629  rdfs:label  "62.9 Overige diensten op het gebied van informatietechnologie en computer"@nl .
+
+nace21:01  rdfs:label  "01 Teelt van gewassen, veeteelt, jacht en diensten in verband met deze activiteiten"@nl .
+
+nace21:2441  rdfs:label  "24.41 Productie van edelmetalen"@nl .
+
+nace21:2311  rdfs:label  "23.11 Vervaardiging van vlakglas"@nl .
+
+nace21:81  rdfs:label  "81 Diensten in verband met gebouwen; landschapsverzorging"@nl .
+
+nace21:6210  rdfs:label  "62.10 Ontwerpen van computerprogramma’s"@nl .
+
+nace21:74  rdfs:label  "74 Overige wetenschappelijke en technische activiteiten en overige specialistische zakelijke dienstverlening"@nl .
+
+nace21:381  rdfs:label  "38.1 Inzameling van afval"@nl .
+
+nace21:952  rdfs:label  "95.2 Reparatie en onderhoud van consumentenartikelen"@nl .
+
+nace21:271  rdfs:label  "27.1 Vervaardiging van elektromotoren, van elektrische generatoren en transformatoren en van schakel- en verdeelinrichtingen"@nl .
+
+nace21:2612  rdfs:label  "26.12 Vervaardiging van elektronische printplaten"@nl .
+
+nace21:1421  rdfs:label  "14.21 Vervaardiging van bovenkleding"@nl .
+
+nace21:824  rdfs:label  "82.4 Bemiddelingsactiviteiten in verband met zakelijke dienstverlening, n.e.g."@nl .
+
+nace21:3316  rdfs:label  "33.16 Reparatie en onderhoud van civiele lucht- en ruimtevaartuigen"@nl .
+
+nace21:3091  rdfs:label  "30.91 Vervaardiging van motorfietsen"@nl .
+
+nace21:58  rdfs:label  "58 Activiteiten van uitgeverijen"@nl .
+
+nace21:853  rdfs:label  "85.3 Secundair en postsecundair niet-tertiair onderwijs"@nl .
+
+nace21:4342  rdfs:label  "43.42 Overige gespecialiseerde bouwactiviteiten in de constructie van gebouwen"@nl .
+
+nace21:982  rdfs:label  "98.2 Niet-gedifferentieerde productie van diensten door particuliere huishoudens voor eigen gebruik"@nl .
+
+nace21:6290  rdfs:label  "62.90 Overige diensten op het gebied van informatietechnologie en computer"@nl .
+
+nace21:4350  rdfs:label  "43.50 Gespecialiseerde bouwactiviteiten op het gebied van weg- en waterbouw"@nl .
+
+nace21:942  rdfs:label  "94.2 Activiteiten van vakverenigingen"@nl .
+
+nace21:5040  rdfs:label  "50.40 Goederenvervoer over binnenwateren"@nl .
+
+nace21:47  rdfs:label  "47 Detailhandel"@nl .
+
+nace21:102  rdfs:label  "10.2 Verwerking en conservering van vis en van schaal- en weekdieren"@nl .
+
+nace21:5911  rdfs:label  "59.11 Productie van films en video- en televisieprogramma’s"@nl .
+
+nace21:235  rdfs:label  "23.5 Vervaardiging van cement, kalk en gips"@nl .
+
+nace21:2364  rdfs:label  "23.64 Vervaardiging van mortel"@nl .
+
+nace21:4313  rdfs:label  "43.13 Proefboren en boren"@nl .
+
+nace21:3313  rdfs:label  "33.13 Reparatie en onderhoud van elektronische en optische apparatuur"@nl .
+
+nace21:9142  rdfs:label  "91.42 Beheer en instandhouding van natuurreservaten"@nl .
+
+nace21:466  rdfs:label  "46.6 Groothandel in andere machines en werktuigen en toebehoren"@nl .
+
+nace21:4685  rdfs:label  "46.85 Groothandel in chemische producten"@nl .
+
+nace21:521  rdfs:label  "52.1 Opslag"@nl .
+
+nace21:4324  rdfs:label  "43.24 Overige bouwinstallatie"@nl .
+
+nace21:36  rdfs:label  "36 Winning, behandeling en distributie van water"@nl .
+
+nace21:4754  rdfs:label  "47.54 Detailhandel in elektrische huishoudapparaten"@nl .
+
+nace21:8891  rdfs:label  "88.91 Activiteiten van kinderdagverblijven"@nl .
+
+nace21:9492  rdfs:label  "94.92 Activiteiten van politieke organisaties"@nl .
+
+nace21:62  rdfs:label  "62 Computerprogrammering, consultancy en aanverwante activiteiten"@nl .
+
+nace21:152  rdfs:label  "15.2 Vervaardiging van schoeisel"@nl .
+
+nace21:4642  rdfs:label  "46.42 Groothandel in kleding en schoeisel"@nl .
+
+nace21:901  rdfs:label  "90.1 Creatie van kunst"@nl .
+
+nace21:0129  rdfs:label  "01.29 Teelt van andere meerjarige gewassen"@nl .
+
+nace21:6629  rdfs:label  "66.29 Ondersteunende activiteiten in verband met verzekeringen en pensioenfondsen, n.e.g."@nl .
+
+nace21:07  rdfs:label  "07 Winning van metaalertsen"@nl .
+
+nace21:495  rdfs:label  "49.5 Vervoer via pijpleidingen"@nl .
+
+nace21:1031  rdfs:label  "10.31 Verwerking en conservering van aardappelen"@nl .
+
+nace21:622  rdfs:label  "62.2 Activiteiten op het gebied van computerconsultancy en beheer van computerfaciliteiten"@nl .
+
+nace21:3811  rdfs:label  "38.11 Inzameling van ongevaarlijk afval"@nl .
+
+nace21:4623  rdfs:label  "46.23 Groothandel in levende dieren"@nl .
+
+nace21:2815  rdfs:label  "28.15 Vervaardiging van tandwielen, lagers en andere drijfwerkelementen"@nl .
+
+nace21:3514  rdfs:label  "35.14 Distributie van elektriciteit"@nl .
+
+nace21:4617  rdfs:label  "46.17 Handelsbemiddeling in de groothandel in voedings- en genotmiddelen"@nl .
+
+nace21:8531  rdfs:label  "85.31 Algemeen vormend voortgezet onderwijs"@nl .
+
+nace21:2314  rdfs:label  "23.14 Vervaardiging van glasvezels"@nl .
+
+nace21:242  rdfs:label  "24.2 Vervaardiging van buizen, pijpen, holle profielen en fittings daarvoor, van staal"@nl .
+
+nace21:1424  rdfs:label  "14.24 Vervaardiging van kleding van leer en van bont"@nl .
+
+nace21:8520  rdfs:label  "85.20 Basisonderwijs"@nl .
+
+nace21:014  rdfs:label  "01.4 Veeteelt"@nl .
+
+nace21:562  rdfs:label  "56.2 Catering van evenementen, cateringdiensten op contractbasis en overige diensten in verband met maaltijden"@nl .
+
+nace21:0899  rdfs:label  "08.99 Overige winning van delfstoffen, n.e.g."@nl .
+
+nace21:3832  rdfs:label  "38.32 Storten of permanent opslaan"@nl .
+
+nace21:331  rdfs:label  "33.1 Reparatie en onderhoud van producten van metaal, machines en apparaten"@nl .
+
+nace21:4360  rdfs:label  "43.60 Bemiddelingsactiviteiten in verband met gespecialiseerde bouwnijverheid"@nl .
+
+nace21:6120  rdfs:label  "61.20 Wederverkoop van telecommunicatie en bemiddelingsactiviteiten in verband met telecommunicatie"@nl .
+
+nace21:141  rdfs:label  "14.1 Vervaardiging van gebreide en gehaakte kleding"@nl .
+
+nace21:1013  rdfs:label  "10.13 Vervaardiging van producten van vlees of van vlees van gevogelte"@nl .
+
+nace21:4635  rdfs:label  "46.35 Groothandel in tabaksproducten"@nl .
+
+nace21:1724  rdfs:label  "17.24 Vervaardiging van behangpapier"@nl .
+
+nace21:78  rdfs:label  "78 Arbeidsbemiddeling en personeelswerk"@nl .
+
+nace21:873  rdfs:label  "87.3 Residentiële zorg voor ouderen of personen met een lichamelijke handicap"@nl .
+
+nace21:5122  rdfs:label  "51.22 Ruimtevaart"@nl .
+
+nace21:7412  rdfs:label  "74.12 Grafisch ontwerp en visuele communicatie"@nl .
+
+nace21:289  rdfs:label  "28.9 Vervaardiging van andere machines, apparaten en werktuigen voor specifieke doeleinden"@nl .
+
+nace21:0147  rdfs:label  "01.47 Fokken en houden van pluimvee"@nl .
+
+nace21:4212  rdfs:label  "42.12 Bouw van boven- en ondergrondse spoorwegen"@nl .
+
+nace21:253  rdfs:label  "25.3 Vervaardiging van wapens en munitie"@nl .
+
+nace21:5612  rdfs:label  "56.12 Activiteiten van mobiele eetgelegenheden"@nl .
+
+nace21:4673  rdfs:label  "46.73 Groothandel in motorfietsen, delen en toebehoren van motorfietsen"@nl .
+
+nace21:15  rdfs:label  "15 Vervaardiging van leer, lederwaren en soortgelijke producten van andere materialen"@nl .
+
+nace21:6419  rdfs:label  "64.19 Overige activiteiten van geldscheppende financiële instellingen"@nl .
+
+nace21:4752  rdfs:label  "47.52 Detailhandel in ijzerwaren, bouwmaterialen, verf en glas"@nl .
+
+nace21:503  rdfs:label  "50.3 Personenvervoer over binnenwateren"@nl .
+
+nace21:061  rdfs:label  "06.1 Winning van aardolie"@nl .
+
+nace21:021  rdfs:label  "02.1 Bosbouw en bosbouwactiviteiten"@nl .
+
+nace21:4662  rdfs:label  "46.62 Groothandel in gereedschapswerktuigen"@nl .
+
+nace21:1042  rdfs:label  "10.42 Vervaardiging van margarine en andere spijsvetten"@nl .
+
+nace21:2017  rdfs:label  "20.17 Vervaardiging van synthetische rubber in primaire vormen"@nl .
+
+nace21:072  rdfs:label  "07.2 Winning van non-ferrometaalertsen"@nl .
+
+nace21:30  rdfs:label  "30 Vervaardiging van andere vervoermiddelen"@nl .
+
+nace21:051  rdfs:label  "05.1 Winning van steenkool"@nl .
+
+nace21:9321  rdfs:label  "93.21 Activiteiten van pret- en themaparken"@nl .
+
+nace21:032  rdfs:label  "03.2 Aquacultuur"@nl .
+
+nace21:5223  rdfs:label  "52.23 Diensten in verband met de luchtvaart"@nl .
+
+nace21:29  rdfs:label  "29 Vervaardiging van motorvoertuigen, aanhangwagens en opleggers"@nl .
+
+nace21:1623  rdfs:label  "16.23 Vervaardiging van ander schrijn- en timmerwerk"@nl .
+
+nace21:3822  rdfs:label  "38.22 Winning van energie uit afval"@nl .
+
+nace21:303  rdfs:label  "30.3 Vervaardiging van lucht- en ruimtevaartuigen en van toestellen in verband daarmee"@nl .
+
+nace21:5630  rdfs:label  "56.30 Activiteiten van drinkgelegenheden"@nl .
+
+nace21:6811  rdfs:label  "68.11 Handel in eigen onroerend goed"@nl .
+
+nace21:862  rdfs:label  "86.2 Activiteiten van artsen en tandartsen"@nl .
+
+nace21:9011  rdfs:label  "90.11 Literaire creatie en compositie van muziek"@nl .
+
+nace21:O  rdfs:label  "O ADMINISTRATIEVE EN ONDERSTEUNENDE DIENSTEN"@nl .
+
+nace21:3211  rdfs:label  "32.11 Slaan van munten"@nl .
+
+nace21:2892  rdfs:label  "28.92 Vervaardiging van machines voor de winning van delfstoffen en voor de bouw"@nl .
+
+nace21:8799  rdfs:label  "87.99 Overige activiteiten op het gebied van verpleging, verzorging en begeleiding met overnachting, n.e.g."@nl .
+
+nace21:4730  rdfs:label  "47.30 Detailhandel in motorbrandstoffen"@nl .
+
+nace21:879  rdfs:label  "87.9 Overige activiteiten op het gebied van verpleging, verzorging en begeleiding met overnachting"@nl .
+
+nace21:1104  rdfs:label  "11.04 Vervaardiging van andere niet-gedistilleerde gegiste dranken"@nl .
+
+nace21:954  rdfs:label  "95.4 Bemiddelingsactiviteiten in verband met reparatie en onderhoud van computers, consumentenartikelen, motorvoertuigen en motorfietsen"@nl .
+
+nace21:203  rdfs:label  "20.3 Vervaardiging van verf, vernis e.d., drukinkt en mastiek"@nl .
+
+nace21:105  rdfs:label  "10.5 Vervaardiging van zuivelproducten en consumptie-ijs"@nl .
+
+nace21:2740  rdfs:label  "27.40 Vervaardiging van verlichtingsbenodigdheden"@nl .
+
+nace21:0125  rdfs:label  "01.25 Teelt van andere boomvruchten, kleinfruit en noten"@nl .
+
+nace21:1626  rdfs:label  "16.26 Vervaardiging van vaste brandstoffen uit plantaardige biomassa"@nl .
+
+nace21:231  rdfs:label  "23.1 Vervaardiging van glas en glaswerk"@nl .
+
+nace21:6492  rdfs:label  "64.92 Overige kredietverstrekking"@nl .
+
+nace21:0114  rdfs:label  "01.14 Teelt van suikerriet"@nl .
+
+nace21:701  rdfs:label  "70.1 Activiteiten van hoofdkantoren"@nl .
+
+nace21:7430  rdfs:label  "74.30 Activiteiten van vertalers en tolken"@nl .
+
+nace21:66  rdfs:label  "66 Ondersteunende activiteiten voor verzekeringen en pensioenfondsen"@nl .
+
+nace21:1814  rdfs:label  "18.14 Activiteiten van binderijen en aanverwante diensten"@nl .
+
+nace21:1520  rdfs:label  "15.20 Vervaardiging van schoeisel"@nl .
+
+nace21:462  rdfs:label  "46.2 Groothandel in landbouwproducten en levende dieren"@nl .
+
+nace21:8121  rdfs:label  "81.21 Algemene reiniging van gebouwen"@nl .
+
+nace21:7740  rdfs:label  "77.40 Lease van intellectuele eigendom en vergelijkbare producten, met uitzondering van werken onder auteursrecht"@nl .
+
+nace21:691  rdfs:label  "69.1 Rechtskundige dienstverlening"@nl .
+
+nace21:206  rdfs:label  "20.6 Vervaardiging van synthetische en kunstmatige vezels"@nl .
+
+nace21:741  rdfs:label  "74.1 Activiteiten van gespecialiseerde ontwerpers"@nl .
+
+nace21:2591  rdfs:label  "25.91 Vervaardiging van stalen vaten en dergelijke"@nl .
+
+nace21:473  rdfs:label  "47.3 Detailhandel in motorbrandstoffen"@nl .
+
+nace21:7733  rdfs:label  "77.33 Verhuur en lease van kantoormachines, inclusief computers"@nl .
+
+nace21:7120  rdfs:label  "71.20 Technische testen en toetsen"@nl .
+
+nace21:18  rdfs:label  "18 Activiteiten op het gebied van drukwerk en reproductie van opgenomen media"@nl .
+
+nace21:1612  rdfs:label  "16.12 Verwerking en afwerking van hout"@nl .
+
+nace21:841  rdfs:label  "84.1 Openbaar bestuur en het economische, sociale en milieubeleid van de gemeenschap"@nl .
+
+nace21:990  rdfs:label  "99.0 Activiteiten van extraterritoriale organisaties en instanties"@nl .
+
+nace21:2511  rdfs:label  "25.11 Vervaardiging van metalen constructiewerken en delen daarvan"@nl .
+
+nace21:712  rdfs:label  "71.2 Technische testen en toetsen"@nl .
+
+nace21:4631  rdfs:label  "46.31 Groothandel in groenten en fruit"@nl .
+
+nace21:6010  rdfs:label  "60.10 Uitzenden van radioprogramma’s en distributie van audio"@nl .
+
+nace21:1628  rdfs:label  "16.28 Vervaardiging van andere artikelen van hout en van artikelen van kurk, riet of vlechtwerk"@nl .
+
+nace21:C  rdfs:label  "C INDUSTRIE"@nl .
+
+nace21:2751  rdfs:label  "27.51 Vervaardiging van elektrische huishoudapparaten"@nl .
+
+nace21:51  rdfs:label  "51 Luchtvaart"@nl .
+
+nace21:4335  rdfs:label  "43.35 Overige werkzaamheden in verband met de afwerking van gebouwen"@nl .
+
+nace21:2223  rdfs:label  "22.23 Vervaardiging van deuren en vensters van kunststof"@nl .
+
+nace21:2822  rdfs:label  "28.22 Vervaardiging van hijs-, hef- en transportwerktuigen"@nl .
+
+nace21:4781  rdfs:label  "47.81 Detailhandel in motorvoertuigen"@nl .
+
+nace21:2342  rdfs:label  "23.42 Vervaardiging van sanitair aardewerk"@nl .
+
+nace21:0510  rdfs:label  "05.10 Winning van steenkool"@nl .
+
+nace21:9313  rdfs:label  "93.13 Activiteiten van fitnesscentra"@nl .
+
+nace21:531  rdfs:label  "53.1 Postdiensten in het kader van de universeledienstverplichting"@nl .
+
+nace21:256  rdfs:label  "25.6 Vervaardiging van scharen, messen, bestekken, gereedschap en ijzerwaren"@nl .
+
+nace21:86  rdfs:label  "86 Menselijke gezondheidszorg"@nl .
+
+nace21:1394  rdfs:label  "13.94 Vervaardiging van koord, bindgaren, touw en netten"@nl .
+
+nace21:8610  rdfs:label  "86.10 Activiteiten van ziekenhuizen"@nl .
+
+nace21:5320  rdfs:label  "53.20 Overige posterijen en koeriers"@nl .
+
+nace21:4211  rdfs:label  "42.11 Bouw van autowegen en andere wegen"@nl .
+
+nace21:3031  rdfs:label  "30.31 Vervaardiging van civiele lucht- en ruimtevaartuigen en van toestellen in verband daarmee"@nl .
+
+nace21:22  rdfs:label  "22 Vervaardiging van producten van rubber of kunststof"@nl .
+
+nace21:0121  rdfs:label  "01.21 Teelt van druiven"@nl .
+
+nace21:1429  rdfs:label  "14.29 Vervaardiging van andere kleding en toebehoren, n.e.g."@nl .
+
+nace21:017  rdfs:label  "01.7 Jacht, zetten van vallen en diensten in verband met deze activiteiten"@nl .
+
+nace21:4614  rdfs:label  "46.14 Handelsbemiddeling in de groothandel in machines, apparaten en werktuigen voor de industrie en in schepen en luchtvaartuigen"@nl .
+
+nace21:7722  rdfs:label  "77.22 Verhuur en lease van andere consumentenartikelen"@nl .
+
+nace21:5540  rdfs:label  "55.40 Bemiddelingsactiviteiten in verband met accommodatie"@nl .
+
+nace21:4769  rdfs:label  "47.69 Detailhandel in cultuur- en recreatieartikelen, n.e.g."@nl .
+
+nace21:274  rdfs:label  "27.4 Vervaardiging van verlichtingsbenodigdheden"@nl .
+
+nace21:4399  rdfs:label  "43.99 Overige gespecialiseerde bouwactiviteiten, n.e.g."@nl .
+
+nace21:1085  rdfs:label  "10.85 Vervaardiging van bereide maaltijden en schotels"@nl .
+
+nace21:79  rdfs:label  "79 Activiteiten van reisbureaus, reisorganisatoren, reserveringsbureaus en aanverwante activiteiten"@nl .
+
+nace21:4663  rdfs:label  "46.63 Groothandel in machines voor de mijnbouw, de bouwnijverheid en de weg- en waterbouw"@nl .
+
+nace21:2444  rdfs:label  "24.44 Productie van koper"@nl .
+
+nace21:949  rdfs:label  "94.9 Activiteiten van overige verenigingen"@nl .
+
+nace21:97  rdfs:label  "97 Activiteiten van huishoudens als werkgever van huishoudelijk personeel"@nl .
+
+nace21:2433  rdfs:label  "24.33 Koudvervormen of koudfelsen"@nl .
+
+nace21:267  rdfs:label  "26.7 Vervaardiging van optische instrumenten, magnetische en optische dragers en fotografische apparatuur"@nl .
+
+nace21:7330  rdfs:label  "73.30 Activiteiten van adviesbureaus op het gebied van public relations en communicatie"@nl .
+
+nace21:4764  rdfs:label  "47.64 Detailhandel in spellen en speelgoed"@nl .
+
+nace21:3020  rdfs:label  "30.20 Vervaardiging van rollend materieel voor spoorwegen"@nl .
+
+nace21:4762  rdfs:label  "47.62 Detailhandel in kranten en andere tijdschriften en kantoorbehoeften"@nl .
+
+nace21:2611  rdfs:label  "26.11 Vervaardiging van elektronische onderdelen"@nl .
+
+nace21:292  rdfs:label  "29.2 Vervaardiging van carrosserieën voor motorvoertuigen; vervaardiging van aanhangwagens en opleggers"@nl .
+
+nace21:9525  rdfs:label  "95.25 Reparatie en onderhoud van uurwerken en sieraden"@nl .
+
+nace21:108  rdfs:label  "10.8 Vervaardiging van andere voedingsmiddelen"@nl .
+
+nace21:750  rdfs:label  "75.0 Veterinaire diensten"@nl .
+
+nace21:9312  rdfs:label  "93.12 Activiteiten van sportclubs"@nl .
+
+nace21:1072  rdfs:label  "10.72 Vervaardiging van beschuit, biscuit en houdbaar banketbakkerswerk"@nl .
+
+nace21:0891  rdfs:label  "08.91 Winning van mineralen voor de chemische en de kunstmestindustrie"@nl .
+
+nace21:692  rdfs:label  "69.2 Activiteiten van accountants, boekhouders, auditoren en belastingconsulenten"@nl .
+
+nace21:281  rdfs:label  "28.1 Vervaardiging van machines en apparaten voor algemeen gebruik"@nl .
+
+nace21:1083  rdfs:label  "10.83 Verwerking van thee en koffie"@nl .
+
+nace21:2712  rdfs:label  "27.12 Vervaardiging van schakel- en verdeelinrichtingen"@nl .
+
+nace21:469  rdfs:label  "46.9 Niet-gespecialiseerde groothandel"@nl .
+
+nace21:302  rdfs:label  "30.2 Vervaardiging van rollend materieel voor spoorwegen"@nl .
+
+nace21:6621  rdfs:label  "66.21 Activiteiten van risicoanalisten en schadetaxateurs"@nl .
+
+nace21:L  rdfs:label  "L FINANCIËLE ACTIVITEITEN EN VERZEKERINGEN"@nl .
+
+nace21:6411  rdfs:label  "64.11 Activiteiten van centrale banken"@nl .
+
+nace21:4773  rdfs:label  "47.73 Detailhandel in farmaceutische producten"@nl .
+
+nace21:2225  rdfs:label  "22.25 Verwerking en afwerking van kunststofproducten"@nl .
+
+nace21:9524  rdfs:label  "95.24 Reparatie en onderhoud van meubelen en stoffering"@nl .
+
+nace21:432  rdfs:label  "43.2 Elektrische installatie, loodgieterswerk en overige bouwinstallatie"@nl .
+
+nace21:9532  rdfs:label  "95.32 Reparatie en onderhoud van motorfietsen"@nl .
+
+nace21:38  rdfs:label  "38 Terugwinning uit afval, inzameling en verwijdering van afval"@nl .
+
+nace21:382  rdfs:label  "38.2 Terugwinning uit afval"@nl .
+
+nace21:6039  rdfs:label  "60.39 Andere activiteiten op het gebied van de verspreiding van inhoud"@nl .
+
+nace21:80  rdfs:label  "80 Opsporings- en beveiligingsdiensten"@nl .
+
+nace21:652  rdfs:label  "65.2 Herverzekering"@nl .
+
+nace21:081  rdfs:label  "08.1 Winning van steen, zand en klei"@nl .
+
+nace21:6910  rdfs:label  "69.10 Rechtskundige dienstverlening"@nl .
+
+nace21:6491  rdfs:label  "64.91 Financiële lease"@nl .
+
+nace21:0162  rdfs:label  "01.62 Ondersteunende activiteiten in verband met de veeteelt"@nl .
+
+nace21:731  rdfs:label  "73.1 Reclamewezen"@nl .
+
+nace21:59  rdfs:label  "59 Productie van films en video- en televisieprogramma’s, maken van geluidsopnamen en uitgeverijen van muziekopnamen"@nl .
+
+nace21:2660  rdfs:label  "26.60 Vervaardiging van bestralingsapparatuur en van elektromedische en elektrotherapeutische apparatuur"@nl .
+
+nace21:651  rdfs:label  "65.1 Verzekeringen"@nl .
+
+nace21:7712  rdfs:label  "77.12 Verhuur en lease van vrachtwagens"@nl .
+
+nace21:2013  rdfs:label  "20.13 Vervaardiging van andere anorganische chemische basisproducten"@nl .
+
+nace21:4341  rdfs:label  "43.41 Dakwerkzaamheden"@nl .
+
+nace21:4689  rdfs:label  "46.89 Overige gespecialiseerde groothandel, n.e.g."@nl .
+
+nace21:639  rdfs:label  "63.9 Activiteiten van webportalen en andere activiteiten op het gebied van informatiediensten"@nl .
+
+nace21:2825  rdfs:label  "28.25 Vervaardiging van machines en apparaten voor klimaatregeling, voor niet-huishoudelijk gebruik"@nl .
+
+nace21:3100  rdfs:label  "31.00 Vervaardiging van meubelen"@nl .
+
+nace21:8292  rdfs:label  "82.92 Activiteiten van verpakkingsbedrijven"@nl .
+
+nace21:3900  rdfs:label  "39.00 Sanering en ander afvalbeheer"@nl .
+
+nace21:7911  rdfs:label  "79.11 Activiteiten van reisbureaus"@nl .
+
+nace21:421  rdfs:label  "42.1 Bouw van wegen en spoorwegen"@nl .
+
+nace21:9122  rdfs:label  "91.22 Activiteiten van historische locaties en monumenten"@nl .
+
+nace21:26  rdfs:label  "26 Vervaardiging van informaticaproducten en van elektronische en optische producten"@nl .
+
+nace21:011  rdfs:label  "01.1 Teelt van eenjarige gewassen"@nl .
+
+nace21:0812  rdfs:label  "08.12 Winning van grind, zand, klei en kaolien"@nl .
+
+nace21:782  rdfs:label  "78.2 Activiteiten van uitzendbureaus en andere diensten in verband met personeelsvoorziening"@nl .
+
+nace21:9039  rdfs:label  "90.39 Andere ondersteunende activiteiten voor scheppende en uitvoerende kunst"@nl .
+
+nace21:7111  rdfs:label  "71.11 Activiteiten van architecten"@nl .
+
+nace21:772  rdfs:label  "77.2 Verhuur en lease van consumentenartikelen"@nl .
+
+nace21:0520  rdfs:label  "05.20 Winning van bruinkool"@nl .
+
+nace21:263  rdfs:label  "26.3 Vervaardiging van communicatieapparatuur"@nl .
+
+nace21:9111  rdfs:label  "91.11 Activiteiten van bibliotheken"@nl .
+
+nace21:7820  rdfs:label  "78.20 Activiteiten van uitzendbureaus en andere diensten in verband met personeelsvoorziening"@nl .
+
+nace21:1320  rdfs:label  "13.20 Weven van textiel"@nl .
+
+nace21:324  rdfs:label  "32.4 Vervaardiging van spellen en speelgoed"@nl .
+
+nace21:Q  rdfs:label  "Q ONDERWIJS"@nl .
+
+nace21:477  rdfs:label  "47.7 Detailhandel in andere goederen, met uitzondering van motorvoertuigen en motorfietsen"@nl .
+
+nace21:681  rdfs:label  "68.1 Exploitatie van en handel in onroerend goed met eigen onroerend goed en ontwikkeling van bouwprojecten"@nl .
+
+nace21:813  rdfs:label  "81.3 Landschapsverzorging"@nl .
+
+nace21:2410  rdfs:label  "24.10 Vervaardiging van ijzer en staal en van ferrolegeringen"@nl .
+
+nace21:3530  rdfs:label  "35.30 Productie en distributie van stoom en gekoelde lucht"@nl .
+
+nace21:2599  rdfs:label  "25.99 Vervaardiging van andere producten van metaal n.e.g."@nl .
+
+nace21:4222  rdfs:label  "42.22 Bouw van civieltechnische werken voor elektriciteit en telecommunicatie"@nl .
+
+nace21:773  rdfs:label  "77.3 Verhuur en lease van andere machines en werktuigen en andere materiële goederen"@nl .
+
+nace21:852  rdfs:label  "85.2 Basisonderwijs"@nl .
+
+nace21:2332  rdfs:label  "23.32 Vervaardiging van bakstenen, tegels en producten voor de bouw, van gebakken klei"@nl .
+
+nace21:101  rdfs:label  "10.1 Verwerking en conservering van vlees en vervaardiging van vleesproducten"@nl .
+
+nace21:354  rdfs:label  "35.4 Activiteiten van makelaars en agenten voor elektriciteit en aardgas"@nl .
+
+nace21:4646  rdfs:label  "46.46 Groothandel in farmaceutische en medische artikelen"@nl .
+
+nace21:981  rdfs:label  "98.1 Niet-gedifferentieerde productie van goederen door particuliere huishoudens voor eigen gebruik"@nl .
+
+nace21:5226  rdfs:label  "52.26 Andere vervoerondersteunende activiteiten"@nl .
+
+nace21:4775  rdfs:label  "47.75 Detailhandel in cosmetica en toiletartikelen"@nl .
+
+nace21:91  rdfs:label  "91 Activiteiten van bibliotheken, archieven, musea en overige culturele activiteiten"@nl .
+
+nace21:60  rdfs:label  "60 Programmering, uitzending, nieuwsagentschappen en andere activiteiten op het gebied van de verspreiding van inhoud"@nl .
+
+nace21:2891  rdfs:label  "28.91 Vervaardiging van machines voor de metallurgie"@nl .
+
+nace21:S  rdfs:label  "S KUNST, SPORT EN RECREATIE"@nl .
+
+nace21:5520  rdfs:label  "55.20 Vakantieverblijven en andere accommodatie voor kort verblijf"@nl .
+
+nace21:8411  rdfs:label  "84.11 Algemeen overheidsbestuur"@nl .
+
+nace21:3600  rdfs:label  "36.00 Winning, behandeling en distributie van water"@nl .
+
+nace21:1422  rdfs:label  "14.22 Vervaardiging van onderkleding"@nl .
+
+nace21:775  rdfs:label  "77.5 Bemiddeling in verband met verhuur en leasing van materiële goederen en niet-financiële immateriële activa"@nl .
+
+nace21:932  rdfs:label  "93.2 Activiteiten op het gebied van ontspanning en recreatie"@nl .
+
+nace21:11  rdfs:label  "11 Vervaardiging van dranken"@nl .
+
+nace21:3317  rdfs:label  "33.17 Reparatie en onderhoud van andere civiele transportmiddelen"@nl .
+
+nace21:601  rdfs:label  "60.1 Uitzenden van radioprogramma’s en distributie van audio"@nl .
+
+nace21:0143  rdfs:label  "01.43 Fokken en houden van paarden en andere paardachtigen"@nl .
+
+nace21:2552  rdfs:label  "25.52 Warmtebehandeling van metaal"@nl .
+
+nace21:0146  rdfs:label  "01.46 Fokken en houden van varkens"@nl .
+
+nace21:2814  rdfs:label  "28.14 Vervaardiging van andere kranen en dergelijke artikelen"@nl .
+
+nace21:0330  rdfs:label  "03.30 Ondersteunende activiteiten voor visserij en aquacultuur"@nl .
+
+nace21:2011  rdfs:label  "20.11 Vervaardiging van industriële gassen"@nl .
+
+nace21:4751  rdfs:label  "47.51 Detailhandel in textiel"@nl .
+
+nace21:854  rdfs:label  "85.4 Tertiair onderwijs"@nl .
+
+nace21:2434  rdfs:label  "24.34 Koudtrekken van draad"@nl .
+
+nace21:4661  rdfs:label  "46.61 Groothandel in machines, werktuigen en toebehoren voor de landbouw"@nl .
+
+nace21:2016  rdfs:label  "20.16 Vervaardiging van kunststoffen in primaire vormen"@nl .
+
+nace21:463  rdfs:label  "46.3 Groothandel in voedingsmiddelen, dranken en genotmiddelen"@nl .
+
+nace21:1622  rdfs:label  "16.22 Vervaardiging van geassembleerde parketvloeren"@nl .
+
+nace21:8001  rdfs:label  "80.01 Opsporings- en particuliere beveiligingsdiensten"@nl .
+
+nace21:563  rdfs:label  "56.3 Activiteiten van drinkgelegenheden"@nl .
+
+nace21:1200  rdfs:label  "12.00 Vervaardiging van tabaksproducten"@nl .
+
+nace21:0729  rdfs:label  "07.29 Winning van andere non-ferrometaalertsen"@nl .
+
+nace21:33  rdfs:label  "33 Reparatie, onderhoud en installatie van machines en apparaten"@nl .
+
+nace21:474  rdfs:label  "47.4 Detailhandel in ICT-apparatuur"@nl .
+
+nace21:0210  rdfs:label  "02.10 Bosbouw en bosbouwactiviteiten"@nl .
+
+nace21:1712  rdfs:label  "17.12 Vervaardiging van papier en karton"@nl .
+
+nace21:931  rdfs:label  "93.1 Sport"@nl .
+
+nace21:4312  rdfs:label  "43.12 Bouwrijp maken van terreinen"@nl .
+
+nace21:6530  rdfs:label  "65.30 Activiteiten van pensioenfondsen"@nl .
+
+nace21:3831  rdfs:label  "38.31 Verbranding zonder energieterugwinning"@nl .
+
+nace21:961  rdfs:label  "96.1 Wassen en chemisch reinigen van textiel en bontproducten"@nl .
+
+nace21:559  rdfs:label  "55.9 Overige accommodatie"@nl .
+
+nace21:1105  rdfs:label  "11.05 Vervaardiging van bier"@nl .
+
+nace21:2821  rdfs:label  "28.21 Vervaardiging van ovens en permanente verwarmingstoestellen voor huishoudelijk gebruik"@nl .
+
+nace21:4753  rdfs:label  "47.53 Detailhandel in tapijten en andere vloerbedekking en wandbekleding"@nl .
+
+nace21:202  rdfs:label  "20.2 Vervaardiging van verdelgingsmiddelen, ontsmettingsmiddelen en andere chemische producten voor de landbouw"@nl .
+
+nace21:9491  rdfs:label  "94.91 Activiteiten van religieuze organisaties"@nl .
+
+nace21:511  rdfs:label  "51.1 Personenvervoer door de lucht"@nl .
+
+nace21:4683  rdfs:label  "46.83 Groothandel in hout, bouwmaterialen en sanitair"@nl .
+
+nace21:151  rdfs:label  "15.1 Looien, bereiden en verven van leder en bont; vervaardiging van koffers, tassen, zadel- en tuigmakerswerk"@nl .
+
+nace21:1625  rdfs:label  "16.25 Vervaardiging van houten deuren en vensters"@nl .
+
+nace21:7411  rdfs:label  "74.11 Ontwerpen van industriële producten en mode"@nl .
+
+nace21:702  rdfs:label  "70.2 Activiteiten van adviesbureaus op het gebied van bedrijfsvoering en overig managementadvies"@nl .
+
+nace21:4334  rdfs:label  "43.34 Schilderen en glaszetten"@nl .
+
+nace21:1032  rdfs:label  "10.32 Vervaardiging van groente- en fruitsappen"@nl .
+
+nace21:310  rdfs:label  "31.0 Vervaardiging van meubelen"@nl .
+
+nace21:4672  rdfs:label  "46.72 Groothandel in delen en toebehoren van motorvoertuigen"@nl .
+
+nace21:2224  rdfs:label  "22.24 Vervaardiging van kunststofartikelen voor de bouw"@nl .
+
+nace21:131  rdfs:label  "13.1 Bewerken en spinnen van textielvezels"@nl .
+
+nace21:94  rdfs:label  "94 Activiteiten van verenigingen"@nl .
+
+nace21:120  rdfs:label  "12.0 Vervaardiging van tabaksproducten"@nl .
+
+nace21:612  rdfs:label  "61.2 Wederverkoop van telecommunicatie en bemiddelingsactiviteiten in verband met telecommunicatie"@nl .
+
+nace21:3821  rdfs:label  "38.21 Terugwinning van materialen uit afval"@nl .
+
+nace21:05  rdfs:label  "05 Winning van steenkool en bruinkool"@nl .
+
+nace21:9031  rdfs:label  "90.31 Exploitatie van kunstfaciliteiten en -locaties"@nl .
+
+nace21:9820  rdfs:label  "98.20 Niet-gedifferentieerde productie van diensten door particuliere huishoudens voor eigen gebruik"@nl .
+
+nace21:4740  rdfs:label  "47.40 Detailhandel in ICT-apparatuur"@nl .
+
+nace21:2790  rdfs:label  "27.90 Vervaardiging van andere elektrische apparatuur"@nl .
+
+nace21:1410  rdfs:label  "14.10 Vervaardiging van gebreide en gehaakte kleding"@nl .
+
+nace21:742  rdfs:label  "74.2 Activiteiten op het gebied van fotografie"@nl .
+
+nace21:821  rdfs:label  "82.1 Administratieve en ondersteunende activiteiten ten behoeve van kantoren"@nl .
+
+nace21:259  rdfs:label  "25.9 Vervaardiging van andere producten van metaal"@nl .
+
+nace21:1820  rdfs:label  "18.20 Reproductie van opgenomen media"@nl .
+
+nace21:2365  rdfs:label  "23.65 Vervaardiging van producten van vezelcement"@nl .
+
+nace21:2895  rdfs:label  "28.95 Vervaardiging van machines voor de productie van papier en karton"@nl .
+
+nace21:9020  rdfs:label  "90.20 Verrichten van uitvoerende kunst"@nl .
+
+nace21:3250  rdfs:label  "32.50 Vervaardiging van medische en tandheelkundige instrumenten en benodigdheden"@nl .
+
+nace21:J  rdfs:label  "J ACTIVITEITEN VAN UITGEVERIJEN, OMROEPACTIVITEITEN, EN ACTIVITEITEN OP HET GEBIED VAN PRODUCTIE EN DISTRIBUTIE VAN INHOUD"@nl .
+
+nace21:9699  rdfs:label  "96.99 Overige persoonlijke dienstverlening, n.e.g."@nl .
+
+nace21:43  rdfs:label  "43 Gespecialiseerde bouwwerkzaamheden"@nl .
+
+nace21:3312  rdfs:label  "33.12 Reparatie en onderhoud van machines"@nl .
+
+nace21:3013  rdfs:label  "30.13 Bouw van militaire schepen en vaartuigen"@nl .
+
+nace21:7734  rdfs:label  "77.34 Verhuur en lease van schepen"@nl .
+
+nace21:591  rdfs:label  "59.1 Activiteiten in verband met films en video- en televisieprogramma’s"@nl .
+
+nace21:1723  rdfs:label  "17.23 Vervaardiging van kantoorbenodigdheden van papier"@nl .
+
+nace21:071  rdfs:label  "07.1 Winning van ijzererts"@nl .
+
+nace21:1611  rdfs:label  "16.11 Zagen en schaven van hout"@nl .
+
+nace21:4941  rdfs:label  "49.41 Goederenvervoer over de weg"@nl .
+
+nace21:4323  rdfs:label  "43.23 Installatie van isolatie"@nl .
+
+nace21:5110  rdfs:label  "51.10 Personenvervoer door de lucht"@nl .
+
+nace21:232  rdfs:label  "23.2 Vervaardiging van vuurvaste producten"@nl .
+
+nace21:61  rdfs:label  "61 Telecommunicatie"@nl .
+
+nace21:4641  rdfs:label  "46.41 Groothandel in textiel"@nl .
+
+nace21:902  rdfs:label  "90.2 Verrichten van uitvoerende kunst"@nl .
+
+nace21:1910  rdfs:label  "19.10 Vervaardiging van cokesovenproducten"@nl .
+
+nace21:08  rdfs:label  "08 Overige winning van delfstoffen"@nl .
+
+nace21:953  rdfs:label  "95.3 Reparatie en onderhoud van motorvoertuigen en motorfietsen"@nl .
+
+nace21:0128  rdfs:label  "01.28 Teelt van specerijgewassen en van aromatische en medicinale gewassen"@nl .
+
+nace21:254  rdfs:label  "25.4 Smeden en bewerken van metaal en poedermetallurgie"@nl .
+
+nace21:8551  rdfs:label  "85.51 Sport- en recreatieonderwijs"@nl .
+
+nace21:8423  rdfs:label  "84.23 Justitie"@nl .
+
+nace21:552  rdfs:label  "55.2 Vakantieverblijven en andere accommodatie voor kort verblijf"@nl .
+
+nace21:65  rdfs:label  "65 Activiteiten op het gebied van verzekeringen en pensioenfondsen, exclusief verplichte sociale verzekeringen"@nl .
+
+nace21:504  rdfs:label  "50.4 Goederenvervoer over binnenwateren"@nl .
+
+nace21:3515  rdfs:label  "35.15 Handel in elektriciteit"@nl .
+
+nace21:024  rdfs:label  "02.4 Ondersteunende diensten in verband met de bosbouw"@nl .
+
+nace21:1051  rdfs:label  "10.51 Vervaardiging van zuivelproducten"@nl .
+
+nace21:1813  rdfs:label  "18.13 Prepress- en premediadiensten"@nl .
+
+nace21:7751  rdfs:label  "77.51 Bemiddeling in verband met verhuur en leasing van auto’s, campers en aanhangwagens"@nl .
+
+nace21:243  rdfs:label  "24.3 Vervaardiging van andere producten van de eerste verwerking van staal"@nl .
+
+nace21:964  rdfs:label  "96.4 Bemiddelingsactiviteiten op het gebied van persoonlijke dienstverlening"@nl .
+
+nace21:2343  rdfs:label  "23.43 Vervaardiging van isolatoren en isolatiemateriaal, van keramische stoffen"@nl .
+
+nace21:2731  rdfs:label  "27.31 Vervaardiging van kabels van optische vezels"@nl .
+
+nace21:3099  rdfs:label  "30.99 Vervaardiging van andere transportmiddelen, n.e.g."@nl .
+
+nace21:4618  rdfs:label  "46.18 Handelsbemiddeling in de groothandel in andere goederen"@nl .
+
+nace21:8540  rdfs:label  "85.40 Tertiair onderwijs"@nl .
+
+nace21:8220  rdfs:label  "82.20 Activiteiten van callcenters"@nl .
+
+nace21:332  rdfs:label  "33.2 Installatie van industriële machines, toestellen en werktuigen"@nl .
+
+nace21:7711  rdfs:label  "77.11 Verhuur en lease van personenauto’s en andere lichte motorvoertuigen"@nl .
+
+nace21:4650  rdfs:label  "46.50 Groothandel in informatie- en communicatieapparatuur"@nl .
+
+nace21:7112  rdfs:label  "71.12 Activiteiten van ingenieurs en aanverwante technische adviseurs"@nl .
+
+nace21:843  rdfs:label  "84.3 Verplichte sociale verzekeringen"@nl .
+
+nace21:75  rdfs:label  "75 Veterinaire diensten"@nl .
+
+nace21:4686  rdfs:label  "46.86 Groothandel in andere intermediaire producten"@nl .
+
+nace21:2824  rdfs:label  "28.24 Vervaardiging van elektrisch handgereedschap"@nl .
+
+nace21:104  rdfs:label  "10.4 Vervaardiging van plantaardige en dierlijke oliën en vetten"@nl .
+
+nace21:16  rdfs:label  "16 Houtindustrie en vervaardiging van artikelen van hout en kurk, exclusief meubelen; vervaardiging van artikelen van riet en van vlechtwerk"@nl .
+
+nace21:0122  rdfs:label  "01.22 Teelt van tropisch en subtropisch fruit"@nl .
+
+nace21:50  rdfs:label  "50 Vervoer over water"@nl .
+
+nace21:279  rdfs:label  "27.9 Vervaardiging van andere elektrische apparatuur"@nl .
+
+nace21:162  rdfs:label  "16.2 Vervaardiging van artikelen van hout, kurk, riet of vlechtwerk"@nl .
+
+nace21:9311  rdfs:label  "93.11 Exploitatie van sportaccommodaties"@nl .
+
+nace21:9521  rdfs:label  "95.21 Reparatie en onderhoud van consumentenelektronica"@nl .
+
+nace21:5621  rdfs:label  "56.21 Catering van evenementen"@nl .
+
+nace21:8412  rdfs:label  "84.12 Openbaar bestuur van de gezondheidszorg, onderwijs, culturele diensten en andere sociale diensten"@nl .
+
+nace21:6812  rdfs:label  "68.12 Ontwikkeling van bouwprojecten"@nl .
+
+nace21:321  rdfs:label  "32.1 Bewerken van edelstenen en vervaardiging van sieraden en dergelijke artikelen"@nl .
+
+nace21:2899  rdfs:label  "28.99 Vervaardiging van andere machines, apparaten en werktuigen voor specifieke doeleinden, n.e.g."@nl .
+
+nace21:532  rdfs:label  "53.2 Overige posterijen en koeriers"@nl .
+
+nace21:390  rdfs:label  "39.0 Sanering en ander afvalbeheer"@nl .
+
+nace21:1073  rdfs:label  "10.73 Vervaardiging van deegwaren"@nl .
+
+nace21:881  rdfs:label  "88.1 Maatschappelijke dienstverlening zonder huisvesting voor ouderen of personen met een handicap"@nl .
+
+nace21:1062  rdfs:label  "10.62 Vervaardiging van zetmeel en zetmeelproducten"@nl .
+
+nace21:2451  rdfs:label  "24.51 Gieten van ijzer"@nl .
+
+nace21:2592  rdfs:label  "25.92 Vervaardiging van verpakkingsmiddelen van licht metaal"@nl .
+
+nace21:351  rdfs:label  "35.1 Opwekking, transmissie en distributie van elektriciteit"@nl .
+
+nace21:3212  rdfs:label  "32.12 Bewerken van edelstenen en vervaardiging van sieraden en dergelijke artikelen"@nl .
+
+nace21:8693  rdfs:label  "86.93 Activiteiten van psychologen en psychotherapeuten, met uitzondering van artsen"@nl .
+
+nace21:2563  rdfs:label  "25.63 Vervaardiging van gereedschap"@nl .
+
+nace21:9012  rdfs:label  "90.12 Creatie van beeldende kunsten"@nl .
+
+nace21:P  rdfs:label  "P OPENBAAR BESTUUR EN DEFENSIE; VERPLICHTE SOCIALE VERZEKERINGEN"@nl .
+
+nace21:641  rdfs:label  "64.1 Activiteiten van geldscheppende financiële instellingen"@nl .
+
+nace21:436  rdfs:label  "43.6 Bemiddelingsactiviteiten in verband met gespecialiseerde bouwnijverheid"@nl .
+
+nace21:522  rdfs:label  "52.2 Vervoerondersteunende activiteiten"@nl .
+
+nace21:8621  rdfs:label  "86.21 Activiteiten van huisartspraktijken"@nl .
+
+nace21:2530  rdfs:label  "25.30 Vervaardiging van wapens en munitie"@nl .
+
+nace21:2720  rdfs:label  "27.20 Vervaardiging van batterijen en accumulatoren"@nl .
+
+nace21:19  rdfs:label  "19 Vervaardiging van cokes en van geraffineerde aardolieproducten"@nl .
+
+nace21:9622  rdfs:label  "96.22 Schoonheidsverzorging en andere schoonheidsbehandelingen"@nl .
+
+nace21:9531  rdfs:label  "95.31 Reparatie en onderhoud van motorvoertuigen"@nl .
+
+nace21:0124  rdfs:label  "01.24 Teelt van pit- en steenvruchten"@nl .
+
+nace21:221  rdfs:label  "22.1 Vervaardiging van producten van rubber"@nl .
+
+nace21:913  rdfs:label  "91.3 Instandhouding, restauratie en andere ondersteunende activiteiten voor cultureel erfgoed"@nl .
+
+nace21:6520  rdfs:label  "65.20 Herverzekering"@nl .
+
+nace21:2361  rdfs:label  "23.61 Vervaardiging van artikelen van beton voor de bouw"@nl .
+
+nace21:5530  rdfs:label  "55.30 Kampeer- en caravanterreinen"@nl .
+
+nace21:2620  rdfs:label  "26.20 Vervaardiging van computers en randapparatuur"@nl .
+
+nace21:9510  rdfs:label  "95.10 Reparatie en onderhoud van computers en communicatieapparatuur"@nl .
+
+nace21:2212  rdfs:label  "22.12 Vervaardiging van andere producten van rubber"@nl .
+
+nace21:F  rdfs:label  "F BOUWNIJVERHEID"@nl .
+
+nace21:2512  rdfs:label  "25.12 Vervaardiging van metalen deuren en vensters"@nl .
+
+nace21:9810  rdfs:label  "98.10 Niet-gedifferentieerde productie van goederen door particuliere huishoudens voor eigen gebruik"@nl .
+
+nace21:6622  rdfs:label  "66.22 Activiteiten van verzekeringsagenten en -makelaars"@nl .
+
+nace21:9319  rdfs:label  "93.19 Sportactiviteiten, n.e.g."@nl .
+
+nace21:471  rdfs:label  "47.1 Niet-gespecialiseerde detailhandel"@nl .
+
+nace21:5225  rdfs:label  "52.25 Logistieke diensten"@nl .
+
+nace21:309  rdfs:label  "30.9 Vervaardiging van transportmiddelen, n.e.g."@nl .
+
+nace21:721  rdfs:label  "72.1 Speur- en ontwikkelingswerk op natuurwetenschappelijk gebied"@nl .
+
+nace21:6110  rdfs:label  "61.10 Draadgebonden en draadloze telecommunicatie en telecommunicatie via satelliet"@nl .
+
+nace21:7810  rdfs:label  "78.10 Arbeidsbemiddeling"@nl .
+
+nace21:2443  rdfs:label  "24.43 Productie van lood, zink en tin"@nl .
+
+nace21:9523  rdfs:label  "95.23 Reparatie en onderhoud van schoeisel en lederwaren"@nl .
+
+nace21:7010  rdfs:label  "70.10 Activiteiten van hoofdkantoren"@nl .
+
+nace21:435  rdfs:label  "43.5 Gespecialiseerde bouwactiviteiten op het gebied van weg- en waterbouw"@nl .
+
+nace21:1330  rdfs:label  "13.30 Textielveredeling"@nl .
+
+nace21:A  rdfs:label  "A LANDBOUW, BOSBOUW EN VISSERIJ"@nl .
+
+nace21:0721  rdfs:label  "07.21 Winning van uranium- en thoriumerts"@nl .
+
+nace21:2910  rdfs:label  "29.10 Vervaardiging van motorvoertuigen"@nl .
+
+nace21:5222  rdfs:label  "52.22 Diensten in verband met vervoer over water"@nl .
+
+nace21:602  rdfs:label  "60.2 Samenstellen en uitzenden van televisieprogramma’s en distributie van video’s"@nl .
+
+nace21:5330  rdfs:label  "53.30 Bemiddelingsactiviteiten in verband met post- en koeriersdiensten"@nl .
+
+nace21:682  rdfs:label  "68.2 Verhuur en exploitatie van eigen of geleased onroerend goed"@nl .
+
+nace21:3522  rdfs:label  "35.22 Distributie van gasvormige brandstoffen via leidingen"@nl .
+
+nace21:4932  rdfs:label  "49.32 Personenvervoer over de weg zonder dienstregeling"@nl .
+
+nace21:8899  rdfs:label  "88.99 Overige maatschappelijke dienstverlening waarbij geen onderdak wordt verschaft, n.e.g."@nl .
+
+nace21:7499  rdfs:label  "74.99 Alle overige wetenschappelijke en technische activiteiten en overige specialistische zakelijke dienstverlening, n.e.g."@nl .
+
+nace21:9499  rdfs:label  "94.99 Activiteiten van overige verenigingen, n.e.g."@nl .
+
+nace21:2454  rdfs:label  "24.54 Gieten van andere non-ferrometalen"@nl .
+
+nace21:662  rdfs:label  "66.2 Ondersteunende activiteiten in verband met verzekeringen en pensioenfondsen"@nl .
+
+nace21:U  rdfs:label  "U ACTIVITEITEN VAN HUISHOUDENS ALS WERKGEVER EN NIET-GEDIFFERENTIEERDE PRODUCTIE VAN GOEDEREN EN DIENSTEN DOOR HUISHOUDENS VOOR EIGEN GEBRUIK"@nl .
+
+nace21:4622  rdfs:label  "46.22 Groothandel in bloemen en planten"@nl .
+
+nace21:7500  rdfs:label  "75.00 Veterinaire diensten"@nl .
+
+nace21:0811  rdfs:label  "08.11 Winning van siersteen, kalksteen, gips, leisteen en andere steen"@nl .
+
+nace21:829  rdfs:label  "82.9 Zakelijke dienstverlening, n.e.g."@nl .
+
+nace21:7312  rdfs:label  "73.12 Mediarepresentatie"@nl .
+
+nace21:012  rdfs:label  "01.2 Teelt van meerjarige gewassen"@nl .
+
+nace21:0170  rdfs:label  "01.70 Jacht, zetten van vallen en diensten in verband met deze activiteiten"@nl .
+
+nace21:4712  rdfs:label  "47.12 Overige niet-gespecialiseerde detailhandel"@nl .
+
+nace21:2445  rdfs:label  "24.45 Productie van andere non-ferrometalen"@nl .
+
+nace21:523  rdfs:label  "52.3 Bemiddelingsactiviteiten in verband met vervoer"@nl .
+
+nace21:27  rdfs:label  "27 Vervaardiging van elektrische apparatuur"@nl .
+
+nace21:1084  rdfs:label  "10.84 Vervaardiging van specerijen, sauzen en kruiderijen"@nl .
+
+nace21:M  rdfs:label  "M EXPLOITATIE VAN EN HANDEL IN ONROEREND GOED"@nl .
+
+nace21:2432  rdfs:label  "24.32 Koudwalsen van bandstaal"@nl .
+
+nace21:4939  rdfs:label  "49.39 Overig personenvervoer te land, n.e.g."@nl .
+
+nace21:245  rdfs:label  "24.5 Gieten van metalen"@nl .
+
+nace21:052  rdfs:label  "05.2 Winning van bruinkool"@nl .
+
+nace21:266  rdfs:label  "26.6 Vervaardiging van bestralingsapparatuur en van elektromedische en elektrotherapeutische apparatuur"@nl .
+
+nace21:5812  rdfs:label  "58.12 Uitgeven van kranten"@nl .
+
+nace21:869  rdfs:label  "86.9 Overige menselijke gezondheidszorg"@nl .
+
+nace21:205  rdfs:label  "20.5 Vervaardiging van andere chemische producten"@nl .
+
+nace21:4644  rdfs:label  "46.44 Groothandel in porselein, glaswerk en reinigingsmiddelen"@nl .
+
+nace21:0127  rdfs:label  "01.27 Teelt van gewassen bestemd voor de vervaardiging van dranken"@nl .
+
+nace21:0311  rdfs:label  "03.11 Zeevisserij"@nl .
+
+nace21:3516  rdfs:label  "35.16 Opslag van elektriciteit"@nl .
+
+nace21:323  rdfs:label  "32.3 Vervaardiging van sportartikelen"@nl .
+
+nace21:64  rdfs:label  "64 Financiële dienstverlening, exclusief verzekeringen en pensioenfondsen"@nl .
+
+nace21:1395  rdfs:label  "13.95 Vervaardiging van ongeweven stoffen en artikelen van ongeweven stoffen"@nl .
+
+nace21:8697  rdfs:label  "86.97 Bemiddelingsactiviteiten in verband met geneeskundige, tandheelkundige en andere diensten in verband met de menselijke gezondheid"@nl .
+
+nace21:9112  rdfs:label  "91.12 Activiteiten van archieven"@nl .
+
+nace21:21  rdfs:label  "21 Vervaardiging van farmaceutische grondstoffen en producten"@nl .
+
+nace21:204  rdfs:label  "20.4 Vervaardiging van was-, poets- en reinigingsmiddelen"@nl .
+
+nace21:5813  rdfs:label  "58.13 Uitgeven van tijdschriften"@nl .
+
+nace21:771  rdfs:label  "77.1 Verhuur en lease van motorvoertuigen"@nl .
+
+nace21:4636  rdfs:label  "46.36 Groothandel in suiker, chocolade en suikerwerk"@nl .
+
+nace21:0620  rdfs:label  "06.20 Winning van aardgas"@nl .
+
+nace21:3523  rdfs:label  "35.23 Handel in gas via leidingen"@nl .
+
+nace21:9691  rdfs:label  "96.91 Huishoudelijke persoonlijke dienstverlening"@nl .
+
+nace21:3311  rdfs:label  "33.11 Reparatie en onderhoud van producten van metaal"@nl .
+
+nace21:4755  rdfs:label  "47.55 Detailhandel in meubelen, verlichtingstoestellen, tafelgerei en andere huishoudelijke artikelen"@nl .
+
+nace21:5121  rdfs:label  "51.21 Goederenvervoer door de lucht"@nl .
+
+nace21:1039  rdfs:label  "10.39 Overige verwerking en conservering van groenten en fruit"@nl .
+
+nace21:4615  rdfs:label  "46.15 Handelsbemiddeling in de groothandel in meubelen, huishoudelijke artikelen en ijzerwaren"@nl .
+
+nace21:016  rdfs:label  "01.6 Ondersteunende activiteiten in verband met de landbouw; activiteiten met betrekking tot gewassen na de oogst"@nl .
+
+nace21:493  rdfs:label  "49.3 Overig personenvervoer te land"@nl .
+
+nace21:6619  rdfs:label  "66.19 Overige ondersteunende activiteiten in verband met financiële diensten, exclusief verzekeringen en pensioenfondsen"@nl .
+
+nace21:4726  rdfs:label  "47.26 Detailhandel in tabaksproducten"@nl .
+
+nace21:3299  rdfs:label  "32.99 Overige industrie, n.e.g."@nl .
+
+nace21:592  rdfs:label  "59.2 Maken van geluidsopnamen en uitgeverijen van muziekopnamen"@nl .
+
+nace21:439  rdfs:label  "43.9 Overige gespecialiseerde bouwactiviteiten"@nl .
+
+nace21:1722  rdfs:label  "17.22 Vervaardiging van huishoudelijke en sanitaire papierwaren"@nl .
+
+nace21:8210  rdfs:label  "82.10 Administratieve en ondersteunende activiteiten ten behoeve van kantoren"@nl .
+
+nace21:2391  rdfs:label  "23.91 Vervaardiging van schuurmiddelen"@nl .
+
+nace21:2897  rdfs:label  "28.97 Vervaardiging van machines voor additieve productie"@nl .
+
+nace21:1091  rdfs:label  "10.91 Vervaardiging van veevoeders"@nl .
+
+nace21:7320  rdfs:label  "73.20 Markt- en opinieonderzoek"@nl .
+
+nace21:2670  rdfs:label  "26.70 Vervaardiging van optische instrumenten, magnetische en optische dragers en fotografische apparatuur"@nl .
+
+nace21:970  rdfs:label  "97.0 Activiteiten van huishoudens als werkgever van huishoudelijk personeel"@nl .
+
+nace21:72  rdfs:label  "72 Speur- en ontwikkelingswerk op wetenschappelijk gebied"@nl .
+
+nace21:1011  rdfs:label  "10.11 Verwerking en conservering van vlees, met uitzondering van vlees van gevogelte"@nl .
+
+nace21:3012  rdfs:label  "30.12 Bouw van plezier- en sportvaartuigen"@nl .
+
+nace21:7414  rdfs:label  "74.14 Overige gespecialiseerde ontwerpactiviteiten"@nl .
+
+nace21:920  rdfs:label  "92.0 Activiteiten van loterijen en kansspelen"@nl .
+
+nace21:234  rdfs:label  "23.4 Vervaardiging van andere keramische producten"@nl .
+
+nace21:0163  rdfs:label  "01.63 Behandeling van gewassen na de oogst en van zaden voor vermeerdering"@nl .
+
+nace21:3314  rdfs:label  "33.14 Reparatie en onderhoud van elektrische apparatuur"@nl .
+
+nace21:251  rdfs:label  "25.1 Vervaardiging van metalen constructiewerken"@nl .
+
+nace21:107  rdfs:label  "10.7 Vervaardiging van bakkerijproducten en deegwaren"@nl .
+
+nace21:855  rdfs:label  "85.5 Overig onderwijs"@nl .
+
+nace21:5821  rdfs:label  "58.21 Uitgeven van computerspellen"@nl .
+
+nace21:284  rdfs:label  "28.4 Vervaardiging van niet-verspanende machines voor de metaalbewerking en van gereedschapswerktuigen"@nl .
+
+nace21:4221  rdfs:label  "42.21 Bouw van civieltechnische werken voor vloeistoffen"@nl .
+
+nace21:491  rdfs:label  "49.1 Personenvervoer per spoor"@nl .
+
+nace21:R  rdfs:label  "R MENSELIJKE GEZONDHEIDSZORG EN MAATSCHAPPELIJKE DIENSTVERLENING"@nl .
+
+nace21:49  rdfs:label  "49 Vervoer te land en vervoer via pijpleidingen"@nl .
+
+nace21:554  rdfs:label  "55.4 Bemiddelingsactiviteiten in verband met accommodatie"@nl .
+
+nace21:8559  rdfs:label  "85.59 Overig onderwijs, n.e.g."@nl .
+
+nace21:7990  rdfs:label  "79.90 Activiteiten van reserveringsbureaus en aanverwante activiteiten"@nl .
+
+nace21:211  rdfs:label  "21.1 Vervaardiging van farmaceutische grondstoffen"@nl .
+
+nace21:4934  rdfs:label  "49.34 Personenvervoer met kabelbanen en skiliften"@nl .
+
+nace21:8791  rdfs:label  "87.91 Bemiddelingsactiviteiten in verband met residentiële zorg"@nl .
+
+nace21:42  rdfs:label  "42 Weg- en waterbouw"@nl .
+
+nace21:3319  rdfs:label  "33.19 Reparatie en onderhoud van andere apparatuur"@nl .
+
+nace21:4647  rdfs:label  "46.47 Groothandel in huishoudelijke, kantoor- en winkelmeubelen, tapijten en verlichtingstoestellen"@nl .
+
+nace21:1920  rdfs:label  "19.20 Vervaardiging van geraffineerde aardolieproducten en van producten uit fossiele brandstoffen"@nl .
+
+nace21:3213  rdfs:label  "32.13 Vervaardiging van imitatiesieraden en dergelijke artikelen"@nl .
+
+nace21:90  rdfs:label  "90 Activiteiten op het gebied van scheppende en uitvoerende kunst"@nl .
+
+nace21:2320  rdfs:label  "23.20 Vervaardiging van vuurvaste producten"@nl .
+
+nace21:7420  rdfs:label  "74.20 Activiteiten op het gebied van fotografie"@nl .
+
+nace21:3220  rdfs:label  "32.20 Vervaardiging van muziekinstrumenten"@nl .
+
+nace21:1423  rdfs:label  "14.23 Vervaardiging van werkkleding"@nl .
+
+nace21:2362  rdfs:label  "23.62 Vervaardiging van artikelen van gips voor de bouw"@nl .
+
+nace21:512  rdfs:label  "51.2 Goederenvervoer door de lucht; ruimtevaart"@nl .
+
+nace21:3240  rdfs:label  "32.40 Vervaardiging van spellen en speelgoed"@nl .
+
+nace21:465  rdfs:label  "46.5 Groothandel in informatie- en communicatieapparatuur"@nl .
+
+nace21:35  rdfs:label  "35 Productie en distributie van elektriciteit, gas, stoom en gekoelde lucht"@nl .
+
+nace21:581  rdfs:label  "58.1 Activiteiten van uitgeverijen van boeken en kranten en overige activiteiten van uitgeverijen, met uitzondering van het uitgeven van software"@nl .
+
+nace21:10  rdfs:label  "10 Vervaardiging van voedingsmiddelen"@nl .
+
+nace21:5020  rdfs:label  "50.20 Goederenvervoer over zee- en kustwateren"@nl .
+
+nace21:812  rdfs:label  "81.2 Reiniging"@nl .
+
+nace21:2551  rdfs:label  "25.51 Coating van metalen"@nl .
+
+nace21:0144  rdfs:label  "01.44 Fokken en houden van kamelen en andere kameelachtigen"@nl .
+
+nace21:8130  rdfs:label  "81.30 Landschapsverzorging"@nl .
+
+nace21:2540  rdfs:label  "25.40 Smeden en bewerken van metaal en poedermetallurgie"@nl .
+
+nace21:649  rdfs:label  "64.9 Overige financiële dienstverlening, exclusief verzekeringen en pensioenfondsen"@nl .
+
+nace21:476  rdfs:label  "47.6 Detailhandel in cultuur- en recreatieartikelen"@nl .
+
+nace21:2014  rdfs:label  "20.14 Vervaardiging van andere organische chemische basisproducten"@nl .
+
+nace21:4690  rdfs:label  "46.90 Niet-gespecialiseerde groothandel"@nl .
+
+nace21:2932  rdfs:label  "29.32 Vervaardiging van andere delen en toebehoren voor motorvoertuigen"@nl .
+
+nace21:6920  rdfs:label  "69.20 Activiteiten van accountants, boekhouders, auditoren en belastingconsulenten"@nl .
+
+nace21:5920  rdfs:label  "59.20 Maken van geluidsopnamen en uitgeverijen van muziekopnamen"@nl .
+
+nace21:4611  rdfs:label  "46.11 Handelsbemiddeling in de groothandel in landbouwproducten, levende dieren en textielgrondstoffen en halffabricaten"@nl .
+
+nace21:2331  rdfs:label  "23.31 Vervaardiging van keramische tegels en plavuizen"@nl .
+
+nace21:370  rdfs:label  "37.0 Afvalwaterafvoer"@nl .
+
+nace21:743  rdfs:label  "74.3 Activiteiten van vertalers en tolken"@nl .
+
+nace21:1391  rdfs:label  "13.91 Vervaardiging van gebreide en gehaakte stoffen"@nl .
+
+nace21:2051  rdfs:label  "20.51 Vervaardiging van vloeibare biobrandstoffen"@nl .
+
+nace21:6499  rdfs:label  "64.99 Overige financiële dienstverlening, exclusief verzekeringen en pensioenfondsen, n.e.g."@nl .
+
+nace21:0119  rdfs:label  "01.19 Teelt van andere eenjarige gewassen"@nl .
+
+nace21:7735  rdfs:label  "77.35 Verhuur en lease van luchtvaartuigen"@nl .
+
+nace21:I  rdfs:label  "I VERSCHAFFEN VAN ACCOMMODATIE EN MAALTIJDEN"@nl .
+
+nace21:7491  rdfs:label  "74.91 Bemiddeling in en het in de handel brengen van octrooien"@nl .
+
+nace21:642  rdfs:label  "64.2 Activiteiten van holdings en financieringskanalen"@nl .
+
+nace21:2896  rdfs:label  "28.96 Vervaardiging van machines voor de kunststof- en rubberindustrie"@nl .
+
+nace21:2041  rdfs:label  "20.41 Vervaardiging van zeep en wasmiddelen, poets- en reinigingsmiddelen"@nl .
+
+nace21:191  rdfs:label  "19.1 Vervaardiging van cokesovenproducten"@nl .
+
+nace21:9621  rdfs:label  "96.21 Kappers- en barbiersactiviteiten"@nl .
+
+nace21:4722  rdfs:label  "47.22 Detailhandel in vlees en vleeswaren"@nl .
+
+nace21:5232  rdfs:label  "52.32 Bemiddelingsactiviteiten in verband met personenvervoer"@nl .
+
+nace21:4684  rdfs:label  "46.84 Groothandel in ijzerwaren en in installatiemateriaal voor loodgieterswerk en verwarming"@nl .
+
+nace21:222  rdfs:label  "22.2 Vervaardiging van producten van kunststof"@nl .
+
+nace21:8009  rdfs:label  "80.09 Beveiligingsactiviteiten, n.e.g."@nl .
+
+nace21:0220  rdfs:label  "02.20 Exploitatie van bossen"@nl .
+
+nace21:3318  rdfs:label  "33.18 Reparatie en onderhoud van militaire gevechtsvoertuigen, schepen, lucht- en ruimtevaartuigen"@nl .
+
+nace21:4671  rdfs:label  "46.71 Groothandel in motorvoertuigen"@nl .
+
+nace21:951  rdfs:label  "95.1 Reparatie en onderhoud van computers en communicatieapparatuur"@nl .
+
+nace21:87  rdfs:label  "87 Verpleging, verzorging en begeleiding met overnachting"@nl .
+
+nace21:4333  rdfs:label  "43.33 Vloerafwerking en behangen"@nl .
+
+nace21:4777  rdfs:label  "47.77 Detailhandel in uurwerken en sieraden"@nl .
+
+nace21:023  rdfs:label  "02.3 Verzamelen van in het wild groeiende producten met uitzondering van hout"@nl .
+
+nace21:501  rdfs:label  "50.1 Personenvervoer over zee- en kustwateren"@nl .
+
+nace21:6831  rdfs:label  "68.31 Bemiddeling in verband met exploitatie van en handel in onroerend goed"@nl .
+
+nace21:9412  rdfs:label  "94.12 Activiteiten van beroepsorganisaties"@nl .
+
+nace21:533  rdfs:label  "53.3 Bemiddelingsactiviteiten in verband met post- en koeriersdiensten"@nl .
+
+nace21:2120  rdfs:label  "21.20 Vervaardiging van farmaceutische producten"@nl .
+
+nace21:1711  rdfs:label  "17.11 Vervaardiging van papierpulp"@nl .
+
+nace21:172  rdfs:label  "17.2 Vervaardiging van artikelen van papier of karton"@nl .
+
+nace21:2030  rdfs:label  "20.30 Vervaardiging van verf, vernis e.d., drukinkt en mastiek"@nl .
+
+nace21:2344  rdfs:label  "23.44 Vervaardiging van ander technisch aardewerk"@nl .
+
+nace21:8694  rdfs:label  "86.94 Activiteiten van verpleegkundigen en verloskundigen"@nl .
+
+nace21:46  rdfs:label  "46 Groothandel"@nl .
+
+nace21:4311  rdfs:label  "43.11 Slopen"@nl .
+
+nace21:2894  rdfs:label  "28.94 Vervaardiging van machines voor de productie van textiel, kleding en leer"@nl .
+
+nace21:903  rdfs:label  "90.3 Ondersteunende activiteiten voor scheppende en uitvoerende kunst"@nl .
+
+nace21:301  rdfs:label  "30.1 Scheepsbouw"@nl .
+
+nace21:8421  rdfs:label  "84.21 Buitenlandse zaken"@nl .
+
+nace21:6421  rdfs:label  "64.21 Activiteiten van holdings"@nl .
+
+nace21:2366  rdfs:label  "23.66 Vervaardiging van andere artikelen van beton, cement en gips"@nl .
+
+nace21:233  rdfs:label  "23.3 Vervaardiging van producten voor de bouw, van klei"@nl .
+
+nace21:3540  rdfs:label  "35.40 Activiteiten van makelaars en agenten voor elektriciteit en aardgas"@nl .
+
+nace21:468  rdfs:label  "46.8 Overige gespecialiseerde groothandel"@nl .
+
+nace21:71  rdfs:label  "71 Activiteiten van architecten en ingenieurs; technische testen en toetsen"@nl .
+
+nace21:24  rdfs:label  "24 Vervaardiging van metalen in primaire vorm"@nl .
+
+nace21:1106  rdfs:label  "11.06 Vervaardiging van mout"@nl .
+
+nace21:6220  rdfs:label  "62.20 Activiteiten op het gebied van computerconsultancy en beheer van computerfaciliteiten"@nl .
+
+nace21:4761  rdfs:label  "47.61 Detailhandel in boeken"@nl .
+
+nace21:103  rdfs:label  "10.3 Verwerking en conservering van groenten en fruit"@nl .
+
+nace21:5914  rdfs:label  "59.14 Vertoning van films"@nl .
+
+nace21:5829  rdfs:label  "58.29 Uitgeven van overige software"@nl .
+
+nace21:031  rdfs:label  "03.1 Visserij"@nl .
+
+nace21:2211  rdfs:label  "22.11 Vervaardiging en loopvlakvernieuwing van rubberbanden en vervaardiging van binnenbanden"@nl .
+
+nace21:212  rdfs:label  "21.2 Vervaardiging van farmaceutische producten"@nl .
+
+nace21:732  rdfs:label  "73.2 Markt- en opinieonderzoek"@nl .
+
+nace21:161  rdfs:label  "16.1 Zagen en schaven van hout; verwerking en afwerking van hout"@nl .
+
+nace21:6611  rdfs:label  "66.11 Beheer van financiële markten"@nl .
+
+nace21:8422  rdfs:label  "84.22 Defensie"@nl .
+
+nace21:0710  rdfs:label  "07.10 Winning van ijzererts"@nl .
+
+nace21:95  rdfs:label  "95 Reparatie en onderhoud van computers, consumentenartikelen, auto’s en motorfietsen"@nl .
+
+nace21:6031  rdfs:label  "60.31 Activiteiten van persagentschappen"@nl .
+
+nace21:7752  rdfs:label  "77.52 Bemiddeling in verband met verhuur en leasing van andere materiële goederen en niet-financiële immateriële activa"@nl .
+
+nace21:7912  rdfs:label  "79.12 Activiteiten van reisorganisatoren"@nl .
+
+nace21:1812  rdfs:label  "18.12 Overige activiteiten op het gebied van drukwerk"@nl .
+
+nace21:089  rdfs:label  "08.9 Winning van delfstoffen, n.e.g."@nl .
+
+nace21:8123  rdfs:label  "81.23 Andere reinigingsactiviteiten"@nl .
+
+nace21:2562  rdfs:label  "25.62 Vervaardiging van hang- en sluitwerk"@nl .
+
+nace21:E  rdfs:label  "E DISTRIBUTIE VAN WATER; AFVAL- EN AFVALWATERBEHEER EN SANERING"@nl .
+
+nace21:0115  rdfs:label  "01.15 Teelt van tabak"@nl .
+
+nace21:2399  rdfs:label  "23.99 Vervaardiging van andere niet-metaalhoudende minerale producten, n.e.g."@nl .
+
+nace21:7731  rdfs:label  "77.31 Verhuur en lease van landbouwmachines en -werktuigen"@nl .
+
+nace21:6432  rdfs:label  "64.32 Activiteiten van trust-, vastgoed- en agentuurrekeningen"@nl .
+
+nace21:2593  rdfs:label  "25.93 Vervaardiging van artikelen van draad en van kettingen en veren"@nl .
+
+nace21:631  rdfs:label  "63.1 Computerinfrastructuur, gegevensverwerking, hosting en aanverwante activiteiten"@nl .
+
+nace21:8230  rdfs:label  "82.30 Organisatie van congressen en beurzen"@nl .
+
+nace21:914  rdfs:label  "91.4 Activiteiten van botanische tuinen, dierentuinen en natuurreservaten"@nl .
+
+nace21:V  rdfs:label  "V ACTIVITEITEN VAN EXTRATERRITORIALE ORGANISATIES EN INSTANTIES"@nl .
+
+nace21:8730  rdfs:label  "87.30 Residentiële zorg voor ouderen of personen met een lichamelijke handicap"@nl .
+
+nace21:8691  rdfs:label  "86.91 Activiteiten van medische beeldvorming en medische laboratoria"@nl .
+
+nace21:273  rdfs:label  "27.3 Vervaardiging van kabels en van schakelaars, stekkers, stopcontacten e.d."@nl .
+
+nace21:479  rdfs:label  "47.9 Bemiddelingsactiviteiten in verband met de detailhandel"@nl .
+
+nace21:1081  rdfs:label  "10.81 Vervaardiging van suiker"@nl .
+
+nace21:02  rdfs:label  "02 Bosbouw en exploitatie van bossen"@nl .
+
+nace21:8552  rdfs:label  "85.52 Cultureel onderwijs"@nl .
+
+nace21:429  rdfs:label  "42.9 Bouw van andere civieltechnische werken"@nl .
+
+nace21:4633  rdfs:label  "46.33 Groothandel in zuivelproducten, eieren en spijsoliën en -vetten"@nl .
+
+nace21:9420  rdfs:label  "94.20 Activiteiten van vakverenigingen"@nl .
+
+nace21:53  rdfs:label  "53 Post- en koeriersdiensten"@nl .
+
+nace21:82  rdfs:label  "82 Administratieve en ondersteunende activiteiten ten behoeve van kantoren en overige zakelijke dienstverlening"@nl .
+
+nace21:410  rdfs:label  "41.0 Burgerlijke en utiliteitsbouw"@nl .
+
+nace21:2221  rdfs:label  "22.21 Vervaardiging van platen, vellen, buizen en profielen van kunststof"@nl .
+
+nace21:4783  rdfs:label  "47.83 Detailhandel in motorrijwielen, delen en toebehoren van motorrijwielen"@nl .
+
+nace21:1621  rdfs:label  "16.21 Vervaardiging van fineer en van panelen op basis van hout"@nl .
+
+nace21:822  rdfs:label  "82.2 Activiteiten van callcenters"@nl .
+
+nace21:32  rdfs:label  "32 Overige industrie"@nl .
+
+nace21:3511  rdfs:label  "35.11 Productie van elektriciteit uit niet-hernieuwbare bronnen"@nl .
+
+nace21:237  rdfs:label  "23.7 Houwen, bewerken en afwerken van natuursteen"@nl .
+
+nace21:84  rdfs:label  "84 Openbaar bestuur en defensie; verplichte sociale verzekeringen"@nl .
+
+nace21:4772  rdfs:label  "47.72 Detailhandel in schoeisel en lederwaren"@nl .
+
+nace21:2351  rdfs:label  "23.51 Vervaardiging van cement"@nl .
+
+nace21:9013  rdfs:label  "90.13 Andere vormen van creatie van kunst"@nl .
+
+nace21:110  rdfs:label  "11.0 Vervaardiging van dranken"@nl .
+
+nace21:6392  rdfs:label  "63.92 Overige dienstverlenende activiteiten op het gebied van informatie"@nl .
+
+nace21:98  rdfs:label  "98 Niet-gedifferentieerde productie van goederen en diensten door particuliere huishoudens voor eigen gebruik"@nl .
+
+nace21:8622  rdfs:label  "86.22 Activiteiten van medisch specialisten"@nl .
+
+nace21:2842  rdfs:label  "28.42 Vervaardiging van andere gereedschapswerktuigen"@nl .
+
+nace21:4687  rdfs:label  "46.87 Groothandel in afval en schroot"@nl .
+
+nace21:962  rdfs:label  "96.2 Haarverzorging, schoonheidsverzorging, activiteiten van kuuroorden en dergelijke activiteiten"@nl .
+
+nace21:262  rdfs:label  "26.2 Vervaardiging van computers en randapparatuur"@nl .
+
+nace21:4322  rdfs:label  "43.22 Loodgieterswerk, installatie van verwarming en klimaatregeling"@nl .
+
+nace21:8810  rdfs:label  "88.10 Maatschappelijke dienstverlening zonder huisvesting voor ouderen of personen met een handicap"@nl .
+
+nace21:8425  rdfs:label  "84.25 Brandweer"@nl .
+
+nace21:0123  rdfs:label  "01.23 Teelt van citrusvruchten"@nl .
+
+nace21:09  rdfs:label  "09 Ondersteunende activiteiten in verband met de mijnbouw"@nl .
+
+nace21:3512  rdfs:label  "35.12 Productie van elektriciteit uit hernieuwbare bronnen"@nl .
+
+nace21:1399  rdfs:label  "13.99 Vervaardiging van andere textielproducten, n.e.g."@nl .
+
+nace21:4711  rdfs:label  "47.11 Niet-gespecialiseerde detailhandel waarbij voedings- en genotmiddelen overheersen"@nl .
+
+nace21:2813  rdfs:label  "28.13 Vervaardiging van andere pompen en compressoren"@nl .
+
+nace21:2446  rdfs:label  "24.46 Bewerking van splijt- en kweekstoffen"@nl .
+
+nace21:0610  rdfs:label  "06.10 Winning van aardolie"@nl .
+
+nace21:4299  rdfs:label  "42.99 Bouw van andere civieltechnische werken, n.e.g."@nl .
+
+nace21:68  rdfs:label  "68 Exploitatie van en handel in onroerend goed"@nl .
+
+nace21:663  rdfs:label  "66.3 Vermogensbeheer"@nl .
+
+nace21:3320  rdfs:label  "33.20 Installatie van industriële machines, toestellen en werktuigen"@nl .
+
+nace21:8533  rdfs:label  "85.33 Postsecundair niet-tertiair onderwijs"@nl .
+
+nace21:201  rdfs:label  "20.1 Vervaardiging van chemische basisproducten, kunstmeststoffen en stikstofverbindingen en van kunststoffen en synthetische rubber in primaire vormen"@nl .
+
+nace21:1052  rdfs:label  "10.52 Vervaardiging van roomijs en ander consumptie-ijs"@nl .
+
+nace21:2630  rdfs:label  "26.30 Vervaardiging van communicatieapparatuur"@nl .
+
+nace21:2652  rdfs:label  "26.52 Vervaardiging van klokken en horloges"@nl .
+
+nace21:4619  rdfs:label  "46.19 Handelsbemiddeling in de niet-gespecialiseerde groothandel"@nl .
+
+nace21:6020  rdfs:label  "60.20 Samenstellen en uitzenden van televisieprogramma’s en distributie van video’s"@nl .
+
+nace21:6820  rdfs:label  "68.20 Verhuur en exploitatie van eigen of geleased onroerend goed"@nl .
+
+nace21:139  rdfs:label  "13.9 Vervaardiging van andere textielproducten"@nl .

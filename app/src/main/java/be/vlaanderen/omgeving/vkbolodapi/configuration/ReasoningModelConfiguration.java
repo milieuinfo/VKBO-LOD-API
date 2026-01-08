@@ -41,6 +41,9 @@ public class ReasoningModelConfiguration {
     @Value("classpath:org/w3/www/ns/regorg/regorg.ttl")
     private Resource regorg;
 
+    @Value("classpath:eu/europa/data/ux2/nace/NACE_Rev.2.1-nederlandse-labels.ttl")
+    private Resource nace;
+
     @Bean
     public  Model loadTurtleFromClasspath() {
         Model model_adms = ModelFactory.createDefaultModel();
@@ -83,6 +86,14 @@ public class ReasoningModelConfiguration {
             e.printStackTrace();
         }
 
+        Model model_nace = ModelFactory.createDefaultModel();
+        Resource nace = loadNace();
+        try {
+            model_nace.read(nace.getInputStream(), null, "TURTLE");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         Model model_locn = ModelFactory.createDefaultModel();
         Resource locn = loadLocn();
         try {
@@ -92,7 +103,7 @@ public class ReasoningModelConfiguration {
         }
 
         Model m = model_locn.union(model_geosparql);
-        return m.union(model_adms).union(model_org).union(model_regorg).union(model_skos);
+        return m.union(model_adms).union(model_org).union(model_regorg).union(model_skos).union(model_nace);
     }
 
     @Bean
@@ -130,6 +141,8 @@ public class ReasoningModelConfiguration {
     private Resource loadAdms() {
         return adms;
     }
+
+    private Resource loadNace() { return nace; }
 
     private Resource loadRules() {
         return rules;
