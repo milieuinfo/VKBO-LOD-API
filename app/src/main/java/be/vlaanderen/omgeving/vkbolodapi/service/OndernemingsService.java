@@ -57,6 +57,10 @@ public class OndernemingsService {
         }
     }
 
+    public String getJsonLdFromModel(Model model) {
+        return rdfToJsonLd(model);
+    }
+
     public String getJsonLd(String ondernemingsnr) {
         Model model = extractModel(ondernemingsnr);
         return rdfToJsonLd(model);

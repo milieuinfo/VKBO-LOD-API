@@ -37,6 +37,7 @@ public class RDFController {
 
         // Get RDF model from the service
         org.apache.jena.rdf.model.Model rdfModel = ondernemingsService.extractModel(ondernemingsnr);
+        String jsonld = ondernemingsService.getJsonLdFromModel(rdfModel);
         
         // Extract data for the template
         RDFDataExtractor extractor = new RDFDataExtractor(rdfModel, ondernemingsnr);
@@ -50,6 +51,7 @@ public class RDFController {
         springModel.addAttribute("latitude", extractor.getLatitude());
         springModel.addAttribute("longitude", extractor.getLongitude());
         springModel.addAttribute("wktGeometry", extractor.getWktGeometry());
+        springModel.addAttribute("jsonld", jsonld);
         
         // Debug: Log RDF sections
         List<RDFSection> sections = extractor.getRdfSections();

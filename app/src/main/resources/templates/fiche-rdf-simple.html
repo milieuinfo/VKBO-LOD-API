@@ -11,6 +11,7 @@
     <!-- External CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
     <link rel="stylesheet" href="/css/rdf-style.css"/>
+    <link rel="stylesheet" href="/jsonld-vis.css" type="text/css" />
 
     <!-- Inline page CSS -->
     <style>
@@ -192,6 +193,14 @@
             padding: 12px;
             font-family: monospace;
             background: #fafafa;
+        }
+
+        /* JSON-LD Visualization */
+        #graph {
+            width: 100%;
+            height: 600px;
+            border: 1px solid var(--vl-border);
+            margin-bottom: 24px;
         }
 
         /* Responsive */
@@ -461,6 +470,14 @@
             </details>
         </div>
 
+        <!-- JSON-LD Visualization -->
+        <details id="jsonld-visualization">
+            <summary>JSON-LD Visualisatie</summary>
+            <div class="rdf-section-content">
+                <div id="graph"></div>
+            </div>
+        </details>
+
         <!-- Raw RDF -->
         <details id="raw-rdf">
             <summary>Ruwe RDF Data</summary>
@@ -485,6 +502,9 @@
                 </li>
                 <li th:if="${hasIncomingRelations}">
                     <a href="#incoming-links">Inkomende Links</a>
+                </li>
+                <li>
+                    <a href="#jsonld-visualization">JSON-LD Visualisatie</a>
                 </li>
                 <li>
                     <a href="#raw-rdf">Ruwe RDF Data</a>
@@ -665,6 +685,119 @@
         setTimeout(() => {
             window.dispatchEvent(new Event('scroll'));
         }, 100);
+    });
+</script>
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.js"></script>
+<script src="/jsonld-vis.js"></script>
+<script th:inline="javascript">
+    // Use Thymeleaf to properly escape and process the JSON-LD data
+    // First, let's try to get the raw JSON-LD string
+    var jsonldString = /*[[${jsonld}]]*/ '{}';
+    
+    // Debug: Log the raw JSON-LD string to see what we're getting
+    console.log("Raw JSON-LD string:", jsonldString);
+    
+    // Function to deduplicate nodes in JSON-LD data
+    function deduplicateJsonld(jsonld) {
+        if (!jsonld || typeof jsonld !== 'object') {
+            return jsonld;
+        }
+        
+        // If it's an array, process each item
+        if (Array.isArray(jsonld)) {
+            return jsonld.map(item => deduplicateJsonld(item));
+        }
+        
+        // For objects, we need to handle duplicate nodes
+        const seenNodes = new Map(); // Map of @id -> processed node
+        const result = {};
+        
+        for (const [key, value] of Object.entries(jsonld)) {
+            // Skip @context as it should remain as-is
+            if (key === '@context') {
+                result[key] = value;
+                continue;
+            }
+            
+            // If the value is an object with @id, check for duplicates
+            if (value && typeof value === 'object' && value['@id']) {
+                const nodeId = value['@id'];
+                
+                if (seenNodes.has(nodeId)) {
+                    // This node already exists, skip it but keep track of the relationship
+                    const existingNode = seenNodes.get(nodeId);
+                    
+                    // Add the current predicate to the existing node's relationship tracking
+                    if (!existingNode._relationships) {
+                        existingNode._relationships = [];
+                    }
+                    existingNode._relationships.push(key);
+                    
+                    // Skip adding this duplicate node
+                    continue;
+                } else {
+                    // First time seeing this node, add it and track the relationship
+                    value._relationships = [key]; // Track which relationships point to this node
+                    seenNodes.set(nodeId, value);
+                    result[key] = value;
+                }
+            } else {
+                // Not a node with @id, add as-is
+                result[key] = value;
+            }
+        }
+        
+        return result;
+    }
+    
+    // Try to parse the JSON-LD string
+    var jsonldData;
+    try {
+        var parsedData = JSON.parse(jsonldString);
+        
+        // Apply deduplication to remove duplicate nodes
+        parsedData = deduplicateJsonld(parsedData);
+        
+        // Wrap in array if it's not already an array
+        if (Array.isArray(parsedData)) {
+            jsonldData = parsedData;
+        } else {
+            jsonldData = [parsedData];
+        }
+        
+        console.log("Processed JSON-LD data (after deduplication):", jsonldData);
+    } catch (parseError) {
+        console.error("Error parsing JSON-LD data:", parseError);
+        
+        // Fallback: try to use the string directly as a JavaScript object
+        try {
+            // This is a fallback in case the JSON parsing fails
+            // We'll evaluate the string as JavaScript (be careful with this in production!)
+            var fallbackData = eval('(' + jsonldString + ')');
+            fallbackData = deduplicateJsonld(fallbackData);
+            jsonldData = [fallbackData];
+            console.log("Fallback parsed JSON-LD data:", jsonldData);
+        } catch (evalError) {
+            console.error("Fallback parsing also failed:", evalError);
+            jsonldData = [{}]; // Empty fallback
+        }
+    }
+    
+    // Initialize the visualization when the DOM is ready
+    document.addEventListener('DOMContentLoaded', function() {
+        try {
+            console.log("Initializing JSON-LD visualization with data:", jsonldData);
+            d3.jsonldVis(jsonldData, '#graph', {
+                w: 800,
+                h: 600,
+                maxLabelWidth: 250,
+                tipClassName: 'tip-class'
+            });
+            console.log("JSON-LD visualization initialized successfully");
+        } catch (error) {
+            console.error("Error initializing JSON-LD visualization:", error);
+        }
     });
 </script>
 <footer class="vl-footer">
