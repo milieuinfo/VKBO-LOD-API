@@ -26,13 +26,48 @@
 
         /* Page base */
         body {
-            margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 16px;
-            line-height: 1.75;
-            color: var(--vl-text);
-            background: var(--vl-bg);
+            font-family:
+                    "Flanders Art Sans",
+                    "Helvetica Neue",
+                    Arial,
+                    sans-serif;
+            font-size: 1rem;          /* 16px */
+            line-height: 1.75;        /* Vlaanderen default */
+            color: #1a1a1a;
         }
+
+        html {
+            font-size: 16px;
+        }
+
+        h1 {
+            font-size: 2.75rem;       /* 44px */
+            line-height: 1.15;
+            font-weight: 700;
+            margin: 0 0 1rem;
+        }
+
+        h2 {
+            font-size: 1.75rem;       /* 28px */
+            line-height: 1.3;
+            font-weight: 700;
+            margin: 3rem 0 1rem;
+        }
+
+        h3 {
+            font-size: 1.375rem;      /* 22px */
+            line-height: 1.4;
+            font-weight: 700;
+            margin: 2.5rem 0 0.75rem;
+        }
+
+        h4 {
+            font-size: 1.125rem;      /* 18px */
+            line-height: 1.5;
+            font-weight: 700;
+            margin: 2rem 0 0.5rem;
+        }
+
 
 
         /* Page title */
@@ -192,12 +227,6 @@
             font-size: 0.95rem;
         }
 
-        .vl-side-navigation {
-            position: sticky;
-            top: 32px;
-            align-self: start;
-            font-size: 0.95rem;
-        }
 
         .vl-side-navigation__title {
             font-size: 1rem;
@@ -228,7 +257,7 @@
             text-decoration: underline;
         }
 
-        .vl-side-navigation__list a.js-vl-scrollspy-active {
+        .vl-side-navigation__list a {
             font-weight: 600;
             border-left-color: var(--vl-blue);
             color: var(--vl-blue);
@@ -236,6 +265,62 @@
         .vl-main-content {
             min-width: 0;
         }
+
+        /* Vlaanderen header */
+        .vl-header {
+            border-bottom: 1px solid var(--vl-border);
+            background: var(--vl-bg);
+        }
+
+        .vl-header__inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .vl-header__logo {
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--vl-blue);
+        }
+
+        .vl-header__site-title {
+            font-size: 1rem;
+            color: var(--vl-text);
+        }
+
+        /* Vlaanderen footer */
+        .vl-footer {
+            border-top: 1px solid var(--vl-border);
+            background: var(--vl-bg-light);
+            margin-top: 64px;
+        }
+
+        .vl-footer__inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 24px 16px;
+            font-size: 0.9rem;
+            color: var(--vl-muted);
+        }
+
+        .vl-footer__inner a {
+            color: var(--vl-blue);
+            text-decoration: none;
+        }
+
+        .vl-footer__nav {
+            margin-top: 8px;
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+
         @media (max-width: 1024px) {
             .vl-page-layout {
                 grid-template-columns: 1fr;
@@ -251,6 +336,20 @@
 </head>
 
 <body th:about="${uri}">
+<header class="vl-header">
+    <div class="vl-header__inner">
+        <a href="https://www.vlaanderen.be" class="vl-header__logo">
+            <span class="vl-header__logo-text">Vlaanderen</span>
+        </a>
+
+        <div class="vl-header__site">
+            <span class="vl-header__site-title">
+                RDF Fiche
+            </span>
+        </div>
+    </div>
+</header>
+
 <div class="header">
     <h1 th:text="${title}">RDF Resource</h1>
     <p>
@@ -372,33 +471,7 @@
 </div>
 
 
-<!-- Side Navigation - Single instance on the right-
-<div class="side-navigation-container">
-    <aside class="vl-side-navigation" style="top: 20px;">
-        <h2 id="aside-title" class="vl-side-navigation__title">Op deze pagina</h2>
-        <nav data-vl-side-navigation="" class="vl-side-navigation__content" aria-labelledby="aside-title">
-            <ul>
-                <li class="vl-side-navigation__item" th:if="${hasGeoData}">
-                    <a href="#map" class="vl-side-navigation__toggle">Geografische Informatie</a>
-                </li>
-                <li class="vl-side-navigation__item" th:each="section,sectionStat : ${rdfSections}">
-                    <a th:href="${'#section-' + sectionStat.index}" class="vl-side-navigation__toggle">
-                        <span th:text="${section.title}"></span>
-                    </a>
-                </li>
-                <li class="vl-side-navigation__item">
-                    <a href="#raw-rdf" class="vl-side-navigation__toggle">Ruwe RDF Data</a>
-                </li>
-            </ul>
-        </nav>
-    </aside>
-</div>
--->
-
 <!-- Main Content with Side Navigation -->
-<div class="main-content-container">
-    <div class="content-column">
-
 
 
 <!-- Leaflet -->
@@ -570,6 +643,20 @@
         }, 100);
     });
 </script>
+<footer class="vl-footer">
+    <div class="vl-footer__inner">
+        <p>
+            © Vlaamse overheid —
+            <a href="https://www.vlaanderen.be">vlaanderen.be</a>
+        </p>
+
+        <nav class="vl-footer__nav">
+            <a href="#">Disclaimer</a>
+            <a href="#">Privacy</a>
+            <a href="#">Toegankelijkheid</a>
+        </nav>
+    </div>
+</footer>
 
 </body>
 </html>
