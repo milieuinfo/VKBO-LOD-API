@@ -34,14 +34,6 @@
             background: var(--vl-bg);
         }
 
-        /* Centered content column (CRUCIAL) */
-        body > * {
-            max-width: 760px;
-            margin-left: auto;
-            margin-right: auto;
-            padding-left: 16px;
-            padding-right: 16px;
-        }
 
         /* Page title */
         .header {
@@ -178,6 +170,81 @@
                 font-size: 2rem;
             }
         }
+        .vl-page-layout {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 16px;
+            display: grid;
+            grid-template-columns: 1fr 240px;
+            grid-template-areas: "main aside";
+            gap: 48px;
+        }
+
+        .vl-main-content {
+            grid-area: main;
+        }
+
+        .vl-side-navigation {
+            grid-area: aside;
+            position: sticky;
+            top: 32px;
+            align-self: start;
+            font-size: 0.95rem;
+        }
+
+        .vl-side-navigation {
+            position: sticky;
+            top: 32px;
+            align-self: start;
+            font-size: 0.95rem;
+        }
+
+        .vl-side-navigation__title {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .vl-side-navigation__list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .vl-side-navigation__list li {
+            margin-bottom: 8px;
+        }
+
+        .vl-side-navigation__list a {
+            display: block;
+            padding-left: 12px;
+            border-left: 3px solid transparent;
+            color: var(--vl-text);
+            text-decoration: none;
+        }
+
+        .vl-side-navigation__list a:hover {
+            color: var(--vl-blue);
+            text-decoration: underline;
+        }
+
+        .vl-side-navigation__list a.js-vl-scrollspy-active {
+            font-weight: 600;
+            border-left-color: var(--vl-blue);
+            color: var(--vl-blue);
+        }
+        .vl-main-content {
+            min-width: 0;
+        }
+        @media (max-width: 1024px) {
+            .vl-page-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .vl-side-navigation {
+                display: none;
+            }
+        }
 
 
     </style>
@@ -200,25 +267,28 @@
     <a th:href="${uri} + '?format=nt'">N-Triples</a>
 </div>
 
-<!-- Map -->
-<div th:if="${hasGeoData}">
-    <h2>Geografische Informatie</h2>
-    <div id="map"></div>
+<div class="vl-page-layout">
 
-</div>
+    <main class="vl-main-content">
+        <!-- Map -->
+        <div th:if="${hasGeoData}">
+            <h2>Geografische Informatie</h2>
+            <div id="map"></div>
 
-<!-- RDF Sections -->
-<div th:each="section : ${rdfSections}">
-    <details open>
-        <summary th:text="${section.title}"></summary>
-        <div class="rdf-section-content">
-            <div th:each="predicate : ${section.predicates}">
-                <div class="predicate-object">
-                    <a class="predicate-link"
-                       th:href="${predicate.uri}"
-                       th:text="${predicate.label}"></a>
+        </div>
+        <!-- RDF Sections -->
+        <!-- RDF Sections -->
+        <div th:each="section,sectionStat : ${rdfSections}" th:id="${'section-' + sectionStat.index}">
+            <details open>
+                <summary th:text="${section.title}"></summary>
+                <div class="rdf-section-content">
+                    <div th:each="predicate : ${section.predicates}">
+                        <div class="predicate-object">
+                            <a class="predicate-link"
+                               th:href="${predicate.uri}"
+                               th:text="${predicate.label}"></a>
 
-                    <div class="object">
+                            <div class="object">
                         <span th:each="obj,stat : ${predicate.objects}">
                             <span th:if="${obj.isLiteral}"
                                   th:text="${obj.value}"></span>
@@ -227,7 +297,7 @@
                                th:text="${obj.label}"></a>
                             <span th:if="${!obj.isLiteral and (obj.value == '' or obj.value == null) and !obj.hasNestedProperties()}"
                                   th:text="${obj.label}"></span>
-                            
+
                             <!-- Recursive expansion for blank nodes with nested properties -->
                             <div th:if="${!obj.isLiteral and obj.hasNestedProperties()}" class="nested-blank-node">
                                 <span th:text="${obj.label}"></span>
@@ -245,36 +315,91 @@
                                                    th:text="${nestedObj.label}"></a>
                                                 <span th:if="${!nestedObj.isLiteral and (nestedObj.value == '' or nestedObj.value == null) and !nestedObj.hasNestedProperties()}"
                                                       th:text="${nestedObj.label}"></span>
-                                                
+
                                                 <!-- Recursive expansion for nested blank nodes -->
                                                 <div th:if="${!nestedObj.isLiteral and nestedObj.hasNestedProperties()}" class="nested-blank-node">
                                                     <span th:text="${nestedObj.label}"></span>
                                                     <!-- Could add more nesting levels if needed -->
                                                 </div>
-                                                
+
                                                 <span th:if="${!nestedStat.last}">, </span>
                                             </span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <span th:if="${!stat.last}">, </span>
                         </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </details>
+
+
         </div>
-    </details>
+
+
+        <!-- Raw RDF -->
+        <details id="raw-rdf">
+            <summary>Ruwe RDF Data</summary>
+            <div class="rdf-section-content">
+                <textarea th:text="${rawRdfData}"></textarea>
+            </div>
+        </details>
+    </main>
+
+
+    <aside class="vl-side-navigation" aria-labelledby="aside-title">
+        <h2 id="aside-title" class="vl-side-navigation__title">Op deze pagina</h2>
+        <nav>
+            <ul class="vl-side-navigation__list">
+                <li th:if="${hasGeoData}">
+                    <a href="#map">Geografische Informatie</a>
+                </li>
+                <li th:each="section,stat : ${rdfSections}">
+                    <a th:href="${'#section-' + stat.index}">
+                        <span th:text="${section.title}"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#raw-rdf">Ruwe RDF Data</a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
 </div>
 
-<!-- Raw RDF -->
-<details>
-    <summary>Ruwe RDF Data</summary>
-    <div class="rdf-section-content">
-        <textarea th:text="${rawRdfData}"></textarea>
-    </div>
-</details>
+
+<!-- Side Navigation - Single instance on the right-
+<div class="side-navigation-container">
+    <aside class="vl-side-navigation" style="top: 20px;">
+        <h2 id="aside-title" class="vl-side-navigation__title">Op deze pagina</h2>
+        <nav data-vl-side-navigation="" class="vl-side-navigation__content" aria-labelledby="aside-title">
+            <ul>
+                <li class="vl-side-navigation__item" th:if="${hasGeoData}">
+                    <a href="#map" class="vl-side-navigation__toggle">Geografische Informatie</a>
+                </li>
+                <li class="vl-side-navigation__item" th:each="section,sectionStat : ${rdfSections}">
+                    <a th:href="${'#section-' + sectionStat.index}" class="vl-side-navigation__toggle">
+                        <span th:text="${section.title}"></span>
+                    </a>
+                </li>
+                <li class="vl-side-navigation__item">
+                    <a href="#raw-rdf" class="vl-side-navigation__toggle">Ruwe RDF Data</a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+</div>
+-->
+
+<!-- Main Content with Side Navigation -->
+<div class="main-content-container">
+    <div class="content-column">
+
+
 
 <!-- Leaflet -->
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
@@ -285,15 +410,15 @@
     console.log("DEBUG: Template received - latitude:", [[${latitude}]], "null");
     console.log("DEBUG: Template received - longitude:", [[${longitude}]], "null");
     console.log("DEBUG: Template received - wktGeometry:", [[${wktGeometry}]], "null");
-    
+
     // Set default coordinates (Brussels) as fallback
     var latitude = [[${latitude}]] ? [[${latitude}]] : 50.8503;
     var longitude = [[${longitude}]] ? [[${longitude}]] : 4.3517;
     var wktGeometryData = [[${wktGeometry}]] ? [[${wktGeometry}]] : null;
-    
+
     console.log("DEBUG: JavaScript variables - latitude:", latitude, "longitude:", longitude, "wktGeometryData:", wktGeometryData);
     console.log("DEBUG: WKT data type:", typeof wktGeometryData, "WKT data value:", wktGeometryData);
-    
+
     // Debug: Check if we should proceed with map initialization
     if (wktGeometryData) {
         console.log("DEBUG: WKT data available, proceeding with map initialization:", wktGeometryData);
@@ -303,10 +428,10 @@
     } else {
         console.log("DEBUG: No geo data available (no WKT and no lat/long), skipping map initialization");
     }
-    
+
     document.addEventListener('DOMContentLoaded', function () {
         console.log("DEBUG: DOMContentLoaded event fired, initializing map...");
-        
+
         // Check if map element exists
         var mapElement = document.getElementById('map');
         if (!mapElement) {
@@ -314,7 +439,7 @@
             return;
         }
         console.log("DEBUG: Map element found:", mapElement);
-        
+
         try {
             var map = L.map('map').setView([latitude, longitude], 15);
             console.log("DEBUG: Map initialized successfully");
@@ -329,17 +454,17 @@
                 L.marker([latitude, longitude]).addTo(map);
                 console.log("DEBUG: Added marker at lat/long:", latitude, longitude);
             }
-        
+
             // Add error handling for map initialization
         } catch (e) {
             console.error("DEBUG: Error initializing map:", e);
             return;
         }
-        
+
         // Use WKT geometry if available
         if (wktGeometryData) {
             console.log("DEBUG: Processing WKT geometry:", wktGeometryData);
-            
+
             // Load Wicket for WKT parsing
             var script = document.createElement('script');
             script.src = 'https://cdn.jsdelivr.net/npm/wicket/wicket.min.js';
@@ -348,7 +473,7 @@
             };
             script.onload = function() {
                 console.log("DEBUG: Wicket library loaded successfully");
-                
+
                 var wicketScript = document.createElement('script');
                 wicketScript.src = 'https://cdn.jsdelivr.net/npm/wicket/wicket-leaflet.min.js';
                 wicketScript.onerror = function() {
@@ -356,7 +481,7 @@
                 };
                 wicketScript.onload = function() {
                     console.log("DEBUG: Wicket-Leaflet library loaded successfully");
-                    
+
                     try {
                         console.log("DEBUG: Creating Wicket parser and parsing WKT...");
                         var wicket = new Wkt.Wkt();
@@ -364,7 +489,7 @@
                         var leafletLayer = wicket.toObject({color: 'blue', weight: 2});
                         leafletLayer.addTo(map);
                         console.log("DEBUG: WKT geometry added to map as Leaflet layer");
-                        
+
                         // Try to extract coordinates from WKT POINT for centering
                         if (wktGeometryData.startsWith('POINT(')) {
                             var coordPart = wktGeometryData.substring('POINT('.length, wktGeometryData.length - 1).trim();
@@ -388,6 +513,61 @@
         } else {
             console.log("DEBUG: No WKT geometry data available");
         }
+    });
+</script>
+
+<!-- Scroll Spy for Side Navigation -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Side navigation scroll spy
+        //const navLinks = document.querySelectorAll('.vl-side-navigation__toggle');
+        const navLinks = document.querySelectorAll('.vl-side-navigation a');
+        const sections = [];
+
+        // Collect all sections
+        navLinks.forEach(link => {
+            const targetId = link.getAttribute('href');
+            if (targetId && targetId.startsWith('#')) {
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    sections.push({
+                        link: link,
+                        element: targetElement,
+                        id: targetId
+                    });
+                }
+            }
+        });
+
+        // Add scroll event listener
+        window.addEventListener('scroll', function() {
+            let currentSection = null;
+            let smallestDistance = Infinity;
+
+            sections.forEach(section => {
+                const rect = section.element.getBoundingClientRect();
+                const distance = Math.abs(rect.top);
+
+                if (distance < smallestDistance) {
+                    smallestDistance = distance;
+                    currentSection = section;
+                }
+            });
+
+            // Update active link
+            navLinks.forEach(link => {
+                link.classList.remove('js-vl-scrollspy-active');
+            });
+
+            if (currentSection) {
+                currentSection.link.classList.add('js-vl-scrollspy-active');
+            }
+        });
+
+        // Initial check on page load
+        setTimeout(() => {
+            window.dispatchEvent(new Event('scroll'));
+        }, 100);
     });
 </script>
 
