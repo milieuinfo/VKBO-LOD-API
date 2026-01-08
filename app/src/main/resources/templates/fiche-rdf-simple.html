@@ -352,7 +352,7 @@
 
 
     <aside class="vl-side-navigation" aria-labelledby="aside-title">
-        <h2 id="aside-title" class="vl-side-navigation__title">Op deze pagina</h2>
+        <h2 id="aside-title" class="vl-side-navigation__title" th:text="${title}">Op deze pagina</h2>
         <nav>
             <ul class="vl-side-navigation__list">
                 <li th:if="${hasGeoData}">
