@@ -37,14 +37,14 @@ public class HTMLController {
     @Autowired
     private OndernemingsService ondernemingsService;
 
-    @GetMapping(value = "id/organisatie/{ondernemingsnr}",
+    @GetMapping(value = "id-ori/organisatie/{ondernemingsnr}",
                 produces = "text/html")
     public String getOndernemingAsHtml(
             @PathVariable String ondernemingsnr) {
         return "redirect:/doc/organisatie/{ondernemingsnr}";
     }
 
-    @GetMapping(value = "doc/organisatie/{ondernemingsnr}")
+    @GetMapping(value = "doc-ori/organisatie/{ondernemingsnr}")
     public String getOndernemingDoc(
             @PathVariable String ondernemingsnr,
             Model model) {

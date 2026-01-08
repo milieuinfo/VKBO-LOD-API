@@ -30,7 +30,13 @@ public class RDFController {
     @Autowired
     private ReasoningModelConfiguration reasoningModelConfiguration;
 
-    @GetMapping(value = "rdf/organisatie/{ondernemingsnr}")
+    @GetMapping(value = "id/organisatie/{ondernemingsnr}",
+            produces = "text/html")
+    public String getOndernemingAsRdfHtml(
+            @PathVariable String ondernemingsnr) {
+        return "redirect:/doc/organisatie/{ondernemingsnr}";
+    }
+    @GetMapping(value = "doc/organisatie/{ondernemingsnr}")
     public String getOndernemingAsRdfHtml(
             @PathVariable String ondernemingsnr,
             Model springModel) {
