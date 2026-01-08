@@ -103,7 +103,13 @@ public class RDFController {
             for (Property prop : nameProperties) {
                 StmtIterator iter = jenaModel.listStatements(subject, prop, (RDFNode) null);
                 if (iter.hasNext()) {
-                    return iter.next().getObject().toString();
+                    String title = iter.next().getObject().toString();
+                    // Remove language tag if present (e.g., "UMICORE@nl" -> "UMICORE")
+                    int languageTagIndex = title.indexOf('@');
+                    if (languageTagIndex > 0) {
+                        title = title.substring(0, languageTagIndex);
+                    }
+                    return title;
                 }
             }
             
