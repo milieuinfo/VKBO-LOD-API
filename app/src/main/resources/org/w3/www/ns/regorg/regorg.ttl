@@ -34,6 +34,7 @@
     vann:preferredNamespaceUri "http://www.w3.org/ns/regorg#";
     rdfs:comment "This file specifies the set of RDF classes and properties used in the Registered Organization Vocabulary vocabulary"@en;
     rdfs:label "Registered Organization Vocabulary"@en;
+    rdfs:label "Geregistreerde Organisatie Vocabulaire"@nl;
     dcterms:title "Registered Organization Vocabulary"@en;
     owl:versionInfo "Second version in w3.org/ns";
     wdrs:describedby <http://www.w3.org/TR/vocab-regorg/>.
@@ -55,6 +56,7 @@ rov:RegisteredOrganization dcterms:identifier "rov:RegisteredOrganization";
     natural persons, groups etc. - i.e. an Agent is any entity that is able to carry out actions.</p>"""@en;
     rdfs:isDefinedBy <http://www.w3.org/TR/vocab-regorg/>;
     rdfs:label "Registered Organization"@en;
+    rdfs:label "Geregistreerde Organisatie"@nl;
     rdfs:subClassOf org:FormalOrganization.
 
 rov:legalName dcterms:identifier "rov:legalName";
@@ -63,6 +65,7 @@ rov:legalName dcterms:identifier "rov:legalName";
     rdfs:comment "The legal name of the business. A business might have more than one legal name, particularly in countries with more than one official language. In such cases the language of the string should be identified."@en;
     rdfs:isDefinedBy <http://www.w3.org/TR/vocab-regorg/>;
     rdfs:label "legal name"@en;
+    rdfs:label "juridische naam"@nl;
     rdfs:range rdfs:Literal.
 
 rov:orgType dcterms:identifier "rov:orgType";
@@ -71,6 +74,7 @@ rov:orgType dcterms:identifier "rov:orgType";
     rdfs:comment "This property records the type of organization. Familiar types are SA, PLC, LLC, GmbH etc. Each jurisdiction will have a limited set of recognized company types and these should be used in a consistent manner using a SKOS Concept Scheme. rov:orgType is a sub class of org:classification which has a range of skos:Concept."@en;
     rdfs:isDefinedBy <http://www.w3.org/TR/vocab-regorg/>;
     rdfs:label "company type"@en;
+    rdfs:label "bedrijfstype"@nl;
     rdfs:subPropertyOf org:classification.
 
 rov:orgStatus dcterms:identifier "rov:orgStatus";
@@ -79,6 +83,7 @@ rov:orgStatus dcterms:identifier "rov:orgStatus";
     rdfs:comment "Terms like insolvent, bankrupt and in receivership are likely to have different legal implications in different jurisdictions. Best Practice for recording various other status levels is to use the relevant jurisdiction's terms and to do so in a consistent manner using a SKOS Concept Scheme. rov:orgStatus is a sub class of org:classification which has a range of skos:Concept."@en;
     rdfs:isDefinedBy <http://www.w3.org/TR/vocab-regorg/>;
     rdfs:label "company status"@en;
+    rdfs:label "bedrijfsstatus"@nl;
     rdfs:subPropertyOf org:classification.
 
 rov:orgActivity dcterms:identifier "rov:orgActivity";
@@ -87,6 +92,7 @@ rov:orgActivity dcterms:identifier "rov:orgActivity";
     rdfs:comment "The activity of a company should be recorded using a controlled vocabulary expressed as a SKOS concept scheme. Several such vocabularies exist, many of which map to the UN's ISIC codes. Where a particular controlled vocabulary is in use within a given context, such as SIC codes in the UK, it is acceptable to use these, however, the preferred choice for European interoperability is NACE. rov:orgActivity is a sub class of org:classification which has a range of skos:Concept."@en;
     rdfs:isDefinedBy <http://www.w3.org/TR/vocab-regorg/>;
     rdfs:label "company activity"@en;
+    rdfs:label "bedrijfsactiviteit"@nl;
     rdfs:subPropertyOf org:classification.
 
 rov:registration dcterms:identifier "rov:registration";
@@ -96,6 +102,7 @@ rov:registration dcterms:identifier "rov:registration";
     rdfs:domain rov:RegisteredOrganization;
     rdfs:isDefinedBy rov:;
     rdfs:label "registration"@en;
+    rdfs:label "registratie"@nl;
     rdfs:subPropertyOf adms:identifier.
 
 rov:hasRegisteredOrganization dcterms:identifier "rov:hasRegisteredOrganization";
@@ -105,4 +112,5 @@ rov:hasRegisteredOrganization dcterms:identifier "rov:hasRegisteredOrganization"
     rdfs:domain dcterms:Agent;
     rdfs:isDefinedBy <http://www.w3.org/TR/vocab-regorg/>;
     rdfs:label "registered organization"@en;
+    rdfs:label "geregelde organisatie"@nl;
     rdfs:range rov:RegisteredOrganization.

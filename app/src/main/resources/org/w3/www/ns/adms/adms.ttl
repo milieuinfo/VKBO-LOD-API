@@ -12,6 +12,7 @@ adms:versionNotes  rdf:type  owl:DatatypeProperty;
                    rdfs:domain       rdfs:Resource;
                    rdfs:isDefinedBy  :;
                    rdfs:label        "version notes"@en;
+                   rdfs:label        "versie notities"@nl;
                    rdfs:range        rdfs:Literal .
 
 adms:translation  rdf:type  owl:ObjectProperty;
@@ -19,6 +20,7 @@ adms:translation  rdf:type  owl:ObjectProperty;
                   rdfs:domain       rdfs:Resource;
                   rdfs:isDefinedBy  :;
                   rdfs:label        "translation"@en;
+                  rdfs:label        "vertaling"@nl;
                   rdfs:range        rdfs:Resource .
 
 adms:supportedSchema  rdf:type  owl:ObjectProperty;
@@ -26,6 +28,7 @@ adms:supportedSchema  rdf:type  owl:ObjectProperty;
                       rdfs:domain       rdfs:Resource;
                       rdfs:isDefinedBy  :;
                       rdfs:label        "supported schema"@en;
+                      rdfs:label        "ondersteund schema"@nl;
                       rdfs:range        adms:Asset .
 
 adms:status  rdf:type     owl:ObjectProperty;
@@ -33,6 +36,7 @@ adms:status  rdf:type     owl:ObjectProperty;
              rdfs:domain       rdfs:Resource;
              rdfs:isDefinedBy  :;
              rdfs:label        "status"@en;
+             rdfs:label        "status"@nl;
              rdfs:range        <http://www.w3.org/2004/02/skos/core#Concept> .
 
 adms:schemaAgency  rdf:type  owl:DatatypeProperty;
@@ -40,6 +44,7 @@ adms:schemaAgency  rdf:type  owl:DatatypeProperty;
                    rdfs:domain       adms:Identifier;
                    rdfs:isDefinedBy  :;
                    rdfs:label        "schema agency"@en;
+                   rdfs:label        "schema agentschap"@nl;
                    rdfs:range        rdfs:Literal .
 
 adms:schemeAgency  rdf:type     owl:DatatypeProperty;
@@ -47,6 +52,7 @@ adms:schemeAgency  rdf:type     owl:DatatypeProperty;
                    rdfs:domain             adms:Identifier;
                    rdfs:isDefinedBy        :;
                    rdfs:label              "schema agency"@en;
+                   rdfs:label              "schema agentschap"@nl;
                    rdfs:range              rdfs:Literal;
                    dct:isReplacedBy        adms:schemaAgency;
                    owl:deprecated          "true";
@@ -57,6 +63,7 @@ adms:sample  rdf:type     owl:ObjectProperty;
              rdfs:domain       rdfs:Resource;
              rdfs:isDefinedBy  :;
              rdfs:label        "sample"@en;
+             rdfs:label        "voorbeeld"@nl;
              rdfs:range        rdfs:Resource .
 
 adms:representationTechnique
@@ -65,6 +72,7 @@ adms:representationTechnique
     rdfs:domain       rdfs:Resource;
     rdfs:isDefinedBy  :;
     rdfs:label        "representation technique"@en;
+    rdfs:label        "representatie techniek"@nl;
     rdfs:range        <http://www.w3.org/2004/02/skos/core#Concept> .
 
 adms:prev  rdf:type         owl:ObjectProperty;
@@ -72,6 +80,7 @@ adms:prev  rdf:type         owl:ObjectProperty;
            rdfs:domain         rdfs:Resource;
            rdfs:isDefinedBy    :;
            rdfs:label          "prev"@en;
+           rdfs:label          "vorige"@nl;
            rdfs:range          rdfs:Resource;
            rdfs:subPropertyOf  <http://www.w3.org/1999/xhtml/vocab#prev> .
 
@@ -80,6 +89,7 @@ adms:next  rdf:type         owl:ObjectProperty;
            rdfs:domain         rdfs:Resource;
            rdfs:isDefinedBy    :;
            rdfs:label          "next"@en;
+           rdfs:label          "volgende"@nl;
            rdfs:range          rdfs:Resource;
            rdfs:subPropertyOf  <http://www.w3.org/1999/xhtml/vocab#next> .
 
@@ -88,6 +98,7 @@ adms:last  rdf:type         owl:ObjectProperty;
            rdfs:domain         rdfs:Resource;
            rdfs:isDefinedBy    :;
            rdfs:label          "last"@en;
+           rdfs:label          "laatste"@nl;
            rdfs:range          rdfs:Resource;
            rdfs:subPropertyOf  <http://www.w3.org/1999/xhtml/vocab#last> .
 
@@ -97,6 +108,7 @@ adms:interoperabilityLevel
     rdfs:domain       adms:Asset;
     rdfs:isDefinedBy  :;
     rdfs:label        "interoperability level"@en;
+    rdfs:label        "interoperabiliteitsniveau"@nl;
     rdfs:range        <http://www.w3.org/2004/02/skos/core#Concept> .
 
 adms:includedAsset  rdf:type  owl:ObjectProperty;
@@ -104,6 +116,7 @@ adms:includedAsset  rdf:type  owl:ObjectProperty;
                     rdfs:domain       adms:Asset;
                     rdfs:isDefinedBy  :;
                     rdfs:label        "included asset"@en;
+                    rdfs:label        "inbegrepen asset"@nl;
                     rdfs:range        adms:Asset .
 
 adms:identifier  rdf:type  owl:ObjectProperty;
@@ -111,28 +124,33 @@ adms:identifier  rdf:type  owl:ObjectProperty;
                  rdfs:domain       rdfs:Resource;
                  rdfs:isDefinedBy  :;
                  rdfs:label        "identifier"@en;
+                 rdfs:label        "identifier"@nl;
                  rdfs:range        adms:Identifier .
 
 adms:Identifier  rdf:type  owl:Class;
                  rdfs:comment      "This is based on the UN/CEFACT Identifier class."@en;
                  rdfs:isDefinedBy  :;
-                 rdfs:label        "Identifier"@en .
+                 rdfs:label        "Identifier"@en ;
+                 rdfs:label        "Identifier"@nl .
 
 adms:AssetRepository  rdf:type  owl:Class;
                       rdfs:comment      "A system or service that provides facilities for storage and maintenance of descriptions of Assets and Asset Distributions, and functionality that allows users to search and access these descriptions. An Asset Repository will typically contain descriptions of several Assets and related Asset Distributions."@en;
                       rdfs:isDefinedBy  :;
-                      rdfs:label        "Asset repository"@en .
+                      rdfs:label        "Asset repository"@en ;
+                      rdfs:label        "Asset repository"@nl .
 
 adms:AssetDistribution
     rdf:type          owl:Class;
     rdfs:comment      "A particular physical embodiment of an Asset, which is an example of the FRBR entity manifestation (the physical embodiment of an expression of a work)."@en;
     rdfs:isDefinedBy  :;
-    rdfs:label        "Asset Distribution"@en .
+    rdfs:label        "Asset Distribution"@en ;
+    rdfs:label        "Asset Distributie"@nl .
 
 adms:Asset  rdf:type      owl:Class;
             rdfs:comment      "An abstract entity that reflects the intellectual content of the asset and represents those characteristics of the asset that are independent of its physical embodiment. This abstract entity combines the FRBR entities work (a distinct intellectual or artistic creation) and expression (the intellectual or artistic realization of a work)"@en;
             rdfs:isDefinedBy  :;
-            rdfs:label        "Asset"@en .
+            rdfs:label        "Asset"@en ;
+            rdfs:label        "Asset"@nl .
 
 :       rdf:type      owl:Ontology;
         rdfs:label    "adms"@nl , "adms"@en;

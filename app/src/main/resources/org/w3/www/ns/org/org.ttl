@@ -26,6 +26,7 @@
     rdfs:label "Ontologie des organisations"@fr;
     rdfs:label "Ontologia delle organizzazioni"@it;
     rdfs:label "Ontología de organizaciones"@es;
+    rdfs:label "Kern organisatie ontologie"@nl;
 
     rdfs:comment "Vocabulary for describing organizational structures, specializable to a broad variety of types of organization."@en;
     rdfs:comment "Vocabolario per descrivere strutture organizzative, le quali possono essere specializzate in una vasta varietà di tipi di organizzazione"@it;
@@ -72,6 +73,7 @@ org:Organization a owl:Class, rdfs:Class;
     rdfs:label "Organization"@en;
     rdfs:label "Organisation"@fr;
     rdfs:label "Organizzazione"@it;
+    rdfs:label "Organisatie"@nl;
 
     owl:hasKey (org:identifier) ;
     rdfs:comment """Represents a collection of people organized together into a community or other social, commercial or political structure. The group has some common purpose or reason for existence which goes beyond the set of people belonging to it and can act as an Agent. Organizations are often decomposable into hierarchical structures.  It is recommended that SKOS lexical labels should be used to label the Organization. In particular `skos:prefLabel` for the primary (possibly legally recognized name), `skos:altLabel` for alternative names (trading names, colloquial names) and `skos:notation` to denote a code from a code list. Alternative names: _Collective_ _Body_ _Org_ _Group_"""@en;
@@ -90,6 +92,7 @@ org:FormalOrganization a owl:Class, rdfs:Class;
     rdfs:label "Formal Organization"@en;
     rdfs:label "Organisation Formelle"@fr;
     rdfs:label "Organizzazione formale"@it;
+    rdfs:label "Formele Organisatie"@nl;
 
     rdfs:comment """An Organization which is recognized in the world at large, in particular in legal jurisdictions, with associated rights and responsibilities. Examples include a Corporation, Charity, Government or Church. Note that this is a super class of `gr:BusinessEntity` and it is recommended to use the GoodRelations vocabulary to denote Business classifications such as DUNS or NAICS."""@en;
     rdfs:comment """Une Organisation reconnue, en particulier par les juridictions locales, ayant des droits et des responsabilités. Exemples : entreprises, association à but non-lucratif, collectivité, église. Notez que c'est une super-classe de `gr:BusinessEntity` et qu'il est recommandé d'utiliser le vocabulaire GoodRelations pour indiquer les classifications économiques comme le code NACE."""@fr;
@@ -107,6 +110,7 @@ org:OrganizationalUnit a owl:Class, rdfs:Class;
     rdfs:subClassOf  org:Organization;
 
     rdfs:label "OrganizationalUnit"@en;
+    rdfs:label "Organisatorische Eenheid"@nl;
     rdfs:label "Unité opérationnelle"@fr;
     rdfs:label "Unità Organizzativa"@it;
 
@@ -123,6 +127,7 @@ org:OrganizationalUnit rdfs:label "unidad organizativa"@es ;
 
 org:subOrganizationOf a owl:ObjectProperty, rdf:Property;
     rdfs:label "subOrganization of"@en;
+    rdfs:label "suborganisatie van"@nl;
     rdfs:label "sous-Organization de"@fr;
     rdfs:label "sotto-Organization di"@it;
 
@@ -143,6 +148,7 @@ org:subOrganizationOf rdfs:label "es suborganización de"@es ;
 org:transitiveSubOrganizationOf  a owl:ObjectProperty, owl:TransitiveProperty, rdf:Property;
 
     rdfs:label "transitive sub-organization"@en;
+    rdfs:label "transitieve suborganisatie"@nl;
     rdfs:label "sous-Organization transitive de"@fr;
     rdfs:label "sotto-Organization transitiva"@it;
 
@@ -162,6 +168,7 @@ org:transitiveSubOrganizationOf rdfs:label "es suborganización de manera transi
 
 org:hasSubOrganization a owl:ObjectProperty, rdf:Property;
     rdfs:label "has SubOrganization"@en;
+    rdfs:label "heeft Suborganisatie"@nl;
     rdfs:label "a une Sous-Organization"@fr;
     rdfs:label "ha sotto-Organization"@it;
 
@@ -185,6 +192,7 @@ org:hasSubOrganization owl:inverseOf  org:subOrganizationOf .
 
 org:purpose a rdf:Property;
     rdfs:label "purpose"@en;
+    rdfs:label "doel"@nl;
     rdfs:label "but"@fr;
     rdfs:label "obiettivo"@it;
 
@@ -203,6 +211,7 @@ org:purpose rdfs:label "tiene objetivo"@es ;
 org:hasUnit a owl:ObjectProperty, rdf:Property;
 
     rdfs:label "has Unit"@en;
+    rdfs:label "heeft Eenheid"@nl;
     rdfs:label "possède une Unité"@fr;
     rdfs:label "ha Unit"@it;
 
@@ -223,6 +232,7 @@ org:hasUnit rdfs:label "contiene unidad"@es ;
 org:unitOf a owl:ObjectProperty, rdf:Property;
 
     rdfs:label "unit Of"@en;
+    rdfs:label "eenheid Van"@nl;
     rdfs:label "unité de"@fr;
     rdfs:label "unità di"@it;
 
@@ -248,6 +258,7 @@ org:hasUnit owl:inverseOf org:unitOf .
 org:classification a owl:ObjectProperty, rdf:Property;
 
     rdfs:label "classification"@en;
+    rdfs:label "classificatie"@nl;
     rdfs:label "classification"@fr;
     rdfs:label "classificazione"@it;
 
@@ -268,6 +279,7 @@ org:classification rdfs:label "pertenece a la clasificación"@es ;
 org:identifier a owl:DatatypeProperty, rdf:Property;
 
     rdfs:label "identifier"@en;
+    rdfs:label "identifier"@nl;
     rdfs:label "identifiant"@fr;
     rdfs:label "identificatore"@it;
 
@@ -288,6 +300,7 @@ org:identifier rdfs:label "tiene identificador"@es ;
 org:linkedTo a owl:ObjectProperty, rdf:Property;
 
     rdfs:label "linked to"@en;
+    rdfs:label "gelinkt aan"@nl;
     rdfs:label "relié à"@fr;
     rdfs:label "collegato a"@it;
 
@@ -311,6 +324,7 @@ org:linkedTo rdfs:label "está relacionado con"@es ;
 org:memberOf a owl:ObjectProperty, rdf:Property;
 
     rdfs:label "member of"@en;
+    rdfs:label "lid van"@nl;
     rdfs:label "membre de"@fr;
     rdfs:label "membro di"@it;
 
@@ -331,6 +345,7 @@ org:memberOf rdfs:label "es miembro de"@es ;
 org:hasMember a owl:ObjectProperty, rdf:Property;
 
     rdfs:label "has member"@en;
+    rdfs:label "heeft lid"@nl;
     rdfs:label "possède un membre"@fr;
     rdfs:label "ha membro"@it;
 
@@ -357,6 +372,7 @@ org:hasMember owl:inverseOf org:memberOf  .
 org:reportsTo a owl:ObjectProperty, rdf:Property;
 
     rdfs:label "reports to"@en;
+    rdfs:label "rapporteert aan"@nl;
     rdfs:label "est subordonné à"@fr;
     rdfs:label "riporta a"@it;
 
@@ -378,6 +394,7 @@ org:Role a owl:Class, rdfs:Class;
     rdfs:subClassOf skos:Concept;
 
     rdfs:label "Role"@en;
+    rdfs:label "Rol"@nl;
     rdfs:label "Rôle"@fr;
     rdfs:label "Ruolo"@it;
 
@@ -395,6 +412,7 @@ org:Role rdfs:label "actividad"@es ;
 org:Membership a owl:Class, rdfs:Class;
 
     rdfs:label "Membership"@en;
+    rdfs:label "Lidmaatschap"@nl;
     rdfs:label "Engagement"@fr;
     rdfs:label "Appartenenza"@it;
 
@@ -412,6 +430,7 @@ org:Membership rdfs:label "membresía"@es ;
 org:member a owl:ObjectProperty, rdf:Property, owl:FunctionalProperty;
 
     rdfs:label "member"@en;
+    rdfs:label "lid"@nl;
     rdfs:label "membre"@fr;
     rdfs:label "membro"@it;
 
@@ -432,6 +451,7 @@ org:member rdfs:label "es condición de miembro sobre agente"@es ;
 org:organization a owl:ObjectProperty, rdf:Property, owl:FunctionalProperty;
 
     rdfs:label "organization"@en;
+    rdfs:label "organisatie"@nl;
     rdfs:label "organisation"@fr;
     rdfs:label "organizzazione"@it;
 
@@ -454,6 +474,7 @@ org:organization rdfs:label "es condición de miembro sobre organización"@es ;
 org:role a owl:ObjectProperty, rdf:Property;
 
     rdfs:label "role"@en;
+    rdfs:label "rol"@nl;
     rdfs:label "rôle"@fr;
     rdfs:label "ruolo"@it;
 
@@ -474,6 +495,7 @@ org:role rdfs:label "desempeña la actividad de"@es ;
 org:hasMembership a owl:ObjectProperty, rdf:Property;
 
     rdfs:label "membership"@en;
+    rdfs:label "lidmaatschap"@nl;
     rdfs:label "engagement"@fr;
     rdfs:label "appartenenza"@it;
 
@@ -499,6 +521,7 @@ org:member        owl:inverseOf org:hasMembership .
 org:memberDuring a owl:ObjectProperty, rdf:Property;
 
     rdfs:label "member During"@en;
+    rdfs:label "lid Tijdens"@nl;
     rdfs:label "durée d'engagement"@fr;
     rdfs:label "membro durante"@it;
 
@@ -521,6 +544,7 @@ org:memberDuring rdfs:label "es miembro durante"@es ;
 org:roleProperty a owl:AnnotationProperty, rdf:Property;
 
     rdfs:label "role (property)"@en;
+    rdfs:label "rol (eigenschap)"@nl;
     rdfs:label "rôle (propriété)"@fr;
     rdfs:label "ruolo (proprietà)"@it;
 
@@ -541,6 +565,7 @@ org:roleProperty rdfs:label "desempeña la actividad de (propiedad)"@es ;
 org:headOf a owl:ObjectProperty, rdf:Property;
 
     rdfs:label "head of"@en;
+    rdfs:label "hoofd van"@nl;
     rdfs:label "responsable de"@fr;
     rdfs:label "responsabile di"@it;
 
@@ -563,6 +588,7 @@ org:Head a org:Role;
 # This class is not in the Rec document (PhilA, 2014-02-05)
 
     rdfs:label "head"@en;
+    rdfs:label "hoofd"@nl;
     rdfs:label "responsable"@fr;
     rdfs:label "responsabile"@it;
 
@@ -585,6 +611,7 @@ org:Head rdfs:label "director ejecutivo"@es ;
 org:remuneration a owl:ObjectProperty, rdf:Property;
 
     rdfs:label "remuneration"@en;
+    rdfs:label "beloning"@nl;
     rdfs:label "rémuneration"@fr;
     rdfs:label "remunerazione"@it;
 
@@ -609,6 +636,7 @@ org:remuneration rdfs:label "recibe remuneración"@es ;
 org:Site a owl:Class, rdfs:Class;
 
     rdfs:label "Site"@en;
+    rdfs:label "Locatie"@nl;
     rdfs:label "Site"@fr;
     rdfs:label "Sede"@it;
 
@@ -627,6 +655,7 @@ org:Site rdfs:label "sede"@es ;
 org:siteAddress a owl:ObjectProperty, rdf:Property;
 
     rdfs:label "site Address"@en;
+    rdfs:label "locatie Adres"@nl;
     rdfs:label "adresse du Site"@fr;
     rdfs:label "indirizzo della sede"@it;
 
@@ -647,6 +676,7 @@ org:siteAddress rdfs:label "es la dirección de la sede"@es ;
 org:hasSite a owl:ObjectProperty, rdf:Property;
 
     rdfs:label "has site"@en;
+    rdfs:label "heeft locatie"@nl;
     rdfs:label "a un site"@fr;
     rdfs:label "ha sede"@it;
 
@@ -667,6 +697,7 @@ org:hasSite rdfs:label "tiene sede en"@es ;
 org:siteOf a owl:ObjectProperty, rdf:Property;
 
     rdfs:label "site Of"@en;
+    rdfs:label "locatie Van"@nl;
     rdfs:label "site de"@fr;
     rdfs:label "sede di"@it;
 
@@ -692,6 +723,7 @@ org:siteOf owl:inverseOf org:hasSite .
 org:hasPrimarySite a owl:ObjectProperty, rdf:Property;
 
     rdfs:label "primary Site"@en;
+    rdfs:label "primair Locatie"@nl;
     rdfs:label "site principal"@fr;
     rdfs:label "sede principale"@it;
 
@@ -713,6 +745,7 @@ org:hasPrimarySite rdfs:label "tiene sede principal en"@es ;
 org:hasRegisteredSite a owl:ObjectProperty, rdf:Property;
 
     rdfs:label "registered Site"@en;
+    rdfs:label "geregelde Locatie"@nl;
     rdfs:label "siège social"@fr;
     rdfs:label "sede legale"@it;
 
@@ -734,6 +767,7 @@ org:hasRegisteredSite rdfs:label "tiene sede registrada en"@es ;
 org:basedAt a owl:ObjectProperty, rdf:Property;
 
     rdfs:label "based At"@en;
+    rdfs:label "gevestigd Op"@nl;
     rdfs:label "basé à"@fr;
     rdfs:label "basata a"@it;
 
@@ -754,6 +788,7 @@ org:basedAt rdfs:label "trabaja en la sede"@es ;
 org:location a owl:DatatypeProperty, rdf:Property;
 
     rdfs:label "location"@en;
+    rdfs:label "locatie"@nl;
     rdfs:label "localisation"@fr;
     rdfs:label "luogo"@it;
 
@@ -790,6 +825,7 @@ org:OrganizationalCollaboration a owl:Class, rdfs:Class;
         ];
 
     rdfs:label "Endeavour"@en;
+    rdfs:label "Inspanning"@nl;
     rdfs:label "Partenariat"@fr;
     rdfs:label "Collaborazione"@it;
 
@@ -809,6 +845,7 @@ org:ChangeEvent a owl:Class, rdfs:Class;
     rdfs:subClassOf prov:Activity;
 
     rdfs:label "Change Event"@en;
+    rdfs:label "Wijzigingsgebeurtenis"@nl;
     rdfs:label "Évènement"@fr;
     rdfs:label "Evento di cambiamento"@it;
 
@@ -826,6 +863,7 @@ org:ChangeEvent rdfs:label "evento de cambio"@es ;
 org:originalOrganization a owl:ObjectProperty, rdf:Property;
 
     rdfs:label "original organization"@en;
+    rdfs:label "originele organisatie"@nl;
     rdfs:label "organisation originelle"@fr;
     rdfs:label "organizzazione originale"@it;
 
@@ -847,6 +885,7 @@ org:originalOrganization rdfs:label "es organización original"@es ;
 org:changedBy a owl:ObjectProperty, rdf:Property;
 
     rdfs:label "changed by"@en;
+    rdfs:label "gewijzigd door"@nl;
     rdfs:label "modifiée par"@fr;
     rdfs:label "cambiata da"@it;
 
@@ -874,6 +913,7 @@ org:changedBy            owl:inverseOf org:originalOrganization .
 org:resultedFrom a owl:ObjectProperty, rdf:Property;
 
     rdfs:label "resulted from"@en;
+    rdfs:label "resulteerde uit"@nl;
     rdfs:label "issue de"@fr;
     rdfs:label "risultato da"@it;
 
@@ -895,6 +935,7 @@ org:resultedFrom rdfs:label "es el resultado de"@es ;
 org:resultingOrganization a owl:ObjectProperty, rdf:Property;
 
     rdfs:label "resulted in"@en;
+    rdfs:label "resulteerde in"@nl;
     rdfs:label "a donné naissance à"@fr;
     rdfs:label "risultato in"@it;
 
@@ -927,6 +968,7 @@ prov:wasDerivedFrom owl:propertyChainAxiom (org:resultedFrom org:originalOrganiz
 org:Post a owl:Class, rdfs:Class;
 
     rdfs:label "Post"@en;
+    rdfs:label "Post"@nl;
     rdfs:label "Poste"@fr;
     rdfs:label "Impiego"@it;
 
@@ -943,6 +985,7 @@ org:Post rdfs:label "puesto"@es ;
 org:holds a owl:ObjectProperty, rdf:Property;
 
     rdfs:label "holds"@en;
+    rdfs:label "houdt"@nl;
     rdfs:label "occupe"@fr;
     rdfs:label "ricopre"@it;
 
@@ -965,6 +1008,7 @@ org:holds rdfs:label "ocupa"@es ;
 org:heldBy a owl:ObjectProperty, rdf:Property;
 
     rdfs:label "held by"@en;
+    rdfs:label "gehouden door"@nl;
     rdfs:label "occupé par"@fr;
     rdfs:label "ricoperto da"@it;
 
@@ -990,6 +1034,7 @@ org:holds owl:inverseOf org:heldBy .
 org:postIn a owl:ObjectProperty, rdf:Property;
 
     rdfs:label "post in"@en;
+    rdfs:label "post in"@nl;
     rdfs:label "poste chez"@fr;
     rdfs:label "impiego in"@it;
 
@@ -1009,6 +1054,7 @@ org:postIn rdfs:label "es un puesto en"@es ;
 org:hasPost a owl:ObjectProperty, rdf:Property;
 
     rdfs:label "post"@en;
+    rdfs:label "post"@nl;
     rdfs:label "possède un poste"@fr;
     rdfs:label "impiego"@it;
 

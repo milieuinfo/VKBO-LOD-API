@@ -22,6 +22,7 @@ locn:Geometry  rdf:type     rdfs:Class;
                rdfs:comment        "The locn:Geometry class provides the means to identify a location as a point, line, polygon, etc. expressed using coordinates in some coordinate reference system."@en;
                rdfs:isDefinedBy    <http://www.w3.org/ns/locn>;
                rdfs:label          "Geometry"@en;
+               rdfs:label          "Geometrie"@nl;
                dcterms:identifier  "locn:Geometry";
                vann:usageNote      "This class defines the notion of \"geometry\" at the conceptual level, and it shall be encoded by using different formats (see usage note of the locn:geometry property)."@en;
                vs:term_status      "unstable"@en .
@@ -31,6 +32,7 @@ locn:addressId  rdf:type    rdf:Property;
                 rdfs:domain         locn:Address;
                 rdfs:isDefinedBy    <http://www.w3.org/ns/locn>;
                 rdfs:label          "address ID"@en;
+                rdfs:label          "adres ID"@nl;
                 rdfs:range          rdfs:Literal;
                 dcterms:identifier  "locn:addressId";
                 vs:term_status      "unstable"@en .
@@ -40,6 +42,7 @@ locn:postCode  rdf:type     rdf:Property;
                rdfs:domain         locn:Address;
                rdfs:isDefinedBy    <http://www.w3.org/ns/locn>;
                rdfs:label          "post code"@en;
+               rdfs:label          "postcode"@nl;
                rdfs:range          rdfs:Literal;
                dcterms:identifier  "locn:postCode";
                vs:term_status      "testing"@en .
@@ -49,6 +52,7 @@ locn:adminUnitL1  rdf:type  rdf:Property;
                   rdfs:domain         locn:Address;
                   rdfs:isDefinedBy    <http://www.w3.org/ns/locn>;
                   rdfs:label          "admin unit level 1"@en;
+                  rdfs:label          "admin eenheid niveau 1"@nl;
                   dcterms:identifier  "locn:adminUnitL1";
                   vann:usageNote      "Best practice is to use the ISO 3166-1 code but if this is inappropriate for the context, country names should be provided in a consistent manner to reduce ambiguity. For example, either write 'United Kingdom' or 'UK' consistently throughout the data set and avoid mixing the two."@en;
                   vs:term_status      "testing"@en .
@@ -58,6 +62,7 @@ locn:adminUnitL2  rdf:type  rdf:Property;
                   rdfs:domain         locn:Address;
                   rdfs:isDefinedBy    <http://www.w3.org/ns/locn>;
                   rdfs:label          "admin unit level 2"@en;
+                  rdfs:label          "admin eenheid niveau 2"@nl;
                   dcterms:identifier  "locn:adminUnitL2";
                   vs:term_status      "testing"@en .
 
@@ -66,6 +71,7 @@ locn:postName  rdf:type     rdf:Property;
                rdfs:domain         locn:Address;
                rdfs:isDefinedBy    <http://www.w3.org/ns/locn>;
                rdfs:label          "post name"@en;
+               rdfs:label          "postnaam"@nl;
                rdfs:range          rdfs:Literal;
                dcterms:identifier  "locn:postName";
                vs:term_status      "testing"@en .
@@ -75,6 +81,7 @@ locn:addressArea  rdf:type  rdf:Property;
                   rdfs:domain         locn:Address;
                   rdfs:isDefinedBy    <http://www.w3.org/ns/locn>;
                   rdfs:label          "address area"@en;
+                  rdfs:label          "adresgebied"@nl;
                   rdfs:range          rdfs:Literal;
                   dcterms:identifier  "locn:addressArea";
                   vs:term_status      "testing"@en .
@@ -83,6 +90,7 @@ locn:locatorName  rdf:type  rdf:Property;
                   rdfs:comment        "Proper noun(s) applied to the real world entity identified by the locator. The locator name could be the name of the property or complex, of the building or part of the building, or it could be the name of a room inside a building. \n    "@en;
                   rdfs:isDefinedBy    <http://www.w3.org/ns/locn>;
                   rdfs:label          "locator name"@en;
+                  rdfs:label          "locator naam"@nl;
                   dcterms:identifier  "locn:locatorName";
                   vs:term_status      "testing"@en .
 
@@ -91,6 +99,7 @@ locn:locatorDesignator
         rdfs:comment        "A number or a sequence of characters that uniquely identifies the locator within the relevant scope(s). The full identification of the locator could include one or more locator designators.\n    "@en;
         rdfs:isDefinedBy    <http://www.w3.org/ns/locn>;
         rdfs:label          "locator designator"@en;
+        rdfs:label          "locator aanduiding"@nl;
         dcterms:identifier  "locn:locatorDesignator";
         vs:term_status      "testing"@en .
 
@@ -99,6 +108,7 @@ locn:thoroughfare  rdf:type  rdf:Property;
                    rdfs:domain         locn:Address;
                    rdfs:isDefinedBy    <http://www.w3.org/ns/locn>;
                    rdfs:label          "thoroughfare"@en;
+                   rdfs:label          "doorgaande weg"@nl;
                    rdfs:range          rdfs:Literal;
                    dcterms:identifier  "locn:thoroughfare";
                    vs:term_status      "testing"@en .
@@ -108,6 +118,7 @@ locn:poBox  rdf:type        rdf:Property;
             rdfs:domain         locn:Address;
             rdfs:isDefinedBy    <http://www.w3.org/ns/locn>;
             rdfs:label          "PO box"@en;
+            rdfs:label          "postbus"@nl;
             rdfs:range          rdfs:Literal;
             dcterms:identifier  "locn:poBox";
             vs:term_status      "testing"@en .
@@ -117,6 +128,7 @@ locn:fullAddress  rdf:type  rdf:Property;
                   rdfs:domain         locn:Address;
                   rdfs:isDefinedBy    <http://www.w3.org/ns/locn>;
                   rdfs:label          "full address"@en;
+                  rdfs:label          "volledig adres"@nl;
                   rdfs:range          rdfs:Literal;
                   dcterms:identifier  "locn:fullAddress";
                   vs:term_status      "testing"@en .
@@ -125,6 +137,7 @@ locn:Address  rdf:type      rdfs:Class;
               rdfs:comment        "An \"address representation\" as conceptually defined by the INSPIRE Address Representation data type. The locn:addressId property may be used to link this locn:Address to other representations."@en;
               rdfs:isDefinedBy    <http://www.w3.org/ns/locn>;
               rdfs:label          "Address"@en;
+              rdfs:label          "Adres"@nl;
               dcterms:identifier  "locn:Address";
               vs:term_status      "testing"@en;
               wdrs:describedby    <https://joinup.ec.europa.eu/node/55858> .
@@ -133,6 +146,7 @@ locn:address  rdf:type      rdf:Property;
               rdfs:comment        "The locn:address property relationship associates any resource with the locn:Address class "@en;
               rdfs:isDefinedBy    <http://www.w3.org/ns/locn>;
               rdfs:label          "address"@en;
+              rdfs:label          "adres"@nl;
               rdfs:range          locn:Address;
               dcterms:identifier  "locn:address";
               vs:term_status      "testing"@en .
@@ -141,6 +155,7 @@ locn:geometry  rdf:type     rdf:Property;
                rdfs:comment        "Associates any resource with the corresponding geometry."@en;
                rdfs:isDefinedBy    <http://www.w3.org/ns/locn>;
                rdfs:label          "geometry"@en;
+               rdfs:label          "geometrie"@nl;
                rdfs:range          locn:Geometry;
                dcterms:identifier  "locn:geometry";
                vann:example        "\nThe following are examples of equivalent statements using different geometry encodings. In the examples, prefix gsp is used for namespace URI http://www.opengis.net/ont/geosparql#, whereas prefix sf is used for namespace URI http://www.opengis.net/ont/sf#.\n- WKT (GeoSPARQL)\n:Resource locn:geometry\n  \"<http://www.opengis.net/def/crs/OGC/1.3/CRS84> Point(-0.001475 51.477811)\"^^gsp:wktLiteral .\n- GML\n:Resource locn:geometry\n  \"<gml:Point srsName='http://www.opengis.net/def/crs/OGC/1.3/CRS84'>\n  <gml:coordinates>-0.001475, 51.477811</gml:coordinates></gml:Point>\"^^gsp:gmlLiteral .\n- RDF+WKT (GeoSPARQL)\n:Resource locn:geometry\n  [ a sf:Point; gsp:asWKT \"<http://www.opengis.net/def/crs/OGC/1.3/CRS84> Point(-0.001475 51.477811)\"^^gsp:wktLiteral ] .\n- RDF+GML (GeoSPARQL)\n:Resource locn:geometry\n  [ a sf:Point; gsp:asGML\n     \"<gml:Point srsName='http://www.opengis.net/def/crs/OGC/1.3/CRS84'>\n      <gml:coordinates>-0.001475, 51.477811</gml:coordinates></gml:Point>\"^^gsp:gmlLiteral ] .\n- RDF (WGS84 lat/long)\n:Resource locn:geometry [ a geo:Point; geo:lat \"51.477811\"; geo:long \"-0.001475\" ] .\n- RDF (schema.org)\n:Resource locn:geometry [ a schema:GeoCoordinates; schema:latitude \"51.477811\"; schema:longitude \"-0.001475\" ] .\n- geo URI\n:Resource locn:geometry <geo:51.477811,-0.001475;u=0;crs=wgs84> .\n- GeoHash URI\n:Resource locn:geometry <http://geohash.org/gcpuzgnzvxkp> .\n    "@en;
@@ -151,6 +166,7 @@ locn:geometry  rdf:type     rdf:Property;
 rdfs:seeAlso  rdfs:comment  "rdfs:seeAlso fully represents the ISA Programme Location Core Vocabulary concept of a geographic identifier."@en;
               rdfs:isDefinedBy    rdfs:;
               rdfs:label          "geographic identifier"@en;
+              rdfs:label          "geografische identifier"@nl;
               dcterms:identifier  "rdfs:seeAlso";
               vann:usageNote      "Used in the ISA Programme Location Core Vocabulary to provide a URI that identifies the location. This should be expressed using the rdfs:seeAlso property unless the identifier is already the subject of the description. Examples include URIs from GeoNames.org and DBpedia such as http://dbpedia.org/resource/ISO_3166-2:XX where XX is the ISO 3166 two character code for a country."@en;
               vs:term_status      "unstable"@en .
@@ -159,6 +175,7 @@ locn:geographicName  rdf:type  rdf:Property;
                      rdfs:comment        "\nA geographic name is a proper noun applied to a spatial object. Taking the example used in the relevant INSPIRE data specification (page 18), the following are all valid geographic names for the Greek capital:\n- Αθήνα (the Greek endonym written in the Greek script)\n- Athína (the standard Romanisation of the endonym)\n- Athens (the English language exonym)\nFor INSPIRE-conformant data, provide the metadata for the geographic name using a skos:Concept as a datatype.\n"@en;
                      rdfs:isDefinedBy    <http://www.w3.org/ns/locn>;
                      rdfs:label          "geographic name"@en;
+                     rdfs:label          "geografische naam"@nl;
                      dcterms:identifier  "locn:geographicName";
                      vs:term_status      "testing"@en;
                      wdrs:describedby    <https://joinup.ec.europa.eu/node/55858> .
@@ -167,6 +184,7 @@ locn:location  rdf:type     rdf:Property;
                rdfs:comment        "The location property links any resource to the Location Class. Asserting the location relationship implies only that the domain has some connection to a Location in time or space. It does not imply that the resource is necessarily at that location at the time when the assertion is made."@en;
                rdfs:isDefinedBy    <http://www.w3.org/ns/locn>;
                rdfs:label          "location"@en;
+               rdfs:label          "locatie"@nl;
                rdfs:range          dcterms:Location;
                dcterms:identifier  "locn:location";
                vs:term_status      "testing"@en .
@@ -174,6 +192,7 @@ locn:location  rdf:type     rdf:Property;
 dcterms:Location  rdfs:comment  "dcterms:Location class fully represents the ISA Programme Location Core Vocabulary class of Location."@en;
                   rdfs:isDefinedBy    dcterms:;
                   rdfs:label          "Location"@en;
+                  rdfs:label          "Locatie"@nl;
                   dcterms:identifier  "dcterms:Location";
                   vann:usageNote      "This is the key class for the ISA Programme Location Core Vocabulary and represents any location, irrespective of size or other restriction."@en;
                   vs:term_status      "testing"@en .
