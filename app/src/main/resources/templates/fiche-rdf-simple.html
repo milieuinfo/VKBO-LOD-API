@@ -373,7 +373,6 @@
         <div th:if="${hasGeoData}">
             <h2>Geografische Informatie</h2>
             <div id="map"></div>
-
         </div>
         <!-- RDF Sections -->
         <!-- RDF Sections -->
@@ -440,6 +439,28 @@
         </div>
 
 
+        <!-- Incoming Links Section -->
+        <div th:if="${hasIncomingRelations}" id="incoming-links">
+            <details open>
+                <summary>Inkomende Links</summary>
+                <div class="rdf-section-content">
+                    <div th:each="relation : ${incomingRelations}">
+                        <div class="predicate-object">
+                            <span class="predicate-link" th:text="${relation.label}"></span>
+
+                            <div class="object">
+                                <a th:if="${relation.target != '' and relation.target != null}"
+                                   th:href="${relation.target}"
+                                   th:text="${relation.targetLabel}"></a>
+                                <span th:if="${relation.target == '' or relation.target == null}"
+                                      th:text="${relation.targetLabel}"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </details>
+        </div>
+
         <!-- Raw RDF -->
         <details id="raw-rdf">
             <summary>Ruwe RDF Data</summary>
@@ -461,6 +482,9 @@
                     <a th:href="${'#section-' + stat.index}">
                         <span th:text="${section.title}"></span>
                     </a>
+                </li>
+                <li th:if="${hasIncomingRelations}">
+                    <a href="#incoming-links">Inkomende Links</a>
                 </li>
                 <li>
                     <a href="#raw-rdf">Ruwe RDF Data</a>

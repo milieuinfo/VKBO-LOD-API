@@ -480,6 +480,101 @@ public class RDFController {
         }
 
         /**
+         * Extract incoming links (other resources that link to this subject)
+         */
+        private List<RDFPredicate> extractIncomingLinks() {
+            List<RDFPredicate> incomingLinks = new ArrayList<>();
+            
+            // 1. Look for direct incoming links (statements where this subject is the object)
+            StmtIterator directIter = jenaModel.listStatements(null, null, subject);
+            
+            while (directIter.hasNext()) {
+                Statement stmt = directIter.next();
+                Resource linkingSubject = stmt.getSubject();
+                Property predicate = stmt.getPredicate();
+                
+                // Skip if the linking subject is the same as our subject (self-references)
+                if (linkingSubject.equals(subject)) {
+                    continue;
+                }
+                
+                // Get predicate label
+                String predicateLabel = getPredicateLabel(predicate);
+                
+                // Create RDF object representation for the linking subject
+                RDFObject rdfObject = new RDFObject();
+                rdfObject.isLiteral = false;
+                rdfObject.value = linkingSubject.getURI();
+                rdfObject.label = getResourceLabel(linkingSubject);
+                
+                // Create predicate and add to incoming links
+                RDFPredicate rdfPredicate = new RDFPredicate(
+                    predicate.getURI(), 
+                    predicateLabel + " (incoming)", 
+                    rdfObject
+                );
+                incomingLinks.add(rdfPredicate);
+            }
+            
+            // 2. Infer incoming links from outgoing links (inverse relationships)
+            // This handles cases where the RDF model only contains data about the current subject
+            // but we can infer incoming links from outgoing relationships
+            StmtIterator outgoingIter = jenaModel.listStatements(subject, null, (RDFNode) null);
+            
+            while (outgoingIter.hasNext()) {
+                Statement stmt = outgoingIter.next();
+                Property predicate = stmt.getPredicate();
+                RDFNode object = stmt.getObject();
+                
+                // Skip literals and blank nodes - we only want named resources
+                if (object.isLiteral() || object.isAnon()) {
+                    continue;
+                }
+                
+                Resource targetResource = object.asResource();
+                String inversePredicateUri = getInversePredicate(predicate.getURI());
+                
+                if (inversePredicateUri != null) {
+                    // Get the inverse predicate
+                    Property inversePredicate = jenaModel.createProperty(inversePredicateUri);
+                    String inversePredicateLabel = getPredicateLabel(inversePredicate);
+                    
+                    // Create RDF object representation for the target resource
+                    RDFObject rdfObject = new RDFObject();
+                    rdfObject.isLiteral = false;
+                    rdfObject.value = targetResource.getURI();
+                    rdfObject.label = getResourceLabel(targetResource);
+                    
+                    // Create predicate and add to incoming links
+                    RDFPredicate rdfPredicate = new RDFPredicate(
+                        inversePredicateUri, 
+                        inversePredicateLabel + " (inferred)", 
+                        rdfObject
+                    );
+                    incomingLinks.add(rdfPredicate);
+                }
+            }
+            
+            return incomingLinks;
+        }
+        
+        /**
+         * Get the inverse predicate URI for common organizational relationships
+         */
+        private String getInversePredicate(String predicateUri) {
+            // Map of predicate URIs to their inverses
+            if (predicateUri.equals("http://www.w3.org/ns/org#subOrganizationOf")) {
+                return "http://www.w3.org/ns/org#hasSubOrganization";
+            } else if (predicateUri.equals("http://www.w3.org/ns/org#unitOf")) {
+                return "http://www.w3.org/ns/org#hasUnit";
+            } else if (predicateUri.equals("http://www.w3.org/ns/org#transitiveSubOrganizationOf")) {
+                return "http://www.w3.org/ns/org#hasSubOrganization"; // Transitive inverse
+            }
+            // Add more inverse relationships as needed
+            return null;
+        }
+
+        /**
          * Recursively extract properties from a blank node
          */
         private List<RDFPredicate> extractBlankNodeProperties(Resource blankNode) {
@@ -546,13 +641,31 @@ public class RDFController {
         }
         
         public boolean hasIncomingRelations() {
-            // Check for incoming relations (this would require SPARQL endpoint or more complex reasoning)
-            // For now, return false as this is not implemented in the basic version
-            return false;
+            // Check if there are any incoming links
+            List<RDFPredicate> incomingLinks = extractIncomingLinks();
+            return !incomingLinks.isEmpty();
         }
         
         public List<RDFRelation> getIncomingRelations() {
-            return new ArrayList<>();
+            // Return the incoming links as RDFRelations
+            List<RDFRelation> relations = new ArrayList<>();
+            List<RDFPredicate> incomingLinks = extractIncomingLinks();
+            
+            for (RDFPredicate predicate : incomingLinks) {
+                for (RDFObject object : predicate.getObjects()) {
+                    RDFRelation relation = new RDFRelation();
+                    relation.label = predicate.getLabel();
+                    if (!object.isLiteral() && object.getValue() != null && !object.getValue().isEmpty()) {
+                        relation.target = object.getValue();
+                        relation.targetLabel = object.getLabel();
+                    } else {
+                        relation.targetLabel = object.getLabel();
+                    }
+                    relations.add(relation);
+                }
+            }
+            
+            return relations;
         }
         
         public boolean hasOutgoingRelations() {
