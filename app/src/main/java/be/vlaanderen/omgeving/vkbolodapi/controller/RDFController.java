@@ -240,8 +240,8 @@ public class RDFController {
         public List<RDFSection> getRdfSections() {
             List<RDFSection> sections = new ArrayList<>();
             
-            // Group properties by category
-            Map<String, List<RDFPredicate>> categories = new LinkedHashMap<>();
+            // Group properties by category and predicate
+            Map<String, Map<String, RDFPredicate>> categoryPredicateMap = new LinkedHashMap<>();
             
             // Get all properties of the subject
             StmtIterator iter = jenaModel.listStatements(subject, null, (RDFNode) null);
@@ -260,6 +260,7 @@ public class RDFController {
                 // Get predicate label
                 String predicateLabel = getPredicateLabel(predicate);
                 String category = getCategoryForPredicate(predicate);
+                String predicateKey = predicate.getURI(); // Unique key for the predicate
                 
                 // Create RDF object representation
                 RDFObject rdfObject = new RDFObject();
@@ -273,14 +274,25 @@ public class RDFController {
                     rdfObject.label = getResourceLabel(object.asResource()); // Use reasoning model for labels
                 }
                 
-                // Add to appropriate category
-                categories.computeIfAbsent(category, k -> new ArrayList<>())
-                    .add(new RDFPredicate(predicate.getURI(), predicateLabel, rdfObject));
+                // Get or create category map
+                Map<String, RDFPredicate> predicateMap = categoryPredicateMap.computeIfAbsent(category, k -> new LinkedHashMap<>());
+                
+                // Get or create predicate entry
+                RDFPredicate rdfPredicate = predicateMap.get(predicateKey);
+                if (rdfPredicate == null) {
+                    // Create new predicate entry
+                    rdfPredicate = new RDFPredicate(predicateKey, predicateLabel, rdfObject);
+                    predicateMap.put(predicateKey, rdfPredicate);
+                } else {
+                    // Add object to existing predicate entry
+                    rdfPredicate.addObject(rdfObject);
+                }
             }
             
-            // Convert categories to sections
-            for (Map.Entry<String, List<RDFPredicate>> entry : categories.entrySet()) {
-                sections.add(new RDFSection(entry.getKey(), entry.getValue()));
+            // Convert to sections with grouped predicates
+            for (Map.Entry<String, Map<String, RDFPredicate>> categoryEntry : categoryPredicateMap.entrySet()) {
+                List<RDFPredicate> predicates = new ArrayList<>(categoryEntry.getValue().values());
+                sections.add(new RDFSection(categoryEntry.getKey(), predicates));
             }
             
             return sections;
