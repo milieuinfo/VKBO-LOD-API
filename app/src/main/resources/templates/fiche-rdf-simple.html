@@ -135,6 +135,28 @@
             color: var(--vl-text);
         }
 
+        /* Nested blank nodes */
+        .nested-blank-node {
+            margin-left: 24px;
+            border-left: 2px solid var(--vl-border);
+            padding-left: 16px;
+            margin-top: 8px;
+            margin-bottom: 8px;
+        }
+
+        .nested-properties {
+            margin-top: 8px;
+        }
+
+        .nested-predicate-object {
+            margin-bottom: 12px;
+        }
+
+        .nested-predicate-object .predicate-link {
+            font-weight: 500;
+            font-style: italic;
+        }
+
         /* Raw RDF */
         textarea {
             width: 100%;
@@ -200,9 +222,43 @@
                         <span th:each="obj,stat : ${predicate.objects}">
                             <span th:if="${obj.isLiteral}"
                                   th:text="${obj.value}"></span>
-                            <a th:if="${!obj.isLiteral}"
+                            <a th:if="${!obj.isLiteral and obj.value != '' and obj.value != null}"
                                th:href="${obj.value}"
                                th:text="${obj.label}"></a>
+                            <span th:if="${!obj.isLiteral and (obj.value == '' or obj.value == null) and !obj.hasNestedProperties()}"
+                                  th:text="${obj.label}"></span>
+                            
+                            <!-- Recursive expansion for blank nodes with nested properties -->
+                            <div th:if="${!obj.isLiteral and obj.hasNestedProperties()}" class="nested-blank-node">
+                                <span th:text="${obj.label}"></span>
+                                <div class="nested-properties">
+                                    <div th:each="nestedPredicate : ${obj.nestedProperties}" class="nested-predicate-object">
+                                        <a class="predicate-link"
+                                           th:href="${nestedPredicate.uri}"
+                                           th:text="${nestedPredicate.label}"></a>
+                                        <div class="object">
+                                            <span th:each="nestedObj,nestedStat : ${nestedPredicate.objects}">
+                                                <span th:if="${nestedObj.isLiteral}"
+                                                      th:text="${nestedObj.value}"></span>
+                                                <a th:if="${!nestedObj.isLiteral and nestedObj.value != '' and nestedObj.value != null}"
+                                                   th:href="${nestedObj.value}"
+                                                   th:text="${nestedObj.label}"></a>
+                                                <span th:if="${!nestedObj.isLiteral and (nestedObj.value == '' or nestedObj.value == null) and !nestedObj.hasNestedProperties()}"
+                                                      th:text="${nestedObj.label}"></span>
+                                                
+                                                <!-- Recursive expansion for nested blank nodes -->
+                                                <div th:if="${!nestedObj.isLiteral and nestedObj.hasNestedProperties()}" class="nested-blank-node">
+                                                    <span th:text="${nestedObj.label}"></span>
+                                                    <!-- Could add more nesting levels if needed -->
+                                                </div>
+                                                
+                                                <span th:if="${!nestedStat.last}">, </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
                             <span th:if="${!stat.last}">, </span>
                         </span>
                     </div>

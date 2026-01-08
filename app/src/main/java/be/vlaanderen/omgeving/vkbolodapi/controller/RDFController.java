@@ -269,9 +269,18 @@ public class RDFController {
                     rdfObject.value = object.asLiteral().getString();
                     rdfObject.label = object.asLiteral().getString(); // For literals, label = value
                 } else if (object.isResource()) {
-                    rdfObject.isLiteral = false;
-                    rdfObject.value = object.asResource().getURI();
-                    rdfObject.label = getResourceLabel(object.asResource()); // Use reasoning model for labels
+                    if (object.isAnon()) {
+                        // Handle blank nodes (anonymous resources) - recursively extract properties
+                        rdfObject.isLiteral = false;
+                        rdfObject.value = ""; // Blank nodes don't have URIs
+                        rdfObject.label = getBlankNodeTypeLabel(object.asResource()); // Use type label instead of generic text
+                        rdfObject.nestedProperties = extractBlankNodeProperties(object.asResource());
+                    } else {
+                        // Handle named resources
+                        rdfObject.isLiteral = false;
+                        rdfObject.value = object.asResource().getURI();
+                        rdfObject.label = getResourceLabel(object.asResource()); // Use reasoning model for labels
+                    }
                 }
                 
                 // Get or create category map
@@ -430,6 +439,89 @@ public class RDFController {
             return getResourceLabel(resource);
         }
         
+        /**
+         * Get the type label(s) for a blank node to use as its display label
+         */
+        private String getBlankNodeTypeLabel(Resource blankNode) {
+            if (blankNode == null || !blankNode.isAnon()) {
+                return "[Blank Node]";
+            }
+            
+            // Look for rdf:type properties
+            Property typeProperty = jenaModel.createProperty("http://www.w3.org/1999/02/22-rdf-syntax-ns#type");
+            List<String> typeLabels = new ArrayList<>();
+            
+            StmtIterator typeIter = jenaModel.listStatements(blankNode, typeProperty, (RDFNode) null);
+            while (typeIter.hasNext()) {
+                Statement typeStmt = typeIter.next();
+                RDFNode typeObject = typeStmt.getObject();
+                
+                if (typeObject.isResource()) {
+                    String typeLabel = getResourceLabel(typeObject.asResource());
+                    if (typeLabel != null && !typeLabel.isEmpty()) {
+                        typeLabels.add(typeLabel);
+                    }
+                }
+            }
+            
+            if (!typeLabels.isEmpty()) {
+                // Return comma-separated type labels
+                return String.join(", ", typeLabels);
+            }
+            
+            // Fallback if no types found
+            return "[Blank Node]";
+        }
+
+        /**
+         * Recursively extract properties from a blank node
+         */
+        private List<RDFPredicate> extractBlankNodeProperties(Resource blankNode) {
+            List<RDFPredicate> properties = new ArrayList<>();
+            
+            if (blankNode == null || !blankNode.isAnon()) {
+                return properties;
+            }
+            
+            // Get all properties of this blank node
+            StmtIterator iter = jenaModel.listStatements(blankNode, null, (RDFNode) null);
+            while (iter.hasNext()) {
+                Statement stmt = iter.next();
+                Property predicate = stmt.getPredicate();
+                RDFNode object = stmt.getObject();
+                
+                // Get predicate label
+                String predicateLabel = getPredicateLabel(predicate);
+                
+                // Create RDF object representation
+                RDFObject rdfObject = new RDFObject();
+                if (object.isLiteral()) {
+                    rdfObject.isLiteral = true;
+                    rdfObject.value = object.asLiteral().getString();
+                    rdfObject.label = object.asLiteral().getString();
+                } else if (object.isResource()) {
+                    if (object.isAnon()) {
+                        // Recursively handle nested blank nodes
+                        rdfObject.isLiteral = false;
+                        rdfObject.value = "";
+                        rdfObject.label = getBlankNodeTypeLabel(object.asResource()); // Use type label
+                        rdfObject.nestedProperties = extractBlankNodeProperties(object.asResource());
+                    } else {
+                        // Handle named resources
+                        rdfObject.isLiteral = false;
+                        rdfObject.value = object.asResource().getURI();
+                        rdfObject.label = getResourceLabel(object.asResource());
+                    }
+                }
+                
+                // Create predicate and add to properties
+                RDFPredicate rdfPredicate = new RDFPredicate(predicate.getURI(), predicateLabel, rdfObject);
+                properties.add(rdfPredicate);
+            }
+            
+            return properties;
+        }
+
         private String getCategoryForPredicate(Property predicate) {
             String uri = predicate.getURI();
             
@@ -537,10 +629,14 @@ public class RDFController {
         private boolean isLiteral;
         private String value;
         private String label;
+        private List<RDFPredicate> nestedProperties; // For blank nodes: their properties
         
         public boolean isLiteral() { return isLiteral; }
         public String getValue() { return value; }
         public String getLabel() { return label; }
+        public List<RDFPredicate> getNestedProperties() { return nestedProperties; }
+        public boolean hasNestedProperties() { return nestedProperties != null && !nestedProperties.isEmpty(); }
+        
         // Note: Use Thymeleaf status variable (objStat.last) instead of this method
     }
     
