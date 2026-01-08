@@ -26,6 +26,9 @@ public class ReasoningModelConfiguration {
     @Value("classpath:org/w3/www/ns/adms/adms.ttl")
     private Resource adms;
 
+    @Value("classpath:org/w3/www/2004/02/skos/core/skos.ttl")
+    private Resource skos;
+
     @Value("classpath:net/opengis/www/ont/geosparql/geosparql_vocab_all.ttl")
     private Resource geosparql;
 
@@ -56,6 +59,14 @@ public class ReasoningModelConfiguration {
             e.printStackTrace();
         }
 
+        Model model_skos = ModelFactory.createDefaultModel();
+        Resource skos = loadSkos();
+        try {
+            model_skos.read(skos.getInputStream(), null, "TURTLE");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         Model model_regorg = ModelFactory.createDefaultModel();
         Resource regorg = loadRegorg();
         try {
@@ -81,7 +92,7 @@ public class ReasoningModelConfiguration {
         }
 
         Model m = model_locn.union(model_geosparql);
-        return m.union(model_adms).union(model_org).union(model_regorg);
+        return m.union(model_adms).union(model_org).union(model_regorg).union(model_skos);
     }
 
     @Bean
@@ -98,6 +109,10 @@ public class ReasoningModelConfiguration {
 
     private Resource loadOrg() {
         return org;
+    }
+
+    private Resource loadSkos() {
+        return skos;
     }
 
     private Resource loadRegorg() {
