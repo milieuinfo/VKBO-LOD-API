@@ -30,6 +30,9 @@ chown -R "$APP_USER:$APP_GROUP" "$APP_DIR"
 
 chmod 750 "$LOG_DIR"
 
+JAVA_TOOL_OPTIONS="-Dhttp.proxyHost=${http_proxy_host} -Dhttp.proxyPort=${http_proxy_port} -Dhttps.proxyHost=${http_proxy_host} -Dhttps.proxyPort=${http_proxy_port} -Dhttp.nonProxyHosts=${no_proxy_java} -Dhttps.nonProxyHosts=${no_proxy_java}"
+sed -i "s;Environment=;Environment=\"JAVA_TOOL_OPTIONS=${JAVA_TOOL_OPTIONS}\";"  /lib/systemd/system/vkbolodapi.service
+
 systemctl daemon-reload
 systemctl enable vkbolodapi.service || true
 systemctl restart vkbolodapi.service || true
