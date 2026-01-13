@@ -254,8 +254,10 @@ public class RDFController {
         public List<RDFSection> getRdfSections() {
             List<RDFSection> sections = new ArrayList<>();
             
-            // Group properties by category and predicate
-            Map<String, Map<String, RDFPredicate>> categoryPredicateMap = new LinkedHashMap<>();
+            // Separate predicates by object type
+            List<RDFPredicate> literalPredicates = new ArrayList<>();
+            List<RDFPredicate> namedResourcePredicates = new ArrayList<>();
+            Map<String, List<RDFPredicate>> blankNodePredicatesByType = new LinkedHashMap<>();
             
             // Get all properties of the subject
             StmtIterator iter = jenaModel.listStatements(subject, null, (RDFNode) null);
@@ -273,7 +275,6 @@ public class RDFController {
                 
                 // Get predicate label
                 String predicateLabel = getPredicateLabel(predicate);
-                String category = getCategoryForPredicate(predicate);
                 String predicateKey = predicate.getURI(); // Unique key for the predicate
                 
                 // Create RDF object representation
@@ -282,6 +283,11 @@ public class RDFController {
                     rdfObject.isLiteral = true;
                     rdfObject.value = object.asLiteral().getString();
                     rdfObject.label = object.asLiteral().getString(); // For literals, label = value
+                    
+                    // Add to literal predicates
+                    RDFPredicate rdfPredicate = new RDFPredicate(predicateKey, predicateLabel, rdfObject);
+                    literalPredicates.add(rdfPredicate);
+                    
                 } else if (object.isResource()) {
                     if (object.isAnon()) {
                         // Handle blank nodes (anonymous resources) - recursively extract properties
@@ -289,33 +295,37 @@ public class RDFController {
                         rdfObject.value = ""; // Blank nodes don't have URIs
                         rdfObject.label = getBlankNodeTypeLabel(object.asResource()); // Use type label instead of generic text
                         rdfObject.nestedProperties = extractBlankNodeProperties(object.asResource());
+                        
+                        // Group blank nodes by their type label
+                        String typeLabel = rdfObject.label;
+                        RDFPredicate rdfPredicate = new RDFPredicate(predicateKey, predicateLabel, rdfObject);
+                        blankNodePredicatesByType.computeIfAbsent(typeLabel, k -> new ArrayList<>()).add(rdfPredicate);
+                        
                     } else {
                         // Handle named resources
                         rdfObject.isLiteral = false;
                         rdfObject.value = object.asResource().getURI();
                         rdfObject.label = getResourceLabel(object.asResource()); // Use reasoning model for labels
+                        
+                        // Add to named resource predicates
+                        RDFPredicate rdfPredicate = new RDFPredicate(predicateKey, predicateLabel, rdfObject);
+                        namedResourcePredicates.add(rdfPredicate);
                     }
-                }
-                
-                // Get or create category map
-                Map<String, RDFPredicate> predicateMap = categoryPredicateMap.computeIfAbsent(category, k -> new LinkedHashMap<>());
-                
-                // Get or create predicate entry
-                RDFPredicate rdfPredicate = predicateMap.get(predicateKey);
-                if (rdfPredicate == null) {
-                    // Create new predicate entry
-                    rdfPredicate = new RDFPredicate(predicateKey, predicateLabel, rdfObject);
-                    predicateMap.put(predicateKey, rdfPredicate);
-                } else {
-                    // Add object to existing predicate entry
-                    rdfPredicate.addObject(rdfObject);
                 }
             }
             
-            // Convert to sections with grouped predicates
-            for (Map.Entry<String, Map<String, RDFPredicate>> categoryEntry : categoryPredicateMap.entrySet()) {
-                List<RDFPredicate> predicates = new ArrayList<>(categoryEntry.getValue().values());
-                sections.add(new RDFSection(categoryEntry.getKey(), predicates));
+            // Create sections based on the new structure
+            if (!literalPredicates.isEmpty()) {
+                sections.add(new RDFSection("Literal objects", literalPredicates));
+            }
+            
+            if (!namedResourcePredicates.isEmpty()) {
+                sections.add(new RDFSection("Uitgaande relaties", namedResourcePredicates));
+            }
+            
+            // Add sections for each blank node type
+            for (Map.Entry<String, List<RDFPredicate>> entry : blankNodePredicatesByType.entrySet()) {
+                sections.add(new RDFSection(entry.getKey(), entry.getValue()));
             }
             
             return sections;
@@ -631,22 +641,7 @@ public class RDFController {
             return properties;
         }
 
-        private String getCategoryForPredicate(Property predicate) {
-            String uri = predicate.getURI();
-            
-            // Categorize based on namespace/URI patterns
-            if (uri.contains("org#") || uri.contains("foaf#") || uri.contains("schema.org")) {
-                return "Organisatiegegevens";
-            } else if (uri.contains("adres") || uri.contains("locn#")) {
-                return "Adresgegevens";
-            } else if (uri.contains("identifier") || uri.contains("registratie")) {
-                return "Identificatie";
-            } else if (uri.contains("activiteit") || uri.contains("nace")) {
-                return "Activiteiten";
-            } else {
-                return "Overige Eigenschappen";
-            }
-        }
+
         
         public boolean hasIncomingRelations() {
             // Check if there are any incoming links
