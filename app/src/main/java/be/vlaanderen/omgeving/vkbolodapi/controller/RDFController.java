@@ -70,6 +70,7 @@ public class RDFController {
         }
         
         springModel.addAttribute("rdfSections", sections);
+        springModel.addAttribute("subjectTypes", extractor.getSubjectTypes());
         springModel.addAttribute("hasIncomingRelations", extractor.hasIncomingRelations());
         springModel.addAttribute("incomingRelations", extractor.getIncomingRelations());
         springModel.addAttribute("hasOutgoingRelations", extractor.hasOutgoingRelations());
@@ -122,6 +123,33 @@ public class RDFController {
             }
             
             return "Organisatie " + ondernemingsnr;
+        }
+        
+        /**
+         * Get the RDF types of the subject for display in the header
+         */
+        public List<RDFRelation> getSubjectTypes() {
+            List<RDFRelation> types = new ArrayList<>();
+            Property typeProperty = jenaModel.createProperty("http://www.w3.org/1999/02/22-rdf-syntax-ns#type");
+            
+            StmtIterator iter = jenaModel.listStatements(subject, typeProperty, (RDFNode) null);
+            while (iter.hasNext()) {
+                Statement stmt = iter.next();
+                RDFNode object = stmt.getObject();
+                
+                if (object.isResource()) {
+                    RDFRelation typeRelation = new RDFRelation();
+                    typeRelation.label = getResourceLabel(object.asResource());
+                    typeRelation.target = object.asResource().getURI();
+                    typeRelation.targetLabel = typeRelation.label;
+                    
+                    if (typeRelation.label != null && !typeRelation.label.isEmpty()) {
+                        types.add(typeRelation);
+                    }
+                }
+            }
+            
+            return types;
         }
         
         public boolean hasGeoData() {
@@ -302,6 +330,11 @@ public class RDFController {
                         blankNodePredicatesByType.computeIfAbsent(typeLabel, k -> new ArrayList<>()).add(rdfPredicate);
                         
                     } else {
+                        // Skip rdf:type predicates - they will be shown in the header
+                        if (predicateKey.equals("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")) {
+                            continue;
+                        }
+                        
                         // Handle named resources
                         rdfObject.isLiteral = false;
                         rdfObject.value = object.asResource().getURI();
@@ -316,7 +349,7 @@ public class RDFController {
             
             // Create sections based on the new structure
             if (!literalPredicates.isEmpty()) {
-                sections.add(new RDFSection("Literal objects", literalPredicates));
+                sections.add(new RDFSection("Eigenschappen", literalPredicates));
             }
             
             if (!namedResourcePredicates.isEmpty()) {
@@ -502,6 +535,7 @@ public class RDFController {
          */
         private List<RDFPredicate> extractIncomingLinks() {
             List<RDFPredicate> incomingLinks = new ArrayList<>();
+            Set<String> uniqueRelations = new HashSet<>(); // Track unique predicate-target combinations
             
             // 1. Look for direct incoming links (statements where this subject is the object)
             StmtIterator directIter = jenaModel.listStatements(null, null, subject);
@@ -525,13 +559,21 @@ public class RDFController {
                 rdfObject.value = linkingSubject.getURI();
                 rdfObject.label = getResourceLabel(linkingSubject);
                 
-                // Create predicate and add to incoming links
-                RDFPredicate rdfPredicate = new RDFPredicate(
-                    predicate.getURI(), 
-                    predicateLabel + " (incoming)", 
-                    rdfObject
-                );
-                incomingLinks.add(rdfPredicate);
+                // Create unique key for this relation
+                String uniqueKey = predicate.getURI() + "|" + linkingSubject.getURI();
+                
+                // Only add if this relation is not already present
+                if (!uniqueRelations.contains(uniqueKey)) {
+                    uniqueRelations.add(uniqueKey);
+                    
+                    // Create predicate and add to incoming links
+                    RDFPredicate rdfPredicate = new RDFPredicate(
+                        predicate.getURI(), 
+                        predicateLabel, 
+                        rdfObject
+                    );
+                    incomingLinks.add(rdfPredicate);
+                }
             }
             
             // 2. Infer incoming links from outgoing links (inverse relationships)
@@ -563,13 +605,21 @@ public class RDFController {
                     rdfObject.value = targetResource.getURI();
                     rdfObject.label = getResourceLabel(targetResource);
                     
-                    // Create predicate and add to incoming links
-                    RDFPredicate rdfPredicate = new RDFPredicate(
-                        inversePredicateUri, 
-                        inversePredicateLabel + " (inferred)", 
-                        rdfObject
-                    );
-                    incomingLinks.add(rdfPredicate);
+                    // Create unique key for this relation
+                    String uniqueKey = inversePredicateUri + "|" + targetResource.getURI();
+                    
+                    // Only add if this relation is not already present
+                    if (!uniqueRelations.contains(uniqueKey)) {
+                        uniqueRelations.add(uniqueKey);
+                        
+                        // Create predicate and add to incoming links
+                        RDFPredicate rdfPredicate = new RDFPredicate(
+                            inversePredicateUri, 
+                            inversePredicateLabel, 
+                            rdfObject
+                        );
+                        incomingLinks.add(rdfPredicate);
+                    }
                 }
             }
             
@@ -658,6 +708,7 @@ public class RDFController {
                 for (RDFObject object : predicate.getObjects()) {
                     RDFRelation relation = new RDFRelation();
                     relation.label = predicate.getLabel();
+                    relation.predicateUri = predicate.getUri(); // Add predicate URI
                     if (!object.isLiteral() && object.getValue() != null && !object.getValue().isEmpty()) {
                         relation.target = object.getValue();
                         relation.targetLabel = object.getLabel();
@@ -764,11 +815,13 @@ public class RDFController {
     
     private class RDFRelation {
         private String label;
+        private String predicateUri;
         private String target;
         private String targetLabel;
         private String description;
         
         public String getLabel() { return label; }
+        public String getPredicateUri() { return predicateUri; }
         public String getTarget() { return target; }
         public String getTargetLabel() { return targetLabel; }
         public String getDescription() { return description; }

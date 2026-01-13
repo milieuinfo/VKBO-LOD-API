@@ -91,6 +91,25 @@
             color: var(--vl-blue);
             word-break: break-all;
         }
+        
+        .subject-types {
+            font-size: 0.95rem;
+            color: var(--vl-muted);
+            margin-top: 8px;
+        }
+        
+        .subject-types strong {
+            color: var(--vl-text);
+        }
+        
+        .subject-types a {
+            color: var(--vl-blue);
+            text-decoration: none;
+        }
+        
+        .subject-types a:hover {
+            text-decoration: underline;
+        }
 
         /* Export links — simple text links */
         .export-options {
@@ -552,6 +571,12 @@
         <strong>URI:</strong>
         <a th:href="${uri}" th:text="${uri}">Resource URI</a>
     </p>
+    <div th:if="${subjectTypes != null and !subjectTypes.isEmpty()}" class="subject-types">
+        <strong>Type(s):</strong>
+        <span th:each="type, stat : ${subjectTypes}">
+            <a th:href="${type.target}" th:text="${type.label}"></a><span th:if="${!stat.last}">, </span>
+        </span>
+    </div>
 </div>
 
 <!-- Error and status messages container -->
@@ -655,7 +680,9 @@
                 <div class="rdf-section-content" id="incoming-links-content" role="region" aria-labelledby="incoming-links">
                     <div th:each="relation : ${incomingRelations}">
                         <div class="predicate-object">
-                            <span class="predicate-link" th:text="${relation.label}"></span>
+                            <a class="predicate-link"
+                               th:href="${relation.predicateUri}"
+                               th:text="${relation.label}"></a>
 
                             <div class="object">
                                 <a th:if="${relation.target != '' and relation.target != null}"
