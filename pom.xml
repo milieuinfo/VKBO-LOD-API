@@ -3,7 +3,7 @@
 
   <groupId>be.vlaanderen.omgeving</groupId>
   <artifactId>vkbolodapi</artifactId>
-  <version>0.1.10</version>
+  <version>0.1.11-SNAPSHOT</version>
   <packaging>pom</packaging>
   <modules>
     <module>app</module>
@@ -15,7 +15,7 @@
     <developerConnection>scm:git:https://github.com/milieuinfo/VKBO-LOD-API.git
     </developerConnection>
     <url>https://github.com/milieuinfo/VKBO-LOD-API.git</url>
-    <tag>vkbolodapi-0.1.10</tag>
+    <tag>HEAD</tag>
   </scm>
   <parent>
     <groupId>be.milieuinfo</groupId>
