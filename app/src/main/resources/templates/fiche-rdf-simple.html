@@ -671,20 +671,10 @@
         </div>
 
         <!-- JSON-LD Visualization -->
-        <details id="jsonld-visualization" aria-expanded="false">
-            <summary tabindex="0" role="button" aria-controls="jsonld-visualization-content">JSON-LD Visualisatie</summary>
-            <div class="rdf-section-content" id="jsonld-visualization-content" role="region" aria-labelledby="jsonld-visualization">
-                <div id="graph" style="position: relative;" aria-label="JSON-LD visualisatie grafiek">
-                    <div id="vis-loading" class="vis-loading">
-                        <div class="loading-spinner"></div>
-                    </div>
-                    <div id="vis-error" class="vis-error" style="display: none;">
-                        <div>
-                            <strong>Visualisatie kon niet worden geladen</strong>
-                            <p>Er is een fout opgetreden bij het laden van de visualisatie.</p>
-                        </div>
-                    </div>
-                </div>
+        <details id="jsonld-visualization">
+            <summary>JSON-LD Visualisatie</summary>
+            <div class="rdf-section-content">
+                <div id="graph"></div>
             </div>
         </details>
 
@@ -882,237 +872,8 @@
             document.head.appendChild(script);
         } else {
             console.log("DEBUG: No WKT geometry data available");
-            // Hide loading when no WKT data (map should be ready)
-            if (mapLoading) mapLoading.style.display = 'none';
         }
     });
-</script>
-
-<!-- Error handling and message utilities -->
-<script>
-    /**
-     * Show a message to the user
-     * @param {string} message - The message text
-     * @param {string} type - Type of message: 'error', 'warning', 'info'
-     * @param {boolean} persistent - Whether the message should be persistent
-     */
-    function showMessage(message, type = 'info', persistent = false) {
-        const container = document.getElementById('messages-container');
-        if (!container) return;
-        
-        container.style.display = 'block';
-        
-        const messageElement = document.createElement('div');
-        messageElement.className = type + '-message';
-        
-        const iconElement = document.createElement('span');
-        iconElement.className = type + '-icon';
-        iconElement.textContent = type === 'error' ? '!' : type === 'warning' ? '⚠' : 'ℹ';
-        
-        const textElement = document.createElement('span');
-        textElement.textContent = message;
-        
-        messageElement.appendChild(iconElement);
-        messageElement.appendChild(textElement);
-        
-        container.appendChild(messageElement);
-        
-        if (!persistent) {
-            setTimeout(() => {
-                messageElement.style.opacity = '0.7';
-                setTimeout(() => {
-                    messageElement.remove();
-                    if (container.children.length === 0) {
-                        container.style.display = 'none';
-                    }
-                }, 300);
-            }, 5000);
-        }
-    }
-    
-    /**
-     * Clear all messages
-     */
-    function clearMessages() {
-        const container = document.getElementById('messages-container');
-        if (container) {
-            container.innerHTML = '';
-            container.style.display = 'none';
-        }
-    }
-    
-    /**
-     * Simplify large dataset for visualization
-     * @param {Array} data - Original JSON-LD data
-     * @returns {Array} Simplified data
-     */
-    function simplifyLargeDataset(data) {
-        if (!data || !Array.isArray(data) || data.length === 0) {
-            return data;
-        }
-        
-        console.log("DEBUG: Simplifying large dataset, original size:", data.length);
-        
-        try {
-            // Create a simplified copy with reduced properties
-            const simplified = [];
-            
-            for (const item of data) {
-                if (!item || typeof item !== 'object') {
-                    continue;
-                }
-                
-                const simplifiedItem = {};
-                
-                // Copy context
-                if (item['@context']) {
-                    simplifiedItem['@context'] = item['@context'];
-                }
-                
-                // Copy ID
-                if (item['@id']) {
-                    simplifiedItem['@id'] = item['@id'];
-                }
-                
-                // Copy type
-                if (item['@type']) {
-                    simplifiedItem['@type'] = item['@type'];
-                }
-                
-                // Limit the number of properties to show
-                const propertyKeys = Object.keys(item).filter(key => !key.startsWith('@'));
-                const maxProperties = 10; // Show only first 10 properties
-                
-                for (let i = 0; i < Math.min(propertyKeys.length, maxProperties); i++) {
-                    const key = propertyKeys[i];
-                    const value = item[key];
-                    
-                    // For arrays, limit the number of items
-                    if (Array.isArray(value)) {
-                        simplifiedItem[key] = value.slice(0, 5); // Show only first 5 items
-                        if (value.length > 5) {
-                            simplifiedItem[key + '_truncated'] = true;
-                        }
-                    } else if (typeof value === 'object' && value !== null) {
-                        // For nested objects, create simplified version
-                        const simplifiedValue = {};
-                        const nestedKeys = Object.keys(value).slice(0, 3); // Show only first 3 properties
-                        for (const nestedKey of nestedKeys) {
-                            simplifiedValue[nestedKey] = value[nestedKey];
-                        }
-                        if (Object.keys(value).length > 3) {
-                            simplifiedValue._truncated = true;
-                        }
-                        simplifiedItem[key] = simplifiedValue;
-                    } else {
-                        simplifiedItem[key] = value;
-                    }
-                }
-                
-                if (propertyKeys.length > maxProperties) {
-                    simplifiedItem._properties_truncated = propertyKeys.length - maxProperties;
-                }
-                
-                simplified.push(simplifiedItem);
-            }
-            
-            console.log("DEBUG: Dataset simplified, new size:", simplified.length);
-            return simplified;
-            
-        } catch (error) {
-            console.error("Error simplifying dataset:", error);
-            return data; // Return original data if simplification fails
-        }
-    }
-    
-    /**
-     * Global error handler
-     */
-    window.addEventListener('error', function(event) {
-        console.error('Unhandled error:', event.error);
-        showMessage('Er is een onverwachte fout opgetreden. Probeer de pagina te verversen.', 'error', true);
-    });
-    
-    /**
-     * Handle unhandled promise rejections
-     */
-    window.addEventListener('unhandledrejection', function(event) {
-        console.error('Unhandled rejection:', event.reason);
-        showMessage('Er is een fout opgetreden bij het laden van gegevens.', 'error', true);
-    });
-    
-    /**
-     * Enhance keyboard navigation for details/summary elements
-     */
-    function enhanceDetailsNavigation() {
-        document.querySelectorAll('details summary').forEach(summary => {
-            summary.addEventListener('keydown', function(e) {
-                // Space or Enter key
-                if (e.key === ' ' || e.key === 'Enter') {
-                    e.preventDefault();
-                    const details = this.parentElement;
-                    const isExpanded = details.hasAttribute('open');
-                    
-                    if (isExpanded) {
-                        details.removeAttribute('open');
-                        details.setAttribute('aria-expanded', 'false');
-                        this.setAttribute('aria-expanded', 'false');
-                    } else {
-                        details.setAttribute('open', 'open');
-                        details.setAttribute('aria-expanded', 'true');
-                        this.setAttribute('aria-expanded', 'true');
-                    }
-                }
-            });
-        });
-    }
-    
-    /**
-     * Update ARIA live region with messages
-     * @param {string} message - Message to announce
-     */
-    function announceToScreenReader(message) {
-        const liveRegion = document.getElementById('aria-live-region');
-        if (liveRegion) {
-            liveRegion.textContent = message;
-            // Clear after a short delay to prevent message buildup
-            setTimeout(() => {
-                liveRegion.textContent = '';
-            }, 5000);
-        }
-    }
-    
-    /**
-     * Add focus management for dynamic content
-     */
-    function setupFocusManagement() {
-        // No longer focusing main content to avoid outline
-    }
-    
-    /**
-     * Initialize accessibility features
-     */
-    function initAccessibility() {
-        enhanceDetailsNavigation();
-        setupFocusManagement();
-        
-        // Add keyboard navigation for skip link
-        const skipLink = document.querySelector('.skip-link');
-        if (skipLink) {
-            skipLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    targetElement.setAttribute('tabindex', '-1');
-                    targetElement.focus();
-                }
-            });
-        }
-    }
-    
-    // Initialize accessibility when DOM is ready
-    document.addEventListener('DOMContentLoaded', initAccessibility);
 </script>
 
 <!-- Scroll Spy for Side Navigation -->
@@ -1268,111 +1029,17 @@
     
     // Initialize the visualization when the DOM is ready
     document.addEventListener('DOMContentLoaded', function() {
-        // Show loading state
-        var visLoading = document.getElementById('vis-loading');
-        var visError = document.getElementById('vis-error');
-        
-        if (visLoading) {
-            visLoading.style.display = 'flex';
-        }
-        if (visError) {
-            visError.style.display = 'none';
-        }
-        
         try {
             console.log("Initializing JSON-LD visualization with data:", jsonldData);
-            
-            // Check if we have valid data
-            if (!jsonldData || jsonldData.length === 0 || Object.keys(jsonldData[0]).length === 0) {
-                console.warn("No valid JSON-LD data available for visualization");
-                if (visLoading) visLoading.style.display = 'none';
-                if (visError) {
-                    visError.innerHTML = '<div><strong>Geen gegevens beschikbaar</strong><p>Er zijn geen gegevens beschikbaar voor visualisatie.</p></div>';
-                    visError.style.display = 'flex';
-                }
-                return;
-            }
-            
-            // Check if data is too large for visualization and optimize if needed
-            try {
-                const dataSize = JSON.stringify(jsonldData).length;
-                console.log("DEBUG: JSON-LD data size:", dataSize, "bytes");
-                
-                if (dataSize > 1000000) { // 1MB limit for full visualization
-                    console.log('Dataset is zeer groot, vereenvoudigde visualisatie wordt gebruikt');
-                    
-                    // Create simplified visualization for large datasets
-                    const simplifiedData = simplifyLargeDataset(jsonldData);
-                    d3.jsonldVis(simplifiedData, '#graph', {
-                        w: 800,
-                        h: 600,
-                        maxLabelWidth: 200, // Reduce label width for large datasets
-                        tipClassName: 'tip-class',
-                        simplified: true
-                    });
-                    
-                    if (visLoading) visLoading.style.display = 'none';
-                    showMessage('Vereenvoudigde visualisatie geladen voor grote dataset.', 'info', true);
-                    return;
-                } else if (dataSize > 500000) { // 500KB limit
-                    console.log('Dataset is groot, geoptimaliseerde visualisatie wordt gebruikt');
-                    
-                    // Use optimized settings for medium datasets
-                    d3.jsonldVis(jsonldData, '#graph', {
-                        w: 800,
-                        h: 600,
-                        maxLabelWidth: 200,
-                        tipClassName: 'tip-class',
-                        optimized: true
-                    });
-                    
-                    if (visLoading) visLoading.style.display = 'none';
-                    showMessage('Geoptimaliseerde visualisatie geladen.', 'info', true);
-                    return;
-                }
-            } catch (sizeError) {
-                console.warn("Could not determine data size:", sizeError);
-            }
-            
-            // Set timeout for visualization rendering
-            const visualizationTimeout = setTimeout(() => {
-                if (visLoading) visLoading.style.display = 'none';
-                if (visError) {
-                    visError.innerHTML = '<div><strong>Visualisatie laadt...</strong><p>De visualisatie wordt verwerkt. Dit kan even duren voor complexe datasets.</p></div>';
-                    visError.style.display = 'flex';
-                }
-            }, 30000); // 30 second timeout
-            
-            // Start performance monitoring
-            const startTime = performance.now();
-            
             d3.jsonldVis(jsonldData, '#graph', {
                 w: 800,
                 h: 600,
                 maxLabelWidth: 250,
-                tipClassName: 'tip-class',
-                // Add performance callbacks if supported
-                onStart: function() {
-                    console.log("DEBUG: Visualization rendering started");
-                },
-                onProgress: function(progress) {
-                    console.log("DEBUG: Visualization progress:", progress + "%");
-                },
-                onComplete: function() {
-                    clearTimeout(visualizationTimeout);
-                    const endTime = performance.now();
-                    const renderTime = endTime - startTime;
-                    console.log("DEBUG: Visualization completed in " + renderTime.toFixed(2) + "ms");
-                    
-                    if (visLoading) visLoading.style.display = 'none';
-                }
+                tipClassName: 'tip-class'
             });
             console.log("JSON-LD visualization initialized successfully");
-            
         } catch (error) {
             console.error("Error initializing JSON-LD visualization:", error);
-            if (visLoading) visLoading.style.display = 'none';
-            if (visError) visError.style.display = 'flex';
         }
     });
 </script>
