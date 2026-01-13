@@ -131,7 +131,7 @@ adms:Identifier  rdf:type  owl:Class;
                  rdfs:comment      "This is based on the UN/CEFACT Identifier class."@en;
                  rdfs:isDefinedBy  :;
                  rdfs:label        "Identifier"@en ;
-                 rdfs:label        "Identifier"@nl .
+                 rdfs:label        "Identificator"@nl .
 
 adms:AssetRepository  rdf:type  owl:Class;
                       rdfs:comment      "A system or service that provides facilities for storage and maintenance of descriptions of Assets and Asset Distributions, and functionality that allows users to search and access these descriptions. An Asset Repository will typically contain descriptions of several Assets and related Asset Distributions."@en;
