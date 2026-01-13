@@ -120,6 +120,189 @@
             height: 360px;
             margin-bottom: 32px;
             border: 1px solid var(--vl-border);
+            position: relative;
+        }
+
+        .map-loading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .map-error {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            color: var(--vl-text);
+            padding: 24px;
+            text-align: center;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(0, 85, 204, 0.2);
+            border-radius: 50%;
+            border-top-color: var(--vl-blue);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .vis-loading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .vis-error {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            color: var(--vl-text);
+            padding: 24px;
+            text-align: center;
+        }
+
+        .error-message {
+            background-color: #fff8f8;
+            border: 1px solid #e74c3c;
+            color: #c0392b;
+            padding: 16px;
+            margin: 16px 0;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .error-icon {
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .warning-message {
+            background-color: #fffef8;
+            border: 1px solid #f39c12;
+            color: #d35400;
+            padding: 16px;
+            margin: 16px 0;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .warning-icon {
+            color: #f39c12;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .info-message {
+            background-color: #f8f9ff;
+            border: 1px solid #3498db;
+            color: #2980b9;
+            padding: 16px;
+            margin: 16px 0;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .info-icon {
+            color: #3498db;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Accessibility styles */
+        .focus-outline {
+            outline: 2px solid var(--vl-blue);
+            outline-offset: 2px;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--vl-blue);
+            color: white;
+            padding: 8px 16px;
+            z-index: 1000;
+            transition: top 0.3s;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Screen reader only text */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        /* Keyboard navigation styles */
+        [tabindex="0"]:focus:not(:focus-visible) {
+            outline: none;
+        }
+        
+        [tabindex="0"]:focus-visible {
+            outline: 2px solid var(--vl-blue);
+            outline-offset: 2px;
+        }
+
+        /* ARIA live regions */
+        .aria-live {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
         }
 
         /* Details behave like content sections */
@@ -343,6 +526,12 @@
 </head>
 
 <body th:about="${uri}">
+<!-- Skip link for keyboard navigation -->
+<a href="#main-content" class="skip-link">Ga naar hoofdinhoud</a>
+
+<!-- ARIA live region for dynamic updates -->
+<div id="aria-live-region" class="aria-live" aria-live="polite" aria-atomic="true"></div>
+
 <header class="vl-header">
     <div class="vl-header__inner">
         <a href="https://www.vlaanderen.be" class="vl-header__logo">
@@ -365,6 +554,9 @@
     </p>
 </div>
 
+<!-- Error and status messages container -->
+<div id="messages-container" style="display: none;"></div>
+
 <div class="export-options">
     <strong>Export formats:</strong>
     <a th:href="${uri} + '?format=ttl'">Turtle</a>
@@ -375,18 +567,28 @@
 
 <div class="vl-page-layout">
 
-    <main class="vl-main-content">
+    <main class="vl-main-content" id="main-content">
         <!-- Map -->
         <div th:if="${hasGeoData}">
-            <h2>Geografische Informatie</h2>
-            <div id="map"></div>
+            <h2 id="map-section" tabindex="-1">Geografische Informatie</h2>
+            <div id="map" aria-labelledby="map-section">
+                <div id="map-loading" class="map-loading">
+                    <div class="loading-spinner"></div>
+                </div>
+                <div id="map-error" class="map-error" style="display: none;">
+                    <div>
+                        <strong>Kaart kon niet worden geladen</strong>
+                        <p>Er is een fout opgetreden bij het laden van de kaart.</p>
+                    </div>
+                </div>
+            </div>
         </div>
         <!-- RDF Sections -->
         <!-- RDF Sections -->
         <div th:each="section,sectionStat : ${rdfSections}" th:id="${'section-' + sectionStat.index}">
-            <details open>
-                <summary th:text="${section.title}"></summary>
-                <div class="rdf-section-content">
+            <details open aria-expanded="true">
+                <summary th:text="${section.title}" tabindex="0" role="button" aria-controls="${'section-' + sectionStat.index + '-content'}"></summary>
+                <div class="rdf-section-content" th:id="${'section-' + sectionStat.index + '-content'}" role="region" aria-labelledby="${'section-' + sectionStat.index}">
                     <div th:each="predicate : ${section.predicates}">
                         <div class="predicate-object">
                             <a class="predicate-link"
@@ -448,9 +650,9 @@
 
         <!-- Incoming Links Section -->
         <div th:if="${hasIncomingRelations}" id="incoming-links">
-            <details open>
-                <summary>Inkomende Links</summary>
-                <div class="rdf-section-content">
+            <details open aria-expanded="true">
+                <summary tabindex="0" role="button" aria-controls="incoming-links-content">Inkomende Links</summary>
+                <div class="rdf-section-content" id="incoming-links-content" role="region" aria-labelledby="incoming-links">
                     <div th:each="relation : ${incomingRelations}">
                         <div class="predicate-object">
                             <span class="predicate-link" th:text="${relation.label}"></span>
@@ -469,43 +671,53 @@
         </div>
 
         <!-- JSON-LD Visualization -->
-        <details id="jsonld-visualization">
-            <summary>JSON-LD Visualisatie</summary>
-            <div class="rdf-section-content">
-                <div id="graph"></div>
+        <details id="jsonld-visualization" aria-expanded="false">
+            <summary tabindex="0" role="button" aria-controls="jsonld-visualization-content">JSON-LD Visualisatie</summary>
+            <div class="rdf-section-content" id="jsonld-visualization-content" role="region" aria-labelledby="jsonld-visualization">
+                <div id="graph" style="position: relative;" aria-label="JSON-LD visualisatie grafiek">
+                    <div id="vis-loading" class="vis-loading">
+                        <div class="loading-spinner"></div>
+                    </div>
+                    <div id="vis-error" class="vis-error" style="display: none;">
+                        <div>
+                            <strong>Visualisatie kon niet worden geladen</strong>
+                            <p>Er is een fout opgetreden bij het laden van de visualisatie.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </details>
 
         <!-- Raw RDF -->
-        <details id="raw-rdf">
-            <summary>Ruwe RDF Data</summary>
-            <div class="rdf-section-content">
-                <textarea th:text="${rawRdfData}"></textarea>
+        <details id="raw-rdf" aria-expanded="false">
+            <summary tabindex="0" role="button" aria-controls="raw-rdf-content">Ruwe RDF Data</summary>
+            <div class="rdf-section-content" id="raw-rdf-content" role="region" aria-labelledby="raw-rdf">
+                <textarea th:text="${rawRdfData}" aria-label="Ruwe RDF gegevens"></textarea>
             </div>
         </details>
     </main>
 
 
-    <aside class="vl-side-navigation" aria-labelledby="aside-title">
+    <aside class="vl-side-navigation" aria-labelledby="aside-title" role="complementary">
         <h2 id="aside-title" class="vl-side-navigation__title" th:text="${title}">Op deze pagina</h2>
-        <nav>
-            <ul class="vl-side-navigation__list">
-                <li th:if="${hasGeoData}">
-                    <a href="#map">Geografische Informatie</a>
+        <nav aria-label="Pagina navigatie">
+            <ul class="vl-side-navigation__list" role="list">
+                <li th:if="${hasGeoData}" role="listitem">
+                    <a href="#map" aria-label="Ga naar sectie: Geografische Informatie">Geografische Informatie</a>
                 </li>
-                <li th:each="section,stat : ${rdfSections}">
-                    <a th:href="${'#section-' + stat.index}">
+                <li th:each="section,stat : ${rdfSections}" role="listitem">
+                    <a th:href="${'#section-' + stat.index}" th:aria-label="'Ga naar sectie: ' + ${section.title}">
                         <span th:text="${section.title}"></span>
                     </a>
                 </li>
-                <li th:if="${hasIncomingRelations}">
-                    <a href="#incoming-links">Inkomende Links</a>
+                <li th:if="${hasIncomingRelations}" role="listitem">
+                    <a href="#incoming-links" aria-label="Ga naar sectie: Inkomende Links">Inkomende Links</a>
                 </li>
-                <li>
-                    <a href="#jsonld-visualization">JSON-LD Visualisatie</a>
+                <li role="listitem">
+                    <a href="#jsonld-visualization" aria-label="Ga naar sectie: JSON-LD Visualisatie">JSON-LD Visualisatie</a>
                 </li>
-                <li>
-                    <a href="#raw-rdf">Ruwe RDF Data</a>
+                <li role="listitem">
+                    <a href="#raw-rdf" aria-label="Ga naar sectie: Ruwe RDF Data">Ruwe RDF Data</a>
                 </li>
             </ul>
         </nav>
@@ -518,6 +730,14 @@
 
 <!-- Leaflet -->
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+    // Configure Leaflet to use the correct image path
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof L !== 'undefined') {
+            L.Icon.Default.imagePath = '/css/images/';
+        }
+    });
+</script>
 
 <script th:if="${hasGeoData}" th:inline="javascript">
     // Debug: Log the values being passed to the template
@@ -547,10 +767,23 @@
     document.addEventListener('DOMContentLoaded', function () {
         console.log("DEBUG: DOMContentLoaded event fired, initializing map...");
 
+        // Show loading state
+        var mapLoading = document.getElementById('map-loading');
+        var mapError = document.getElementById('map-error');
+        
+        if (mapLoading) {
+            mapLoading.style.display = 'flex';
+        }
+        if (mapError) {
+            mapError.style.display = 'none';
+        }
+
         // Check if map element exists
         var mapElement = document.getElementById('map');
         if (!mapElement) {
             console.error("DEBUG: Map element not found!");
+            if (mapLoading) mapLoading.style.display = 'none';
+            if (mapError) mapError.style.display = 'flex';
             return;
         }
         console.log("DEBUG: Map element found:", mapElement);
@@ -564,6 +797,16 @@
             }).addTo(map);
             console.log("DEBUG: Tile layer added to map");
 
+            // Hide loading state when tiles start loading
+            map.on('load', function() {
+                if (mapLoading) mapLoading.style.display = 'none';
+            });
+
+            // Add error handling for tile loading
+            map.on('tileerror', function(e) {
+                console.error("DEBUG: Tile loading error:", e);
+            });
+
             // Add marker if we have latitude/longitude (not default values)
             if (latitude !== 50.8503 && longitude !== 4.3517) {
                 L.marker([latitude, longitude]).addTo(map);
@@ -573,6 +816,8 @@
             // Add error handling for map initialization
         } catch (e) {
             console.error("DEBUG: Error initializing map:", e);
+            if (mapLoading) mapLoading.style.display = 'none';
+            if (mapError) mapError.style.display = 'flex';
             return;
         }
 
@@ -585,6 +830,8 @@
             script.src = 'https://cdn.jsdelivr.net/npm/wicket/wicket.min.js';
             script.onerror = function() {
                 console.error("DEBUG: Failed to load Wicket library");
+                if (mapLoading) mapLoading.style.display = 'none';
+                if (mapError) mapError.style.display = 'flex';
             };
             script.onload = function() {
                 console.log("DEBUG: Wicket library loaded successfully");
@@ -593,6 +840,8 @@
                 wicketScript.src = 'https://cdn.jsdelivr.net/npm/wicket/wicket-leaflet.min.js';
                 wicketScript.onerror = function() {
                     console.error("DEBUG: Failed to load Wicket-Leaflet library");
+                    if (mapLoading) mapLoading.style.display = 'none';
+                    if (mapError) mapError.style.display = 'flex';
                 };
                 wicketScript.onload = function() {
                     console.log("DEBUG: Wicket-Leaflet library loaded successfully");
@@ -618,8 +867,14 @@
                                 }
                             }
                         }
+                        
+                        // Hide loading when WKT is processed
+                        if (mapLoading) mapLoading.style.display = 'none';
+                        
                     } catch (e) {
                         console.error('DEBUG: Error parsing WKT geometry:', e);
+                        if (mapLoading) mapLoading.style.display = 'none';
+                        if (mapError) mapError.style.display = 'flex';
                     }
                 };
                 document.head.appendChild(wicketScript);
@@ -627,8 +882,237 @@
             document.head.appendChild(script);
         } else {
             console.log("DEBUG: No WKT geometry data available");
+            // Hide loading when no WKT data (map should be ready)
+            if (mapLoading) mapLoading.style.display = 'none';
         }
     });
+</script>
+
+<!-- Error handling and message utilities -->
+<script>
+    /**
+     * Show a message to the user
+     * @param {string} message - The message text
+     * @param {string} type - Type of message: 'error', 'warning', 'info'
+     * @param {boolean} persistent - Whether the message should be persistent
+     */
+    function showMessage(message, type = 'info', persistent = false) {
+        const container = document.getElementById('messages-container');
+        if (!container) return;
+        
+        container.style.display = 'block';
+        
+        const messageElement = document.createElement('div');
+        messageElement.className = type + '-message';
+        
+        const iconElement = document.createElement('span');
+        iconElement.className = type + '-icon';
+        iconElement.textContent = type === 'error' ? '!' : type === 'warning' ? '⚠' : 'ℹ';
+        
+        const textElement = document.createElement('span');
+        textElement.textContent = message;
+        
+        messageElement.appendChild(iconElement);
+        messageElement.appendChild(textElement);
+        
+        container.appendChild(messageElement);
+        
+        if (!persistent) {
+            setTimeout(() => {
+                messageElement.style.opacity = '0.7';
+                setTimeout(() => {
+                    messageElement.remove();
+                    if (container.children.length === 0) {
+                        container.style.display = 'none';
+                    }
+                }, 300);
+            }, 5000);
+        }
+    }
+    
+    /**
+     * Clear all messages
+     */
+    function clearMessages() {
+        const container = document.getElementById('messages-container');
+        if (container) {
+            container.innerHTML = '';
+            container.style.display = 'none';
+        }
+    }
+    
+    /**
+     * Simplify large dataset for visualization
+     * @param {Array} data - Original JSON-LD data
+     * @returns {Array} Simplified data
+     */
+    function simplifyLargeDataset(data) {
+        if (!data || !Array.isArray(data) || data.length === 0) {
+            return data;
+        }
+        
+        console.log("DEBUG: Simplifying large dataset, original size:", data.length);
+        
+        try {
+            // Create a simplified copy with reduced properties
+            const simplified = [];
+            
+            for (const item of data) {
+                if (!item || typeof item !== 'object') {
+                    continue;
+                }
+                
+                const simplifiedItem = {};
+                
+                // Copy context
+                if (item['@context']) {
+                    simplifiedItem['@context'] = item['@context'];
+                }
+                
+                // Copy ID
+                if (item['@id']) {
+                    simplifiedItem['@id'] = item['@id'];
+                }
+                
+                // Copy type
+                if (item['@type']) {
+                    simplifiedItem['@type'] = item['@type'];
+                }
+                
+                // Limit the number of properties to show
+                const propertyKeys = Object.keys(item).filter(key => !key.startsWith('@'));
+                const maxProperties = 10; // Show only first 10 properties
+                
+                for (let i = 0; i < Math.min(propertyKeys.length, maxProperties); i++) {
+                    const key = propertyKeys[i];
+                    const value = item[key];
+                    
+                    // For arrays, limit the number of items
+                    if (Array.isArray(value)) {
+                        simplifiedItem[key] = value.slice(0, 5); // Show only first 5 items
+                        if (value.length > 5) {
+                            simplifiedItem[key + '_truncated'] = true;
+                        }
+                    } else if (typeof value === 'object' && value !== null) {
+                        // For nested objects, create simplified version
+                        const simplifiedValue = {};
+                        const nestedKeys = Object.keys(value).slice(0, 3); // Show only first 3 properties
+                        for (const nestedKey of nestedKeys) {
+                            simplifiedValue[nestedKey] = value[nestedKey];
+                        }
+                        if (Object.keys(value).length > 3) {
+                            simplifiedValue._truncated = true;
+                        }
+                        simplifiedItem[key] = simplifiedValue;
+                    } else {
+                        simplifiedItem[key] = value;
+                    }
+                }
+                
+                if (propertyKeys.length > maxProperties) {
+                    simplifiedItem._properties_truncated = propertyKeys.length - maxProperties;
+                }
+                
+                simplified.push(simplifiedItem);
+            }
+            
+            console.log("DEBUG: Dataset simplified, new size:", simplified.length);
+            return simplified;
+            
+        } catch (error) {
+            console.error("Error simplifying dataset:", error);
+            return data; // Return original data if simplification fails
+        }
+    }
+    
+    /**
+     * Global error handler
+     */
+    window.addEventListener('error', function(event) {
+        console.error('Unhandled error:', event.error);
+        showMessage('Er is een onverwachte fout opgetreden. Probeer de pagina te verversen.', 'error', true);
+    });
+    
+    /**
+     * Handle unhandled promise rejections
+     */
+    window.addEventListener('unhandledrejection', function(event) {
+        console.error('Unhandled rejection:', event.reason);
+        showMessage('Er is een fout opgetreden bij het laden van gegevens.', 'error', true);
+    });
+    
+    /**
+     * Enhance keyboard navigation for details/summary elements
+     */
+    function enhanceDetailsNavigation() {
+        document.querySelectorAll('details summary').forEach(summary => {
+            summary.addEventListener('keydown', function(e) {
+                // Space or Enter key
+                if (e.key === ' ' || e.key === 'Enter') {
+                    e.preventDefault();
+                    const details = this.parentElement;
+                    const isExpanded = details.hasAttribute('open');
+                    
+                    if (isExpanded) {
+                        details.removeAttribute('open');
+                        details.setAttribute('aria-expanded', 'false');
+                        this.setAttribute('aria-expanded', 'false');
+                    } else {
+                        details.setAttribute('open', 'open');
+                        details.setAttribute('aria-expanded', 'true');
+                        this.setAttribute('aria-expanded', 'true');
+                    }
+                }
+            });
+        });
+    }
+    
+    /**
+     * Update ARIA live region with messages
+     * @param {string} message - Message to announce
+     */
+    function announceToScreenReader(message) {
+        const liveRegion = document.getElementById('aria-live-region');
+        if (liveRegion) {
+            liveRegion.textContent = message;
+            // Clear after a short delay to prevent message buildup
+            setTimeout(() => {
+                liveRegion.textContent = '';
+            }, 5000);
+        }
+    }
+    
+    /**
+     * Add focus management for dynamic content
+     */
+    function setupFocusManagement() {
+        // No longer focusing main content to avoid outline
+    }
+    
+    /**
+     * Initialize accessibility features
+     */
+    function initAccessibility() {
+        enhanceDetailsNavigation();
+        setupFocusManagement();
+        
+        // Add keyboard navigation for skip link
+        const skipLink = document.querySelector('.skip-link');
+        if (skipLink) {
+            skipLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.setAttribute('tabindex', '-1');
+                    targetElement.focus();
+                }
+            });
+        }
+    }
+    
+    // Initialize accessibility when DOM is ready
+    document.addEventListener('DOMContentLoaded', initAccessibility);
 </script>
 
 <!-- Scroll Spy for Side Navigation -->
@@ -685,8 +1169,8 @@
         }, 100);
     });
 </script>
-<script src="https://d3js.org/d3.v3.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.js"></script>
+<script src="/d3.v3.min.js"></script>
+<script src="/d3-tip.js"></script>
 <script src="/jsonld-vis.js"></script>
 <script th:inline="javascript">
     // Use Thymeleaf to properly escape and process the JSON-LD data
@@ -784,17 +1268,111 @@
     
     // Initialize the visualization when the DOM is ready
     document.addEventListener('DOMContentLoaded', function() {
+        // Show loading state
+        var visLoading = document.getElementById('vis-loading');
+        var visError = document.getElementById('vis-error');
+        
+        if (visLoading) {
+            visLoading.style.display = 'flex';
+        }
+        if (visError) {
+            visError.style.display = 'none';
+        }
+        
         try {
             console.log("Initializing JSON-LD visualization with data:", jsonldData);
+            
+            // Check if we have valid data
+            if (!jsonldData || jsonldData.length === 0 || Object.keys(jsonldData[0]).length === 0) {
+                console.warn("No valid JSON-LD data available for visualization");
+                if (visLoading) visLoading.style.display = 'none';
+                if (visError) {
+                    visError.innerHTML = '<div><strong>Geen gegevens beschikbaar</strong><p>Er zijn geen gegevens beschikbaar voor visualisatie.</p></div>';
+                    visError.style.display = 'flex';
+                }
+                return;
+            }
+            
+            // Check if data is too large for visualization and optimize if needed
+            try {
+                const dataSize = JSON.stringify(jsonldData).length;
+                console.log("DEBUG: JSON-LD data size:", dataSize, "bytes");
+                
+                if (dataSize > 1000000) { // 1MB limit for full visualization
+                    console.log('Dataset is zeer groot, vereenvoudigde visualisatie wordt gebruikt');
+                    
+                    // Create simplified visualization for large datasets
+                    const simplifiedData = simplifyLargeDataset(jsonldData);
+                    d3.jsonldVis(simplifiedData, '#graph', {
+                        w: 800,
+                        h: 600,
+                        maxLabelWidth: 200, // Reduce label width for large datasets
+                        tipClassName: 'tip-class',
+                        simplified: true
+                    });
+                    
+                    if (visLoading) visLoading.style.display = 'none';
+                    showMessage('Vereenvoudigde visualisatie geladen voor grote dataset.', 'info', true);
+                    return;
+                } else if (dataSize > 500000) { // 500KB limit
+                    console.log('Dataset is groot, geoptimaliseerde visualisatie wordt gebruikt');
+                    
+                    // Use optimized settings for medium datasets
+                    d3.jsonldVis(jsonldData, '#graph', {
+                        w: 800,
+                        h: 600,
+                        maxLabelWidth: 200,
+                        tipClassName: 'tip-class',
+                        optimized: true
+                    });
+                    
+                    if (visLoading) visLoading.style.display = 'none';
+                    showMessage('Geoptimaliseerde visualisatie geladen.', 'info', true);
+                    return;
+                }
+            } catch (sizeError) {
+                console.warn("Could not determine data size:", sizeError);
+            }
+            
+            // Set timeout for visualization rendering
+            const visualizationTimeout = setTimeout(() => {
+                if (visLoading) visLoading.style.display = 'none';
+                if (visError) {
+                    visError.innerHTML = '<div><strong>Visualisatie laadt...</strong><p>De visualisatie wordt verwerkt. Dit kan even duren voor complexe datasets.</p></div>';
+                    visError.style.display = 'flex';
+                }
+            }, 30000); // 30 second timeout
+            
+            // Start performance monitoring
+            const startTime = performance.now();
+            
             d3.jsonldVis(jsonldData, '#graph', {
                 w: 800,
                 h: 600,
                 maxLabelWidth: 250,
-                tipClassName: 'tip-class'
+                tipClassName: 'tip-class',
+                // Add performance callbacks if supported
+                onStart: function() {
+                    console.log("DEBUG: Visualization rendering started");
+                },
+                onProgress: function(progress) {
+                    console.log("DEBUG: Visualization progress:", progress + "%");
+                },
+                onComplete: function() {
+                    clearTimeout(visualizationTimeout);
+                    const endTime = performance.now();
+                    const renderTime = endTime - startTime;
+                    console.log("DEBUG: Visualization completed in " + renderTime.toFixed(2) + "ms");
+                    
+                    if (visLoading) visLoading.style.display = 'none';
+                }
             });
             console.log("JSON-LD visualization initialized successfully");
+            
         } catch (error) {
             console.error("Error initializing JSON-LD visualization:", error);
+            if (visLoading) visLoading.style.display = 'none';
+            if (visError) visError.style.display = 'flex';
         }
     });
 </script>
