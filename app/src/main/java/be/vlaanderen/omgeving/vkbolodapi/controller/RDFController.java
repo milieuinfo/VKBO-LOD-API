@@ -4,7 +4,6 @@ import be.vlaanderen.omgeving.vkbolodapi.configuration.JsonldConfiguration;
 import be.vlaanderen.omgeving.vkbolodapi.configuration.ReasoningModelConfiguration;
 import be.vlaanderen.omgeving.vkbolodapi.service.OndernemingsService;
 import org.apache.jena.rdf.model.*;
-import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -77,7 +76,7 @@ public class RDFController {
         springModel.addAttribute("outgoingRelations", extractor.getOutgoingRelations());
         springModel.addAttribute("rawRdfData", extractor.getRawRdfData());
         
-        return "fiche-rdf-simple";  // Use the simple template
+        return "fiche-rdf";  // Use the rdf template
     }
 
     /**
