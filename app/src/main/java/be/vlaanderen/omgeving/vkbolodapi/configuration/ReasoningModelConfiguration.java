@@ -14,137 +14,137 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 
-/**
- *
- */
+/** Loads RDF ontology models and reasoning rules from the classpath as Spring beans. */
 @Configuration
 public class ReasoningModelConfiguration {
 
-    @Value("classpath:be/vlaanderen/data/id/organisatie/domain-range-subproperty.rules")
-    private Resource rules;
+  @Value("classpath:be/vlaanderen/data/id/organisatie/domain-range-subproperty.rules")
+  private Resource rules;
 
-    @Value("classpath:org/w3/www/ns/adms/adms.ttl")
-    private Resource adms;
+  @Value("classpath:org/w3/www/ns/adms/adms.ttl")
+  private Resource adms;
 
-    @Value("classpath:org/w3/www/2004/02/skos/core/skos.ttl")
-    private Resource skos;
+  @Value("classpath:org/w3/www/2004/02/skos/core/skos.ttl")
+  private Resource skos;
 
-    @Value("classpath:net/opengis/www/ont/geosparql/geosparql_vocab_all.ttl")
-    private Resource geosparql;
+  @Value("classpath:net/opengis/www/ont/geosparql/geosparql_vocab_all.ttl")
+  private Resource geosparql;
 
-    @Value("classpath:org/w3/www/ns/locn/locn.ttl")
-    private Resource locn;
+  @Value("classpath:org/w3/www/ns/locn/locn.ttl")
+  private Resource locn;
 
-    @Value("classpath:org/w3/www/ns/org/org.ttl")
-    private Resource org;
+  @Value("classpath:org/w3/www/ns/org/org.ttl")
+  private Resource org;
 
-    @Value("classpath:org/w3/www/ns/regorg/regorg.ttl")
-    private Resource regorg;
+  @Value("classpath:org/w3/www/ns/regorg/regorg.ttl")
+  private Resource regorg;
 
-    @Value("classpath:eu/europa/data/ux2/nace/NACE_Rev.2.1-nederlandse-labels.ttl")
-    private Resource nace;
+  @Value("classpath:eu/europa/data/ux2/nace/NACE_Rev.2.1-nederlandse-labels.ttl")
+  private Resource nace;
 
-    @Bean
-    public  Model loadTurtleFromClasspath() {
-        Model model_adms = ModelFactory.createDefaultModel();
-        Resource adms = loadAdms();
-        try {
-            model_adms.read(adms.getInputStream(), null, "TURTLE");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        Model model_org = ModelFactory.createDefaultModel();
-        Resource org = loadOrg();
-        try {
-            model_org.read(org.getInputStream(), null, "TURTLE");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        Model model_skos = ModelFactory.createDefaultModel();
-        Resource skos = loadSkos();
-        try {
-            model_skos.read(skos.getInputStream(), null, "TURTLE");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        Model model_regorg = ModelFactory.createDefaultModel();
-        Resource regorg = loadRegorg();
-        try {
-            model_adms.read(regorg.getInputStream(), null, "TURTLE");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        Model model_geosparql = ModelFactory.createDefaultModel();
-        Resource geosparql = loadGeosparql();
-        try {
-            model_geosparql.read(geosparql.getInputStream(), null, "TURTLE");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        Model model_nace = ModelFactory.createDefaultModel();
-        Resource nace = loadNace();
-        try {
-            model_nace.read(nace.getInputStream(), null, "TURTLE");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        Model model_locn = ModelFactory.createDefaultModel();
-        Resource locn = loadLocn();
-        try {
-            model_locn.read(locn.getInputStream(), null, "TURTLE");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        Model m = model_locn.union(model_geosparql);
-        return m.union(model_adms).union(model_org).union(model_regorg).union(model_skos).union(model_nace);
+  @Bean
+  public Model loadTurtleFromClasspath() {
+    Model modelAdms = ModelFactory.createDefaultModel();
+    Resource adms = loadAdms();
+    try {
+      modelAdms.read(adms.getInputStream(), null, "TURTLE");
+    } catch (IOException e) {
+      throw new RuntimeException("Failed to load ADMS ontology", e);
     }
 
-    @Bean
-    public List<Rule> getRules() {
-        Resource ruleresource = loadRules();
-        try {
-            InputStream ruleStream = ruleresource.getInputStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(ruleStream));
-            return Rule.parseRules(Rule.rulesParserFromReader(reader));
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to construct rules", e);
-        }
+    Model modelOrg = ModelFactory.createDefaultModel();
+    Resource org = loadOrg();
+    try {
+      modelOrg.read(org.getInputStream(), null, "TURTLE");
+    } catch (IOException e) {
+      throw new RuntimeException("Failed to load ORG ontology", e);
     }
 
-    private Resource loadOrg() {
-        return org;
+    Model modelSkos = ModelFactory.createDefaultModel();
+    Resource skos = loadSkos();
+    try {
+      modelSkos.read(skos.getInputStream(), null, "TURTLE");
+    } catch (IOException e) {
+      throw new RuntimeException("Failed to load SKOS ontology", e);
     }
 
-    private Resource loadSkos() {
-        return skos;
+    Model modelRegorg = ModelFactory.createDefaultModel();
+    Resource regorg = loadRegorg();
+    try {
+      modelAdms.read(regorg.getInputStream(), null, "TURTLE");
+    } catch (IOException e) {
+      throw new RuntimeException("Failed to load RegOrg ontology", e);
     }
 
-    private Resource loadRegorg() {
-        return regorg;
+    Model modelGeosparql = ModelFactory.createDefaultModel();
+    Resource geosparql = loadGeosparql();
+    try {
+      modelGeosparql.read(geosparql.getInputStream(), null, "TURTLE");
+    } catch (IOException e) {
+      throw new RuntimeException("Failed to load GeoSPARQL ontology", e);
     }
 
-    private Resource loadLocn() {
-        return locn;
+    Model modelNace = ModelFactory.createDefaultModel();
+    Resource nace = loadNace();
+    try {
+      modelNace.read(nace.getInputStream(), null, "TURTLE");
+    } catch (IOException e) {
+      throw new RuntimeException("Failed to load NACE ontology", e);
     }
 
-    private Resource loadGeosparql() {
-        return geosparql;
+    Model modelLocn = ModelFactory.createDefaultModel();
+    Resource locn = loadLocn();
+    try {
+      modelLocn.read(locn.getInputStream(), null, "TURTLE");
+    } catch (IOException e) {
+      throw new RuntimeException("Failed to load LOCN ontology", e);
     }
 
-    private Resource loadAdms() {
-        return adms;
-    }
+    Model m = modelLocn.union(modelGeosparql);
+    return m.union(modelAdms).union(modelOrg).union(modelRegorg).union(modelSkos).union(modelNace);
+  }
 
-    private Resource loadNace() { return nace; }
-
-    private Resource loadRules() {
-        return rules;
+  @Bean
+  public List<Rule> getRules() {
+    Resource ruleresource = loadRules();
+    try {
+      InputStream ruleStream = ruleresource.getInputStream();
+      BufferedReader reader = new BufferedReader(new InputStreamReader(ruleStream));
+      return Rule.parseRules(Rule.rulesParserFromReader(reader));
+    } catch (IOException e) {
+      throw new RuntimeException("Failed to construct rules", e);
     }
+  }
+
+  private Resource loadOrg() {
+    return org;
+  }
+
+  private Resource loadSkos() {
+    return skos;
+  }
+
+  private Resource loadRegorg() {
+    return regorg;
+  }
+
+  private Resource loadLocn() {
+    return locn;
+  }
+
+  private Resource loadGeosparql() {
+    return geosparql;
+  }
+
+  private Resource loadAdms() {
+    return adms;
+  }
+
+  private Resource loadNace() {
+    return nace;
+  }
+
+  private Resource loadRules() {
+    return rules;
+  }
 }

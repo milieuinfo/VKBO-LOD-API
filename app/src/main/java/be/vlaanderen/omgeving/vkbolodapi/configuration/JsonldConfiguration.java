@@ -13,47 +13,42 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
-
-/**
- *
- */
+/** Loads and exposes the JSON-LD context and frame skeleton as Spring beans. */
 @Configuration
 public class JsonldConfiguration {
 
-    @Value("classpath:be/vlaanderen/data/id/organisatie/context.json")
-    private Resource contextFile;
+  @Value("classpath:be/vlaanderen/data/id/organisatie/context.json")
+  private Resource contextFile;
 
-    @Value("classpath:be/vlaanderen/data/id/organisatie/frame_skeleton.json")
-    private Resource jsonldFrame;
+  @Value("classpath:be/vlaanderen/data/id/organisatie/frame_skeleton.json")
+  private Resource jsonldFrame;
 
-    @Bean
-    public JsonNode getJsonLDContext() {
-        Resource resource = loadJsonLDContext();
-        try (InputStream inputStream = resource.getInputStream()) {
-            return new ObjectMapper().readTree(inputStream);
-        }
-        catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+  @Bean
+  public JsonNode getJsonLDContext() {
+    Resource resource = loadJsonLDContext();
+    try (InputStream inputStream = resource.getInputStream()) {
+      return new ObjectMapper().readTree(inputStream);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
     }
+  }
 
-    @Bean
-    public Map getJsonLDFrame() throws IOException {
-        JsonNode context = getJsonLDContext();
-        ObjectMapper mapper = new ObjectMapper();
-        Resource resource = loadJsonLDFrame();
-        String frameStr = new String(resource.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
-        ObjectNode frame = (ObjectNode) mapper.readTree(frameStr);
-        frame.set("@context", context);
-        return mapper.convertValue(frame, Map.class);
-    }
+  @Bean
+  public Map getJsonLDFrame() throws IOException {
+    JsonNode context = getJsonLDContext();
+    ObjectMapper mapper = new ObjectMapper();
+    Resource resource = loadJsonLDFrame();
+    String frameStr = new String(resource.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
+    ObjectNode frame = (ObjectNode) mapper.readTree(frameStr);
+    frame.set("@context", context);
+    return mapper.convertValue(frame, Map.class);
+  }
 
+  private Resource loadJsonLDContext() {
+    return contextFile;
+  }
 
-    private Resource loadJsonLDContext() {
-        return contextFile;
-    }
-
-    private Resource loadJsonLDFrame() {
-        return jsonldFrame;
-    }
+  private Resource loadJsonLDFrame() {
+    return jsonldFrame;
+  }
 }

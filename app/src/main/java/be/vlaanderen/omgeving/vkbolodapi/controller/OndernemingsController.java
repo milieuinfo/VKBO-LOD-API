@@ -12,68 +12,54 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.StringWriter;
 
+/** REST controller exposing organisation data in JSON, JSON-LD, Turtle and RDF/XML formats. */
 @RestController
 @RequestMapping("/id/organisatie")
 @CrossOrigin
 public class OndernemingsController {
 
-    private final RestTemplate restTemplate = new RestTemplate();
+  private final RestTemplate restTemplate = new RestTemplate();
 
-    @Autowired
-    private OndernemingsService ondernemingsService;
+  @Autowired
+  private OndernemingsService ondernemingsService;
 
-    @GetMapping(value = "/{ondernemingsnr}",
-                produces = "application/json")
-    public ResponseEntity<String> getOrganisationAsJson(
-            @PathVariable String ondernemingsnr ){
+  @GetMapping(value = "/{ondernemingsnr}", produces = "application/json")
+  public ResponseEntity<String> getOrganisationAsJson(@PathVariable String ondernemingsnr) {
+    String json = ondernemingsService.getJson(ondernemingsnr);
+    return ResponseEntity.ok()
+        .contentType(MediaType.APPLICATION_JSON)
+        .body(json);
+  }
 
-        String json = ondernemingsService.getJson(ondernemingsnr);
-        return ResponseEntity.ok()
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(json);
-    }
+  @GetMapping(value = "/{ondernemingsnr}", produces = "application/ld+json")
+  public ResponseEntity<String> getPerceelAsJsonLd(@PathVariable String ondernemingsnr) {
+    String jsonld = ondernemingsService.getJsonLd(ondernemingsnr);
+    return ResponseEntity.ok()
+        .contentType(MediaType.valueOf("application/ld+json"))
+        .body(jsonld);
+  }
 
-    @GetMapping(value = "/{ondernemingsnr}",
-                produces = "application/ld+json")
-    public ResponseEntity<String> getPerceelAsJsonLd(
-            @PathVariable String ondernemingsnr) {
+  @GetMapping(value = "/{ondernemingsnr}", produces = "text/turtle")
+  public ResponseEntity<String> getPerceelAsTurtle(@PathVariable String ondernemingsnr) {
+    Model model = ondernemingsService.extractModel(ondernemingsnr);
+    String turtle = rdfToLang(model, Lang.TURTLE);
+    return ResponseEntity.ok()
+        .contentType(MediaType.valueOf("text/turtle"))
+        .body(turtle);
+  }
 
-        String jsonld = ondernemingsService.getJsonLd(ondernemingsnr);
-        return ResponseEntity.ok()
-                .contentType(MediaType.valueOf("application/ld+json"))
-                .body(jsonld);
-    }
+  @GetMapping(value = "/{ondernemingsnr}", produces = "application/rdf+xml")
+  public ResponseEntity<String> getPerceelAsRdf(@PathVariable String ondernemingsnr) {
+    Model model = ondernemingsService.extractModel(ondernemingsnr);
+    String rdfxml = rdfToLang(model, Lang.RDFXML);
+    return ResponseEntity.ok()
+        .contentType(MediaType.valueOf("application/rdf+xml"))
+        .body(rdfxml);
+  }
 
-    @GetMapping(value = "/{ondernemingsnr}",
-                produces = "text/turtle")
-    public ResponseEntity<String> getPerceelAsTurtle(
-            @PathVariable String ondernemingsnr) {
-
-        Model model = ondernemingsService.extractModel(ondernemingsnr);
-        String turtle = rdfToLang(model, Lang.TURTLE);
-        return ResponseEntity.ok()
-                .contentType(MediaType.valueOf("text/turtle"))
-                .body(turtle);
-    }
-
-    @GetMapping(value = "/{ondernemingsnr}",
-                produces = "application/rdf+xml")
-    public ResponseEntity<String> getPerceelAsRdf(
-            @PathVariable String ondernemingsnr)
-            {
-
-        Model model = ondernemingsService.extractModel(ondernemingsnr);
-        String rdfxml = rdfToLang(model, Lang.RDFXML);
-        return ResponseEntity.ok()
-                .contentType(MediaType.valueOf("application/rdf+xml"))
-                .body(rdfxml);
-    }
-
-    private String rdfToLang(Model model, Lang lang) {
-        StringWriter writer = new StringWriter();
-        RDFDataMgr.write(writer, model, lang);
-        return writer.toString();
-    }
-
-
+  private String rdfToLang(Model model, Lang lang) {
+    StringWriter writer = new StringWriter();
+    RDFDataMgr.write(writer, model, lang);
+    return writer.toString();
+  }
 }
