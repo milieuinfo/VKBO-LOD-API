@@ -2,6 +2,7 @@ package be.vlaanderen.omgeving.vkbolodapi.controller;
 
 import be.vlaanderen.omgeving.vkbolodapi.configuration.JsonldConfiguration;
 import be.vlaanderen.omgeving.vkbolodapi.service.OndernemingsService;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.servlet.ViewResolver;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,14 +26,11 @@ public class HTMLController {
   private JsonldConfiguration jsonldConfiguration;
 
   @Autowired
-  List<ViewResolver> viewResolvers;
-
-  @Autowired
   private OndernemingsService ondernemingsService;
 
   @GetMapping(value = "id-ori/organisatie/{ondernemingsnr}", produces = "text/html")
   public String getOndernemingAsHtml(@PathVariable String ondernemingsnr) {
-    return "redirect:/doc/organisatie/{ondernemingsnr}";
+    return "redirect:/doc/organisatie/" + ondernemingsnr;
   }
 
   @GetMapping(value = "doc-ori/organisatie/{ondernemingsnr}")
@@ -64,7 +61,7 @@ public class HTMLController {
         if (i == 0) {
           lon = featureLon;
           lat = featureLat;
-          jsonAsMap = objectMapper.convertValue(props, Map.class);
+          jsonAsMap = objectMapper.convertValue(props, new TypeReference<Map<String, Object>>() {});
         }
 
         // Create location info for all features
@@ -87,7 +84,7 @@ public class HTMLController {
           }
         }
         if (props.has("VKBO_Gemeente")) {
-          if (address.length() > 0) {
+          if (!address.isEmpty()) {
             address.append(", ");
           }
           address.append(props.get("VKBO_Gemeente").asText());

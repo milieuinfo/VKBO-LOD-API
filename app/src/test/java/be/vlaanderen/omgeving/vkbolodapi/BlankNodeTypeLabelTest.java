@@ -3,7 +3,10 @@ package be.vlaanderen.omgeving.vkbolodapi;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Test for blank node type label extraction functionality
@@ -17,7 +20,6 @@ public class BlankNodeTypeLabelTest {
     private String label;
     private List<RDFPredicate> nestedProperties;
 
-    public boolean isLiteral() { return isLiteral; }
     public String getValue() { return value; }
     public String getLabel() { return label; }
     public List<RDFPredicate> getNestedProperties() { return nestedProperties; }
@@ -39,9 +41,9 @@ public class BlankNodeTypeLabelTest {
 
   // Simplified version of the RDFPredicate class
   static class RDFPredicate {
-    private String uri;
-    private String label;
-    private List<RDFObject> objects;
+    private final String uri;
+    private final String label;
+    private final List<RDFObject> objects;
 
     public RDFPredicate(String uri, String label, RDFObject object) {
       this.uri = uri;
@@ -50,7 +52,6 @@ public class BlankNodeTypeLabelTest {
       this.objects.add(object);
     }
 
-    public String getUri() { return uri; }
     public String getLabel() { return label; }
     public List<RDFObject> getObjects() { return objects; }
   }
@@ -76,9 +77,9 @@ public class BlankNodeTypeLabelTest {
   public void testBlankNodeTypeLabelExtraction() {
     Map<String, List<String>> mockTypes = new HashMap<>();
 
-    mockTypes.put("registration", Arrays.asList("Identifier"));
-    mockTypes.put("address", Arrays.asList("Address"));
-    mockTypes.put("complex", Arrays.asList("Organization", "LegalEntity"));
+    mockTypes.put("registration", List.of("Identifier"));
+    mockTypes.put("address", List.of("Address"));
+    mockTypes.put("complex", List.of("Organization", "LegalEntity"));
     mockTypes.put("untyped", new ArrayList<>());
 
     String registrationLabel = getBlankNodeTypeLabel("registration", mockTypes);
@@ -118,16 +119,16 @@ public class BlankNodeTypeLabelTest {
         "notation",
         notationObj);
 
-    registrationObj.nestedProperties = Arrays.asList(notationPredicate);
+    registrationObj.nestedProperties = List.of(notationPredicate);
 
     assertEquals("Identifier", registrationObj.getLabel(), "Blank node should use type label");
     assertTrue(registrationObj.hasNestedProperties(), "Blank node should have nested properties");
     assertEquals(1, registrationObj.getNestedProperties().size(),
         "Blank node should have 1 nested property");
 
-    RDFPredicate nestedPredicate = registrationObj.getNestedProperties().get(0);
+    RDFPredicate nestedPredicate = registrationObj.getNestedProperties().getFirst();
     assertEquals("notation", nestedPredicate.getLabel(), "Nested predicate should be 'notation'");
-    assertEquals("2105029959", nestedPredicate.getObjects().get(0).getValue(),
+    assertEquals("2105029959", nestedPredicate.getObjects().getFirst().getValue(),
         "Notation should have correct value");
   }
 }

@@ -259,6 +259,7 @@ public class OndernemingsService {
     return frameJsonLd(writer.toString());
   }
 
+  @SuppressWarnings("unchecked")
   private String frameJsonLd(String jsonldString) {
     try {
       Object jsonObject = JsonUtils.fromString(jsonldString);
@@ -269,7 +270,7 @@ public class OndernemingsService {
         List<?> graph = (List<?>) framed.get("@graph");
         if (graph.size() == 1) {
           // Promote the node outside of @graph
-          Map<String, Object> singleNode = (Map<String, Object>) graph.get(0);
+          Map<String, Object> singleNode = (Map<String, Object>) graph.getFirst();
           singleNode.put("@context", framed.get("@context"));
           framed = singleNode;
         }

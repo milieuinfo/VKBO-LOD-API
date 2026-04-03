@@ -3,8 +3,6 @@ package be.vlaanderen.omgeving.vkbolodapi;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.*;
-
 /**
  * Test for blank node handling functionality
  */
@@ -34,29 +32,23 @@ public class BlankNodeHandlingTest {
 
   @Test
   public void testBlankNodeHandling() {
-    // Test cases
-    List<RDFObject> testObjects = new ArrayList<>();
-
     // 1. Literal object
     RDFObject literalObj = new RDFObject();
     literalObj.isLiteral = true;
     literalObj.value = "UMICORE";
     literalObj.label = "UMICORE";
-    testObjects.add(literalObj);
 
     // 2. Named resource
     RDFObject namedResource = new RDFObject();
     namedResource.isLiteral = false;
     namedResource.value = "http://www.w3.org/ns/org#Organization";
     namedResource.label = "Organisatie";
-    testObjects.add(namedResource);
 
     // 3. Blank node (anonymous resource)
     RDFObject blankNode = new RDFObject();
     blankNode.isLiteral = false;
     blankNode.value = ""; // Empty string for blank nodes
     blankNode.label = "[Blank Node]";
-    testObjects.add(blankNode);
 
     // Verify object types
     assertTrue(literalObj.isLiteral(), "Literal object should be marked as literal");

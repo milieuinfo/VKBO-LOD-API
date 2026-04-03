@@ -64,7 +64,7 @@ public class RDFController {
 
   @GetMapping(value = "id/organisatie/{ondernemingsnr}", produces = "text/html")
   public String getOndernemingAsRdfHtml(@PathVariable String ondernemingsnr) {
-    return "redirect:/doc/organisatie/{ondernemingsnr}";
+    return "redirect:/doc/organisatie/" + ondernemingsnr;
   }
 
   @GetMapping(value = "doc/organisatie/{ondernemingsnr}")
@@ -583,14 +583,11 @@ public class RDFController {
      * Returns the inverse predicate URI for common organisational relationships.
      */
     private String getInversePredicate(String predicateUri) {
-      if (predicateUri.equals(URI_ORG_SUB_ORGANIZATION_OF)) {
-        return URI_ORG_HAS_SUB_ORGANIZATION;
-      } else if (predicateUri.equals(URI_ORG_UNIT_OF)) {
-        return URI_ORG_HAS_UNIT;
-      } else if (predicateUri.equals(URI_ORG_TRANSITIVE_SUB_ORG)) {
-        return URI_ORG_HAS_SUB_ORGANIZATION;
-      }
-      return null;
+      return switch (predicateUri) {
+        case URI_ORG_SUB_ORGANIZATION_OF, URI_ORG_TRANSITIVE_SUB_ORG -> URI_ORG_HAS_SUB_ORGANIZATION;
+        case URI_ORG_UNIT_OF -> URI_ORG_HAS_UNIT;
+        default -> null;
+      };
     }
 
     /**
@@ -702,10 +699,11 @@ public class RDFController {
     }
   }
 
-  // Data classes for template
+  // Data classes for Thymeleaf template — getters are accessed via reflection
+  @SuppressWarnings("unused")
   private class RDFSection {
-    private String title;
-    private List<RDFPredicate> predicates;
+    private final String title;
+    private final List<RDFPredicate> predicates;
 
     public RDFSection(String title, List<RDFPredicate> predicates) {
       this.title = title;
@@ -716,10 +714,11 @@ public class RDFController {
     public List<RDFPredicate> getPredicates() { return predicates; }
   }
 
+  @SuppressWarnings("unused")
   private class RDFPredicate {
-    private String uri;
-    private String label;
-    private List<RDFObject> objects;
+    private final String uri;
+    private final String label;
+    private final List<RDFObject> objects;
 
     public RDFPredicate(String uri, String label, RDFObject object) {
       this.uri = uri;
@@ -728,15 +727,12 @@ public class RDFController {
       this.objects.add(object);
     }
 
-    public void addObject(RDFObject object) {
-      this.objects.add(object);
-    }
-
     public String getUri() { return uri; }
     public String getLabel() { return label; }
     public List<RDFObject> getObjects() { return objects; }
   }
 
+  @SuppressWarnings("unused")
   private class RDFObject {
     private boolean isLiteral;
     private String value;
@@ -750,17 +746,16 @@ public class RDFController {
     public boolean hasNestedProperties() { return nestedProperties != null && !nestedProperties.isEmpty(); }
   }
 
-  private class RDFRelation {
+  @SuppressWarnings("unused")
+  private static class RDFRelation {
     private String label;
     private String predicateUri;
     private String target;
     private String targetLabel;
-    private String description;
 
     public String getLabel() { return label; }
     public String getPredicateUri() { return predicateUri; }
     public String getTarget() { return target; }
     public String getTargetLabel() { return targetLabel; }
-    public String getDescription() { return description; }
   }
 }

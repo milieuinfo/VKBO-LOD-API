@@ -34,7 +34,7 @@ public class JsonldConfiguration {
   }
 
   @Bean
-  public Map getJsonLDFrame() throws IOException {
+  public Map<String, Object> getJsonLDFrame() throws IOException {
     JsonNode context = getJsonLDContext();
     ObjectMapper mapper = new ObjectMapper();
     Resource resource = loadJsonLDFrame();

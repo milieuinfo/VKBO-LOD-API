@@ -12,9 +12,9 @@ public class RecursiveBlankNodeTest {
 
   // Simplified version of the RDFPredicate class
   static class RDFPredicate {
-    private String uri;
-    private String label;
-    private List<RDFObject> objects;
+    private final String uri;
+    private final String label;
+    private final List<RDFObject> objects;
 
     public RDFPredicate(String uri, String label, RDFObject object) {
       this.uri = uri;
@@ -23,11 +23,6 @@ public class RecursiveBlankNodeTest {
       this.objects.add(object);
     }
 
-    public void addObject(RDFObject object) {
-      this.objects.add(object);
-    }
-
-    public String getUri() { return uri; }
     public String getLabel() { return label; }
     public List<RDFObject> getObjects() { return objects; }
 
@@ -46,7 +41,6 @@ public class RecursiveBlankNodeTest {
 
     public boolean isLiteral() { return isLiteral; }
     public String getValue() { return value; }
-    public String getLabel() { return label; }
     public List<RDFPredicate> getNestedProperties() { return nestedProperties; }
     public boolean hasNestedProperties() { return nestedProperties != null && !nestedProperties.isEmpty(); }
 
@@ -150,16 +144,19 @@ public class RecursiveBlankNodeTest {
     boolean hasType = false;
 
     for (RDFPredicate predicate : registrationObj.getNestedProperties()) {
-      if (predicate.getLabel().equals("notation")) {
-        hasNotation = true;
-        assertTrue(predicate.getObjects().get(0).isLiteral(), "Notation should be a literal");
-        assertEquals("2105029959", predicate.getObjects().get(0).getValue(),
-            "Notation should have correct value");
-      } else if (predicate.getLabel().equals("type")) {
-        hasType = true;
-        assertFalse(predicate.getObjects().get(0).isLiteral(), "Type should not be a literal");
-        assertEquals("http://www.w3.org/ns/adms#Identifier",
-            predicate.getObjects().get(0).getValue(), "Type should have correct URI");
+      switch (predicate.getLabel()) {
+        case "notation" -> {
+          hasNotation = true;
+          assertTrue(predicate.getObjects().getFirst().isLiteral(), "Notation should be a literal");
+          assertEquals("2105029959", predicate.getObjects().getFirst().getValue(),
+              "Notation should have correct value");
+        }
+        case "type" -> {
+          hasType = true;
+          assertFalse(predicate.getObjects().getFirst().isLiteral(), "Type should not be a literal");
+          assertEquals("http://www.w3.org/ns/adms#Identifier",
+              predicate.getObjects().getFirst().getValue(), "Type should have correct URI");
+        }
       }
     }
 
@@ -186,26 +183,33 @@ public class RecursiveBlankNodeTest {
     boolean hasPostalCode = false;
 
     for (RDFPredicate predicate : addressObj.getNestedProperties()) {
-      if (predicate.getLabel().equals("street name")) {
-        hasStreet = true;
-        assertTrue(predicate.getObjects().get(0).isLiteral(), "Street should be a literal");
-        assertEquals("Watertorenstraat", predicate.getObjects().get(0).getValue(),
-            "Street should have correct value");
-      } else if (predicate.getLabel().equals("house number")) {
-        hasNumber = true;
-        assertTrue(predicate.getObjects().get(0).isLiteral(), "House number should be a literal");
-        assertEquals("33", predicate.getObjects().get(0).getValue(),
-            "House number should have correct value");
-      } else if (predicate.getLabel().equals("city")) {
-        hasCity = true;
-        assertTrue(predicate.getObjects().get(0).isLiteral(), "City should be a literal");
-        assertEquals("Olen", predicate.getObjects().get(0).getValue(),
-            "City should have correct value");
-      } else if (predicate.getLabel().equals("postal code")) {
-        hasPostalCode = true;
-        assertTrue(predicate.getObjects().get(0).isLiteral(), "Postal code should be a literal");
-        assertEquals("2250", predicate.getObjects().get(0).getValue(),
-            "Postal code should have correct value");
+      switch (predicate.getLabel()) {
+        case "street name" -> {
+          hasStreet = true;
+          assertTrue(predicate.getObjects().getFirst().isLiteral(), "Street should be a literal");
+          assertEquals("Watertorenstraat", predicate.getObjects().getFirst().getValue(),
+              "Street should have correct value");
+        }
+        case "house number" -> {
+          hasNumber = true;
+          assertTrue(predicate.getObjects().getFirst().isLiteral(),
+              "House number should be a literal");
+          assertEquals("33", predicate.getObjects().getFirst().getValue(),
+              "House number should have correct value");
+        }
+        case "city" -> {
+          hasCity = true;
+          assertTrue(predicate.getObjects().getFirst().isLiteral(), "City should be a literal");
+          assertEquals("Olen", predicate.getObjects().getFirst().getValue(),
+              "City should have correct value");
+        }
+        case "postal code" -> {
+          hasPostalCode = true;
+          assertTrue(predicate.getObjects().getFirst().isLiteral(),
+              "Postal code should be a literal");
+          assertEquals("2250", predicate.getObjects().getFirst().getValue(),
+              "Postal code should have correct value");
+        }
       }
     }
 

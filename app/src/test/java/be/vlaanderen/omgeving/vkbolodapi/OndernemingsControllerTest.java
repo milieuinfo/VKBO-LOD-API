@@ -2,6 +2,7 @@ package be.vlaanderen.omgeving.vkbolodapi;
 
 import be.vlaanderen.omgeving.vkbolodapi.controller.OndernemingsController;
 import be.vlaanderen.omgeving.vkbolodapi.service.OndernemingsService;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -19,6 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class OndernemingsControllerTest {
 
   private MockMvc mockMvc;
+  private AutoCloseable mocks;
 
   @Mock
   private OndernemingsService ondernemingsService;
@@ -28,8 +30,13 @@ class OndernemingsControllerTest {
 
   @BeforeEach
   void setUp() {
-    MockitoAnnotations.openMocks(this);
+    mocks = MockitoAnnotations.openMocks(this);
     mockMvc = MockMvcBuilders.standaloneSetup(ondernemingsController).build();
+  }
+
+  @AfterEach
+  void tearDown() throws Exception {
+    mocks.close();
   }
 
   @Test

@@ -12,9 +12,9 @@ public class PredicateGroupingTest {
 
   // Simplified version of the RDFPredicate class
   static class RDFPredicate {
-    private String uri;
-    private String label;
-    private List<RDFObject> objects;
+    private final String uri;
+    private final String label;
+    private final List<RDFObject> objects;
 
     public RDFPredicate(String uri, String label, RDFObject object) {
       this.uri = uri;
@@ -27,8 +27,6 @@ public class PredicateGroupingTest {
       this.objects.add(object);
     }
 
-    public String getUri() { return uri; }
-    public String getLabel() { return label; }
     public List<RDFObject> getObjects() { return objects; }
 
     @Override
@@ -42,10 +40,6 @@ public class PredicateGroupingTest {
     private boolean isLiteral;
     private String value;
     private String label;
-
-    public boolean isLiteral() { return isLiteral; }
-    public String getValue() { return value; }
-    public String getLabel() { return label; }
 
     @Override
     public String toString() {
